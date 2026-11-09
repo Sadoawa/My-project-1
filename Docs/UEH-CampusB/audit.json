@@ -1,0 +1,134 @@
+{
+  "survey_date": "2026-11-05",
+  "timezone": "Asia/Bangkok",
+  "method": "Read serialized scene data and source files; no Editor execution, gameplay test, frame timing, or implementation validation performed. Counts apply to serialized scene blocks, not runtime activity or measured draw calls.",
+  "scene_counts": {
+    "gameobjects": 1803,
+    "mesh_renderers": 1751,
+    "box_colliders": 1574,
+    "mesh_colliders": 0,
+    "lights": 9,
+    "cameras": 1,
+    "character_controllers": 1,
+    "reflection_probes": 0,
+    "embedded_materials": 1735,
+    "prefab_instances": 0
+  },
+  "static_editor_flags": {
+    "0": 1803
+  },
+  "audited_files": {
+    "ProjectSettings/ProjectVersion.txt": {
+      "bytes": 83,
+      "sha256": "1eac9aed61309ea22f15b0324e5a6e73f2e45db08c90deb7ae4495a25f454664"
+    },
+    "ProjectSettings/GraphicsSettings.asset": {
+      "bytes": 2825,
+      "sha256": "87bac5a6c9c3246744f81dd6b6df6db039b519976a9b0e552760754ee8ac3816"
+    },
+    "ProjectSettings/QualitySettings.asset": {
+      "bytes": 9802,
+      "sha256": "f1f893b1be47ad2442f58338dd7c860dc1986bb317e2f5bb31084454ffabbf4c"
+    },
+    "Packages/manifest.json": {
+      "bytes": 1920,
+      "sha256": "439b05f7ee4b5e9cc9c802809e6769c51dca0be12ba6bc6b34b3df159ceb5816"
+    },
+    "Assets/Scenes/GameWorld.unity": {
+      "bytes": 9247091,
+      "sha256": "1f45fbd948af2b6b8845e82e17961c97b6a036d40ffa6099814a00fa02096f3d"
+    },
+    "Assets/Scenes/BuildingDraftSandbox.unity": {
+      "bytes": 18759,
+      "sha256": "2358f61d5079b7629ffb4c49514bfc1e2d3dd6c6fb9d59dd6766291e43769813"
+    },
+    "Assets/Scripts/Editor/GameSceneBuilder.cs": {
+      "bytes": 43828,
+      "sha256": "ead35915a7b69d46d4eeea156d631183d4937b73a0ad927f182d5430d4f67664"
+    },
+    "Assets/Scripts/Actors/PlayerController.cs": {
+      "bytes": 16501,
+      "sha256": "0fc97b1bf46182c2d3967f46b87d221117c448301eb1cb34b20a9dc5141f1389"
+    },
+    "Assets/Scripts/World/WorldSetup.cs": {
+      "bytes": 8435,
+      "sha256": "c9fae0774be3aa309a2a14f5eb2d923174ff5dbd67585445406a988807cbe1ae"
+    },
+    "Assets/Scripts/Core/GameManager.cs": {
+      "bytes": 3614,
+      "sha256": "c13e3bb99783a616a457d34cead07cf1ced5f40692462e496e5cb5abe3be34f0"
+    },
+    "Assets/Scripts/Core/GameState.cs": {
+      "bytes": 8256,
+      "sha256": "5e596464415e1deec6b936b69e49f8285b36305cf4116080b9d2fb02f71c124e"
+    },
+    "Assets/Scripts/Data/StoryData.cs": {
+      "bytes": 12318,
+      "sha256": "723bfa210527195b8a0d7b8d61bb7203f0fe1cf2cc5928f0aedc0059461d9b8a"
+    },
+    "Assets/Scripts/World/InteractionHandler.cs": {
+      "bytes": 14701,
+      "sha256": "95b26424f33505aba697a72dda1e87ddbff29809de87944d24a67f45017155f4"
+    },
+    "Assets/Materials/B1_InnerTiles/Sidewalk_Tiles.mat": {
+      "bytes": 2282,
+      "sha256": "70348d9792812478c322e484c358a26235bc18dc45289be698766b5fec6e4175"
+    },
+    "Assets/Materials/OuterTiles/Sidewalk_Tiles.mat": {
+      "bytes": 2263,
+      "sha256": "16eed48b5203fddbed8a60d0071c091c9908a2b62c2f12d8889b93d8dd5e6c15"
+    }
+  },
+  "reference_images": [
+    {
+      "file": "References/khu-english-zone-xanh-mat-csB.jpg",
+      "width": 4080,
+      "height": 2040,
+      "bytes": 2474937,
+      "sha256": "532f27c807db4b60f08fb1f227c30c3edef8451361b5dedb73d7bdaa43c5cab6",
+      "exif_datetime": "2021:04:07 11:48:09",
+      "exif_datetime_original": null,
+      "date_caution": "EXIF DateTime is not verified capture time."
+    },
+    {
+      "file": "References/phong-cham-soc-va-ho-tro-nguoi-hoc-csB.jpg",
+      "width": 4080,
+      "height": 2040,
+      "bytes": 1747598,
+      "sha256": "852a116dae3e2f83f9a1a2dda3cde9f4f67ba4f22cc628cdb125d51a020d310e",
+      "exif_datetime": "2021:05:24 15:21:23",
+      "exif_datetime_original": null,
+      "date_caution": "EXIF DateTime is not verified capture time."
+    },
+    {
+      "file": "References/phong-khanh-tiet-csB.jpg",
+      "width": 4080,
+      "height": 2040,
+      "bytes": 1579054,
+      "sha256": "781e7b2382c4ea4a64dc820afc8a4e7d6d06b7eda78eda770ffa4ccbf1fdde4a",
+      "exif_datetime": "2021:04:07 11:23:27",
+      "exif_datetime_original": null,
+      "date_caution": "EXIF DateTime is not verified capture time."
+    },
+    {
+      "file": "References/sanh-b1.jpg",
+      "width": 4080,
+      "height": 2040,
+      "bytes": 1922841,
+      "sha256": "b852b7acc80f564d4cdbed1ef5ce249b271486234e2106d82ff26a9f0de7a629",
+      "exif_datetime": "2022:03:02 11:51:18",
+      "exif_datetime_original": null,
+      "date_caution": "EXIF DateTime is not verified capture time."
+    },
+    {
+      "file": "References/toa-trung-tam.jpg",
+      "width": 4080,
+      "height": 2040,
+      "bytes": 2980898,
+      "sha256": "9c2db3067d05abbdf33d99994b24082119b21e7633a33907343fe70f06b90f66",
+      "exif_datetime": "2022:03:02 11:51:27",
+      "exif_datetime_original": null,
+      "date_caution": "EXIF DateTime is not verified capture time."
+    }
+  ]
+}

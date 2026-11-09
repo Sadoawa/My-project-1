@@ -1,0 +1,184 @@
+﻿{
+    "survey_date":  "2026-11-05",
+    "timezone":  "Asia/Bangkok",
+    "coordinate_meaning":  "Panorama viewing sphere coordinates; not physical coordinates, camera translations, or building dimensions.",
+    "sources":  [
+                    {
+                        "location":  "toa-trung-tam-csB",
+                        "page_url":  "https://virtualtour.ueh.edu.vn/360-virtual-tour/?campus=co-so-b\u0026location=toa-trung-tam-csB",
+                        "image_url":  "https://virtualtour.ueh.edu.vn/images/vi/campus/967_Cong-B.jpg",
+                        "local_file":  "References/toa-trung-tam.jpg",
+                        "role":  "primary",
+                        "hotspots":  [
+                                         {
+                                             "uid":  13,
+                                             "locationUid":  94,
+                                             "hotpotTypeUid":  2,
+                                             "positionX":  4891.55,
+                                             "positionY":  -362.05,
+                                             "positionZ":  -943.6,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003eSảnh B1\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=sanh-b1-csB"
+                                         },
+                                         {
+                                             "uid":  33,
+                                             "locationUid":  94,
+                                             "hotpotTypeUid":  2,
+                                             "positionX":  -1649.13,
+                                             "positionY":  -820.62,
+                                             "positionZ":  -4641.32,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003eKhu phức hợp đổi mới sáng tạo\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-v\u0026location=khu-phuc-hop-doi-moi-sang-tao-csV"
+                                         }
+                                     ]
+                    },
+                    {
+                        "location":  "sanh-b1-csB",
+                        "page_url":  "https://virtualtour.ueh.edu.vn/360-virtual-tour/?campus=co-so-b\u0026location=sanh-b1-csB",
+                        "image_url":  "https://virtualtour.ueh.edu.vn/images/vi/campus/807_Sanh-B.jpg",
+                        "local_file":  "References/sanh-b1.jpg",
+                        "role":  "primary",
+                        "hotspots":  [
+                                         {
+                                             "uid":  14,
+                                             "locationUid":  96,
+                                             "hotpotTypeUid":  5,
+                                             "positionX":  4905.57,
+                                             "positionY":  -504.3,
+                                             "positionZ":  -762.9,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003ePhòng Chăm sóc và hỗ trợ người học\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=phong-cham-soc-va-ho-tro-nguoi-hoc-csB"
+                                         },
+                                         {
+                                             "uid":  15,
+                                             "locationUid":  96,
+                                             "hotpotTypeUid":  2,
+                                             "positionX":  4963.97,
+                                             "positionY":  -530.03,
+                                             "positionZ":  82.32,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003eKhu English Zone xanh mát\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=khu-english-zone-xanh-mat-csB"
+                                         },
+                                         {
+                                             "uid":  19,
+                                             "locationUid":  96,
+                                             "hotpotTypeUid":  5,
+                                             "positionX":  4905.57,
+                                             "positionY":  -504.3,
+                                             "positionZ":  -1500,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003ePhòng Khánh tiết\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=phong-khanh-tiet-csB"
+                                         },
+                                         {
+                                             "uid":  20,
+                                             "locationUid":  96,
+                                             "hotpotTypeUid":  2,
+                                             "positionX":  -4337.37,
+                                             "positionY":  -2111.49,
+                                             "positionZ":  -1283.93,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003eTòa trung tâm\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=toa-trung-tam-csB"
+                                         }
+                                     ]
+                    },
+                    {
+                        "location":  "khu-english-zone-xanh-mat-csB",
+                        "page_url":  "https://virtualtour.ueh.edu.vn/360-virtual-tour/?campus=co-so-b\u0026location=khu-english-zone-xanh-mat-csB",
+                        "image_url":  "https://virtualtour.ueh.edu.vn/images/vi/campus/523_English Zone.jpg",
+                        "local_file":  "References/khu-english-zone-xanh-mat-csB.jpg",
+                        "role":  "context",
+                        "hotspots":  [
+                                         {
+                                             "uid":  16,
+                                             "locationUid":  9,
+                                             "hotpotTypeUid":  4,
+                                             "positionX":  -4753.68,
+                                             "positionY":  -519,
+                                             "positionZ":  1433.73,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003ePhòng máy tính chuẩn\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=phong-may-tinh-chuan-csB"
+                                         },
+                                         {
+                                             "uid":  17,
+                                             "locationUid":  9,
+                                             "hotpotTypeUid":  5,
+                                             "positionX":  -4270.72,
+                                             "positionY":  -504.54,
+                                             "positionZ":  2538.86,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003ePhòng học hiện đại\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=phong-hoc-hien-dai-csB"
+                                         },
+                                         {
+                                             "uid":  18,
+                                             "locationUid":  9,
+                                             "hotpotTypeUid":  2,
+                                             "positionX":  4408.97,
+                                             "positionY":  -762.35,
+                                             "positionZ":  -2215.01,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003eSảnh B1\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=sanh-b1-csB"
+                                         },
+                                         {
+                                             "uid":  96,
+                                             "locationUid":  9,
+                                             "hotpotTypeUid":  2,
+                                             "positionX":  -4566.06,
+                                             "positionY":  -500,
+                                             "positionZ":  1914.27,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003eTrung tâm mô phỏng\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=trung-tam-mo-phong-csB"
+                                         }
+                                     ]
+                    },
+                    {
+                        "location":  "phong-cham-soc-va-ho-tro-nguoi-hoc-csB",
+                        "page_url":  "https://virtualtour.ueh.edu.vn/360-virtual-tour/?campus=co-so-b\u0026location=phong-cham-soc-va-ho-tro-nguoi-hoc-csB",
+                        "image_url":  "https://virtualtour.ueh.edu.vn/images/vi/campus/150_B_DSA.jpg",
+                        "local_file":  "References/phong-cham-soc-va-ho-tro-nguoi-hoc-csB.jpg",
+                        "role":  "context",
+                        "hotspots":  [
+                                         {
+                                             "uid":  95,
+                                             "locationUid":  93,
+                                             "hotpotTypeUid":  4,
+                                             "positionX":  -40.64,
+                                             "positionY":  -1605.61,
+                                             "positionZ":  4730.82,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003eSảnh chính\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=sanh-b1-csB"
+                                         }
+                                     ]
+                    },
+                    {
+                        "location":  "phong-khanh-tiet-csB",
+                        "page_url":  "https://virtualtour.ueh.edu.vn/360-virtual-tour/?campus=co-so-b\u0026location=phong-khanh-tiet-csB",
+                        "image_url":  "https://virtualtour.ueh.edu.vn/images/vi/campus/149_Phòng khánh tiết.jpg",
+                        "local_file":  "References/phong-khanh-tiet-csB.jpg",
+                        "role":  "context",
+                        "hotspots":  [
+                                         {
+                                             "uid":  21,
+                                             "locationUid":  21,
+                                             "hotpotTypeUid":  5,
+                                             "positionX":  3900.34,
+                                             "positionY":  -1809.98,
+                                             "positionZ":  -2533.93,
+                                             "descriptionFrame":  false,
+                                             "description":  "\u003cp\u003eHội trường 300 chỗ\u003c/p\u003e",
+                                             "urlRedirect":  "/360-virtual-tour/?campus=co-so-b\u0026location=hoi-truong-300-cho-csB"
+                                         }
+                                     ]
+                    }
+                ]
+}
