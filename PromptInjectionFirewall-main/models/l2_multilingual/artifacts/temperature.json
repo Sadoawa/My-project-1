@@ -1,7 +1,0 @@
-{
-  "temperature": 1.85,
-  "threshold": 0.6473,
-  "max_tokens": 200,
-  "stride": 128,
-  "base_model": "microsoft/mdeberta-v3-base"
-}
