@@ -83,6 +83,7 @@ namespace UEH.CampusB.Editor
             BuildGreenTimberLounge(loungeBay);
             var proxy = areas.parent.Find("06_1976_LEFT_from_gate/06_Heritage_1976_and_gallery/05_Inner_service_blue_outline");
             if (proxy != null) UnityEngine.Object.DestroyImmediate(proxy.gameObject);
+            if (dimensions.compactLeftSequence) CompactLeftBays(areas);
         }
 
         private static void BuildLeftOffice(Transform bay)
@@ -259,6 +260,13 @@ namespace UEH.CampusB.Editor
             Viewpoint(root.transform, "18_Left_side_sequence", new Vector3(2, 2.1f, -22), new Vector3(17.4f, 2, -25));
             Viewpoint(root.transform, "19_Office_flush_wall", new Vector3(9, 1.75f, -14.5f), new Vector3(17.4f, 2.1f, -24));
             Viewpoint(root.transform, "20_Office_inside", new Vector3(19.4f, 1.65f, -18.8f), new Vector3(18.8f, 1.7f, -23.5f));
+            if (dimensions.compactLeftSequence)
+            {
+                foreach (string name in new[] { "15_Office_front", "16_Office_window_detail", "19_Office_flush_wall", "20_Office_inside" })
+                    root.transform.Find(name).position += Vector3.forward * (LeftOfficeZ(dimensions) + 23);
+                root.transform.Find("17_Green_timber_lounge").position += Vector3.forward * (LeftLoungeZ(dimensions) + 37);
+                SetupCompactLeftViewpoints();
+            }
         }
     }
 }

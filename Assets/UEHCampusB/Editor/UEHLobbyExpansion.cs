@@ -36,7 +36,7 @@ namespace UEH.CampusB.Editor
             var contents = PrefabUtility.LoadPrefabContents(path);
             try
             {
-                foreach (string name in new[] { "01_Floor_and_walls", "02_Stone_columns", "04_Timber_ceiling_and_downlights", "09_Four_expansion_areas" })
+                foreach (string name in new[] { "01_Floor_and_walls", "02_Stone_columns", "04_Timber_ceiling_and_downlights", "09_Four_expansion_areas", "10_Lift_side_glass_railing", "11_Central_round_spotlights" })
                 {
                     var old = contents.transform.Find(name);
                     if (old != null) UnityEngine.Object.DestroyImmediate(old.gameObject);
@@ -58,7 +58,7 @@ namespace UEH.CampusB.Editor
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
             Debug.Log("UEH_EXPANSION_UPDATED Lobby " + dimensions.frontage + "x" + dimensions.lobbyDepth +
-                "m, four 12x6m side areas; retained central pair at X=+/-4.5, Z=-12. Entrance columns retained=" + dimensions.keepEntranceColumnsWhenExpanded);
+                "m, four 12x6m side areas; central pair Z=" + ExpandedColumnZ(dimensions) + ". Entrance columns retained=" + dimensions.keepEntranceColumnsWhenExpanded);
         }
 
         private static void BuildExpandedShell(Transform root)
@@ -71,11 +71,15 @@ namespace UEH.CampusB.Editor
             {
                 if (side > 0 && dimensions.leftOfficeAndLounge)
                 {
-                    const float openingStart = 17.7f, openingEnd = 28.3f, openingTop = 4.2f;
+                    float officeDepth = -LeftOfficeZ(dimensions);
+                    float openingStart = officeDepth - 5.3f, openingEnd = officeDepth + 5.3f;
+                    const float openingTop = 4.2f;
                     shell.Box("Ivory", new Vector3(w / 2 - 0.15f, h / 2, -openingStart / 2), new Vector3(0.3f, h, openingStart), true);
                     shell.Box("Ivory", new Vector3(w / 2 - 0.15f, h / 2, -(openingEnd + d) / 2), new Vector3(0.3f, h, d - openingEnd), true);
-                    shell.Box("Ivory", new Vector3(w / 2 - 0.15f, (openingTop + h) / 2, -23), new Vector3(0.3f, h - openingTop, openingEnd - openingStart), true);
+                    shell.Box("Ivory", new Vector3(w / 2 - 0.15f, (openingTop + h) / 2, LeftOfficeZ(dimensions)), new Vector3(0.3f, h - openingTop, openingEnd - openingStart), true);
                 }
+                else if (side < 0 && dimensions.rightGlassOffice)
+                    BuildRightWallWithGlassOffice(shell, w, d, h);
                 else if (side < 0 && dimensions.rightLiftsAndServices)
                 {
                     const float start = ServiceCorridorZ * -1 - ServiceCorridorWidth / 2;
@@ -85,8 +89,10 @@ namespace UEH.CampusB.Editor
                     shell.Box("Ivory", new Vector3(-w / 2 + 0.15f, (ServicePortalHeight + h) / 2, ServiceCorridorZ), new Vector3(0.3f, h - ServicePortalHeight, ServiceCorridorWidth), true);
                 }
                 else shell.Box("Ivory", new Vector3(side * (w / 2 - 0.15f), h / 2, -d / 2), new Vector3(0.3f, h, d), true);
-                shell.Box("Ivory", new Vector3(side * (w / 4 + 1.5f), h / 2, -d), new Vector3(w / 2 - 3, h, 0.3f), true);
-                shell.Box("Border", new Vector3(side * (w / 2 - 1.6f), 0.008f, -d / 2), new Vector3(0.16f, 0.014f, d - 1.8f));
+                if (!dimensions.refinedLobbyLayout)
+                    shell.Box("Ivory", new Vector3(side * (w / 4 + 1.5f), h / 2, -d), new Vector3(w / 2 - 3, h, 0.3f), true);
+                if (side > 0 || !dimensions.facultyLiftsBehindWelcome)
+                    shell.Box("Border", new Vector3(side * (w / 2 - 1.6f), 0.008f, -d / 2), new Vector3(0.16f, 0.014f, d - 1.8f));
             }
             foreach (float z in new[] { -1f, -d + 1 })
                 shell.Box("Border", new Vector3(0, 0.008f, z), new Vector3(w - 3.2f, 0.014f, 0.16f));
@@ -97,15 +103,21 @@ namespace UEH.CampusB.Editor
         {
             float w = dimensions.frontage, d = dimensions.lobbyDepth, h = dimensions.lobbyHeight;
             BuildExpandedShell(root);
-            var columns = new Part("02_Stone_columns", root, "Expanded");
-            foreach (float x in new[] { -w * 0.125f, w * 0.125f }) AddExpandedColumn(columns, x, RetainedColumnZ, h);
-            if (dimensions.keepEntranceColumnsWhenExpanded)
-                foreach (float x in new[] { -EntranceCornerColumnX(w), -w * 0.125f, w * 0.125f, EntranceCornerColumnX(w) })
-                    AddExpandedColumn(columns, x, EntranceColumnCenterZ, h);
-            columns.Finish();
+            BuildExpandedColumns(root);
+            BuildExpandedCeiling(root);
+            if (dimensions.refinedLobbyLayout)
+            {
+                BuildLiftSideGlassRailing(root);
+                BuildCentralRoundSpotlights(root);
+            }
+            BuildFourSideAreas(root);
+        }
 
+        private static void BuildExpandedCeiling(Transform root)
+        {
+            float w = dimensions.frontage, d = dimensions.lobbyDepth, h = dimensions.lobbyHeight;
             var ceiling = new Part("04_Timber_ceiling_and_downlights", root, "Expanded");
-            foreach (float centerX in new[] { -w * 0.34f, 0, w * 0.34f })
+            foreach (float centerX in dimensions.centerTimberOnly ? new[] { 0f } : new[] { -w * 0.34f, 0, w * 0.34f })
             {
                 float stripWidth = centerX == 0 ? 3.8f : 2.3f;
                 ceiling.Box("Dark", new Vector3(centerX, h - 0.2f, -d / 2), new Vector3(stripWidth, 0.14f, d - 1));
@@ -128,14 +140,27 @@ namespace UEH.CampusB.Editor
                     ceiling.Box("Metal", new Vector3(6.5f + vent * 0.14f, h - 0.26f, z), new Vector3(0.035f, 0.015f, 0.3f));
             }
             ceiling.Finish();
-            BuildFourSideAreas(root);
+        }
+
+        private static void BuildExpandedColumns(Transform root)
+        {
+            float w = dimensions.frontage, h = dimensions.lobbyHeight;
+            var columns = new Part("02_Stone_columns", root, "Expanded");
+            foreach (float x in new[] { -w * 0.125f, w * 0.125f }) AddExpandedColumn(columns, x, ExpandedColumnZ(dimensions), h);
+            if (dimensions.keepEntranceColumnsWhenExpanded)
+                foreach (float x in new[] { RightCornerColumnX(dimensions), -w * 0.125f, w * 0.125f, LeftGateColumnX(dimensions) })
+                    AddExpandedColumn(columns, x, x > w * 0.25f ? LeftColumnZ(dimensions) : ExpandedEntranceZ(dimensions), h);
+            columns.Finish();
         }
 
         private static void AddExpandedColumn(Part columns, float x, float z, float h)
         {
-            columns.Box("Stone", new Vector3(x, h / 2, z), new Vector3(0.9f, h, 0.9f), true);
-            columns.Box("Border", new Vector3(x, 0.12f, z), new Vector3(0.98f, 0.24f, 0.98f));
-            columns.Box("Ivory", new Vector3(x, h - 0.13f, z), new Vector3(1.12f, 0.24f, 1.12f));
+            float width = dimensions.refinedLobbyLayout ? dimensions.lobbyColumnWidth : 0.9f;
+            float baseWidth = width + (dimensions.refinedLobbyLayout ? 0.12f : 0.08f);
+            float capitalWidth = width + (dimensions.refinedLobbyLayout ? 0.24f : 0.22f);
+            columns.Box("Stone", new Vector3(x, h / 2, z), new Vector3(width, h, width), true);
+            columns.Box("Border", new Vector3(x, 0.12f, z), new Vector3(baseWidth, 0.24f, baseWidth));
+            columns.Box("Ivory", new Vector3(x, h - 0.13f, z), new Vector3(capitalWidth, 0.24f, capitalWidth));
         }
 
         private static void BuildFourSideAreas(Transform lobbyRoot)
@@ -148,7 +173,7 @@ namespace UEH.CampusB.Editor
                     string name = (side > 0 ? "LEFT_" : "RIGHT_") + (i + 1).ToString("00");
                     var zone = new GameObject(name + " [12m x 6m]").transform;
                     zone.SetParent(areas, false);
-                    zone.localPosition = new Vector3(side * (dimensions.frontage / 2 - 0.6f), 0, -23 - i * 14);
+                    zone.localPosition = new Vector3(side < 0 ? RightFacadeX(dimensions) : dimensions.frontage / 2 - 0.6f, 0, -23 - i * 14);
                     zone.localRotation = Quaternion.Euler(0, side > 0 ? -90 : 90, 0);
                     var volume = new GameObject("Reserved_area_" + name).transform;
                     volume.SetParent(zone, false);
@@ -169,6 +194,8 @@ namespace UEH.CampusB.Editor
                 }
             if (dimensions.leftOfficeAndLounge) PopulateLeftOfficeAndLounge(areas);
             if (dimensions.rightLiftsAndServices) PopulateRightLiftsAndServices(areas);
+            if (dimensions.rightGlassOffice) PopulateRightGlassOffice(areas);
+            if (dimensions.compactLeftSequence) CompactLeftBays(areas);
         }
 
         private static void ConfigureExpandedScene()
@@ -223,10 +250,13 @@ namespace UEH.CampusB.Editor
             }
             if (dimensions.leftOfficeAndLounge) SetupLeftAreaViewpoints();
             if (dimensions.rightLiftsAndServices) SetupRightAreaViewpoints();
+            if (dimensions.rightGlassOffice) SetupGlassOfficeViewpoints();
+            if (dimensions.refinedLobbyLayout) SetupLobbyRefinementViewpoints();
         }
 
         private static void BuildExpandedEntrance(Transform root)
         {
+            if (dimensions.facultyLiftEntrance) { BuildReferenceEntrance(root); return; }
             float w = dimensions.frontage, entry = dimensions.entryWidth;
             var entrance = new Part("03_Glazing_with_open_doorway", root);
             float bayWidth = (w - entry) / 6;

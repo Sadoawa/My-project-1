@@ -74,9 +74,11 @@ namespace UEH.CampusB.Editor
             var oldLift = areas.parent.Find("05_WELCOME_RIGHT_from_gate/05_Reception_and_welcome_wall/03_Future_lift_space_RIGHT");
             if (oldLift != null) oldLift.name = "03_Clear_entrance_pocket";
             var pocket = areas.parent.Find("05_WELCOME_RIGHT_from_gate/05_Reception_and_welcome_wall/03_Clear_entrance_pocket");
-            if (pocket != null) pocket.GetComponent<UEHReservedSpace>().purpose = "Khoảng trống gần cửa vào được giữ thoáng. Cụm thang máy nằm ở hai khoang mở rộng phía trong.";
+            if (pocket != null && !dimensions.facultyLiftEntrance) pocket.GetComponent<UEHReservedSpace>().purpose = "Khoảng trống gần cửa vào được giữ thoáng. Cụm thang máy nằm ở hai khoang mở rộng phía trong.";
             BuildServiceCorridor(serviceBay);
             BuildThreeLifts(liftBay);
+            if (dimensions.rightGlassOffice)
+                liftBay.GetComponentInChildren<UEHReservedSpace>().purpose = "Cụm thang máy phía trước và office kính lùi sau vách ở phần trống phía trong. Kích thước ước lượng.";
         }
 
         private static Transform RightGroup(Transform parent, string name, Vector3 position)
@@ -151,7 +153,7 @@ namespace UEH.CampusB.Editor
             var shell = new Part("Service_corridor_shell", root, "RightServices");
             float width = ServiceCorridorWidth, depth = ServiceCorridorDepth;
             // Main lobby floor ends 0.6m behind the display line. This slab abuts it at X=-18.
-            shell.Box("Floor", new Vector3(0, -0.14f, -(depth + 0.6f) / 2), new Vector3(width + 0.4f, 0.28f, depth - 0.6f), true);
+            RightRoomFloor(shell, root, width + 0.4f, depth + 0.1f);
             shell.Box("White", new Vector3(0, 3.45f, -depth / 2), new Vector3(width + 0.4f, 0.1f, depth), true);
             shell.Box("Ivory", new Vector3(0, 1.7f, -depth), new Vector3(width + 0.4f, 3.4f, 0.2f), true);
             foreach (int side in new[] { -1, 1 })
@@ -249,7 +251,8 @@ namespace UEH.CampusB.Editor
             var result = new List<KeyValuePair<Vector3, Vector3>>();
             float start = Mathf.Min(d, -ServiceCorridorZ - ServiceCorridorWidth / 2);
             float end = Mathf.Min(d, -ServiceCorridorZ + ServiceCorridorWidth / 2);
-            if (start > 0) result.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(-w / 2, h - 1.9f, -start / 2), new Vector3(0.42f, 3.7f, start)));
+            float first = dimensions.facultyLiftsBehindWelcome ? 5.9f : 0;
+            if (start > first) result.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(-w / 2, h - 1.9f, -(start + first) / 2), new Vector3(0.42f, 3.7f, start - first)));
             if (d > end) result.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(-w / 2, h - 1.9f, -(d + end) / 2), new Vector3(0.42f, 3.7f, d - end)));
             float header = h - 0.05f - ServicePortalHeight;
             if (end > start && header > 0) result.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(-w / 2, ServicePortalHeight + header / 2, -(start + end) / 2), new Vector3(0.42f, header, end - start)));

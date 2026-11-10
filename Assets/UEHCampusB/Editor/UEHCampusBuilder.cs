@@ -77,6 +77,8 @@ namespace UEH.CampusB.Editor
             BuildExterior();
             BuildLobby();
             PlaceEntranceSideZones(lobby, dimensions);
+            if (dimensions.facultyLiftEntrance)
+            { ShiftLooseRightProps(lobby, dimensions.rightWingInset); BuildFacultyLiftEntrance(lobby); }
             SavePrefab(exterior.gameObject, "UEH_Exterior");
             SavePrefab(lobby.gameObject, "UEH_LobbyB1");
 
@@ -90,6 +92,7 @@ namespace UEH.CampusB.Editor
             SetupViewpoints();
             SetupReflectionProbes();
             if (dimensions.expandedLobby) ConfigureExpandedScene();
+            if (dimensions.facultyLiftEntrance) SetupAlignedRightViewpoints();
             Physics.SyncTransforms();
             EditorSceneManager.SaveScene(scene, ScenePath);
             AssetDatabase.SaveAssets();
@@ -131,11 +134,11 @@ namespace UEH.CampusB.Editor
         {
             // Gate is at +Z and the visitor looks toward -Z: screen-left is +X, screen-right is -X.
             PlaceSideZone(lobbyRoot, "05_WELCOME_RIGHT_from_gate",
-                new Vector3(-settings.frontage / 2 + 0.6f, 0, -7.5f), 90,
+                new Vector3(RightFacadeX(settings), 0, -7.5f), 90,
                 new Vector3(-settings.frontage * 0.30f, 0, -settings.lobbyDepth + 0.4f),
                 new[] { "05_Reception_and_welcome_wall" });
             PlaceSideZone(lobbyRoot, "06_1976_LEFT_from_gate",
-                new Vector3(settings.frontage / 2 - 0.6f, 0, -7.5f), -90,
+                new Vector3(settings.frontage / 2 - 0.6f, 0, LeftHeritageZ(settings)), -90,
                 new Vector3(settings.frontage * 0.30f, 0, -settings.lobbyDepth + 0.6f),
                 new[] { "06_Heritage_1976_and_gallery" });
         }
@@ -690,6 +693,8 @@ namespace UEH.CampusB.Editor
             wall.Box("Ivory", new Vector3(0, 2.1f, -0.32f), new Vector3(1.9f, 4.2f, 0.08f));
             wall.Finish();
 
+            if (dimensions.compactLeftSequence) BuildHeritageContrast(parent);
+
             var frame = new Part("Timber_frame", parent, "Heritage");
             frame.Box("Wood", new Vector3(-0.5f, 2.05f, -0.16f), new Vector3(10.2f, 3.2f, 0.24f));
             // Shared frame surrounds three adjoining panels, with narrow timber mullions.
@@ -761,6 +766,14 @@ namespace UEH.CampusB.Editor
 
         private static void BuildInnerHall(float d, float h)
         {
+            if (dimensions.refinedLobbyLayout)
+            {
+                BuildOpenAcademicGeometry(lobby, d, h);
+                Tree(lobby, "Courtyard_context_left", new Vector3(-6, 0.7f, -d - 10), 5.8f);
+                Tree(lobby, "Courtyard_context_right", new Vector3(6, 0.7f, -d - 10), 5.2f);
+                Text(lobby, "Inner_direction", "KHÔNG GIAN HỌC THUẬT", new Vector3(0, 3.95f, -d + 0.3f), 5.4f, 0.28f, "Teal");
+                return;
+            }
             var hall = new Part("07_Inner_passage_inferred", lobby);
             hall.Box("Floor", new Vector3(0, -0.14f, -d - 3), new Vector3(6.1f, 0.28f, 6), true);
             foreach (int side in new[] { -1, 1 })
@@ -1025,7 +1038,11 @@ namespace UEH.CampusB.Editor
                 var camera = cameraGO.AddComponent<Camera>();
                 camera.enabled = false;
                 camera.transform.SetPositionAndRotation(point.position, point.rotation);
-                camera.fieldOfView = point.name.StartsWith("01") ? 58 :
+                camera.fieldOfView = point.name.StartsWith("52") ? 100 : point.name.StartsWith("48") ? 110 : point.name.StartsWith("01") ? 58 :
+                    point.name.StartsWith("33") ? 60 : point.name.StartsWith("32") ? 70 :
+                    (point.name.StartsWith("30") || point.name.StartsWith("31")) ? 75 :
+                    point.name.StartsWith("26") ? 62 : point.name.StartsWith("27") ? 76 :
+                    point.name.StartsWith("28") ? 85 : point.name.StartsWith("29") ? 85 :
                     point.name.StartsWith("22") ? 62 : point.name.StartsWith("23") ? 85 :
                     (point.name.StartsWith("24") || point.name.StartsWith("25")) ? 70 :
                     point.name.StartsWith("15") ? 65 :
@@ -1140,7 +1157,7 @@ namespace UEH.CampusB.Editor
                     var renderer = go.AddComponent<MeshRenderer>();
                     renderer.sharedMaterial = materials[pair.Key];
                     renderer.reflectionProbeUsage = ReflectionProbeUsage.BlendProbes;
-                    if (pair.Key == "ClearGlass" || pair.Key == "OfficeGlass") renderer.shadowCastingMode = ShadowCastingMode.Off;
+                    if (pair.Key == "ClearGlass" || pair.Key == "OfficeGlass" || pair.Key == "GlassOfficeGlass" || pair.Key == "RailingGlass") renderer.shadowCastingMode = ShadowCastingMode.Off;
                     GameObjectUtility.SetStaticEditorFlags(go, StaticEditorFlags.BatchingStatic | StaticEditorFlags.ReflectionProbeStatic);
                 }
             }

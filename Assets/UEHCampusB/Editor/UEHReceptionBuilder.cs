@@ -52,6 +52,7 @@ namespace UEH.CampusB.Editor
                 var group = new GameObject("05_Reception_and_welcome_wall").transform;
                 group.SetParent(zone, false);
                 PopulateReception(group);
+                if (dimensions.facultyLiftEntrance) BuildFacultyLiftEntrance(contents.transform);
                 PrefabUtility.SaveAsPrefabAsset(contents, path);
             }
             finally { PrefabUtility.UnloadPrefabContents(contents); }

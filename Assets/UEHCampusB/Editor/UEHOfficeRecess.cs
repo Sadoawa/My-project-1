@@ -78,7 +78,7 @@ namespace UEH.CampusB.Editor
         private static List<KeyValuePair<Vector3, Vector3>> OfficeExteriorWallFragments(float w, float d, float h)
         {
             var fragments = new List<KeyValuePair<Vector3, Vector3>>();
-            float start = Mathf.Min(d, 17.7f), end = Mathf.Min(d, 28.3f);
+            float start = Mathf.Min(d, -LeftOfficeZ(dimensions) - 5.3f), end = Mathf.Min(d, -LeftOfficeZ(dimensions) + 5.3f);
             if (start > 0) fragments.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(w / 2, h - 1.9f, -start / 2), new Vector3(0.42f, 3.7f, start)));
             if (d > end) fragments.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(w / 2, h - 1.9f, -(d + end) / 2), new Vector3(0.42f, 3.7f, d - end)));
             float header = h - 0.05f - 4.2f;
@@ -89,6 +89,7 @@ namespace UEH.CampusB.Editor
 
         private static void TrimOfficeExteriorGroundWall()
         {
+            if (dimensions.compactLeftSequence) { TrimCompactLeftExteriorWall(); return; }
             string path = Root + "/Prefabs/UEH_Exterior.prefab";
             var contents = PrefabUtility.LoadPrefabContents(path);
             try

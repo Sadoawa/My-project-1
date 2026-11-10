@@ -20,6 +20,16 @@ MonoBehaviour:
   keepEntranceColumnsWhenExpanded: 1
   leftOfficeAndLounge: 1
   rightLiftsAndServices: 1
+  rightGlassOffice: 1
+  refinedLobbyLayout: 1
+  centerTimberOnly: 1
+  rightWingInset: 4
+  facultyLiftEntrance: 1
+  facultyLiftsBehindWelcome: 1
+  facultyColumnAtRearWall: 1
+  compactLeftSequence: 1
+  entranceGlassThroughColumns: 1
+  lobbyColumnWidth: 2
   lobbyHeight: 4.5
   entryWidth: 5.6
   towerHeight: 55

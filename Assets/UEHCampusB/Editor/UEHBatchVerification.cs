@@ -26,7 +26,16 @@ namespace UEH.CampusB.Editor
             try
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(ReportPath));
-                if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-right-services-only") >= 0) UEHCampusBuilder.FurnishRightAreas();
+                if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-column-gates-only") >= 0) UEHCampusBuilder.AlignGlazingAndOpenSinceGate();
+                else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-compact-left-only") >= 0) UEHCampusBuilder.CompactLeftSequence();
+                else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-faculty-column-rear-only") >= 0) UEHCampusBuilder.MoveFacultyColumnToRearWall();
+                else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-faculty-return-only") >= 0) UEHCampusBuilder.RefineFacultyLifts();
+                else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-right-wing-only") >= 0) UEHCampusBuilder.AlignRightWing();
+                else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-ceiling-columns-L-only") >= 0) UEHCampusBuilder.RefineCeilingColumnsAndLRailing();
+                else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-railing-wall-only") >= 0) UEHCampusBuilder.ConnectRailingToDividingWall();
+                else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-lobby-refinement-only") >= 0) UEHCampusBuilder.RefineLobbyLayout();
+                else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-glass-office-only") >= 0) UEHCampusBuilder.FurnishGlassOffice();
+                else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-right-services-only") >= 0) UEHCampusBuilder.FurnishRightAreas();
                 else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-office-recess-only") >= 0) UEHCampusBuilder.RecessOfficeIntoWall();
                 else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-left-areas-only") >= 0) UEHCampusBuilder.FurnishLeftAreas();
                 else if (Array.IndexOf(Environment.GetCommandLineArgs(), "-ueh-expand-only") >= 0) UEHCampusBuilder.ExpandLobby();
@@ -111,9 +120,158 @@ namespace UEH.CampusB.Editor
             CheckGateSide(report, "Welcome", false);
             CheckEntranceColumns(report);
             CheckHeritageSections(report);
+            CheckCompactLeftSequence(report);
             CheckReceptionLayout(report);
             CheckRightLiftsAndServices(report);
+            CheckGlassOffice(report);
+            CheckLobbyRefinement(report);
+            CheckColumnAlignedGates(report);
             return report;
+        }
+
+        private static void CheckLobbyRefinement(UEHPlayModeVerification.Report report)
+        {
+            var settings = AssetDatabase.LoadAssetAtPath<UEHDimensions>(UEHCampusBuilder.Root + "/Settings/EstimatedDimensions.asset");
+            if (settings == null || !settings.refinedLobbyLayout) return;
+            var columns = GameObject.Find("02_Stone_columns");
+            int frontCount = 0;
+            foreach (var column in columns.GetComponentsInChildren<BoxCollider>())
+            {
+                if (Mathf.Abs(column.size.x - settings.lobbyColumnWidth) > 0.01f || Mathf.Abs(column.size.z - settings.lobbyColumnWidth) > 0.01f)
+                    report.failures.Add("Refined column does not have the requested wider body.");
+                if (column.transform.position.z > -2)
+                {
+                    frontCount++;
+                    float expectedZ = column.transform.position.x > settings.frontage * 0.25f ? UEHCampusBuilder.LeftColumnZ(settings) : UEHCampusBuilder.ExpandedEntranceZ(settings);
+                    if (Mathf.Abs(column.transform.position.z - expectedZ) > 0.01f)
+                        report.failures.Add("Wider entrance columns must remain at glazing.");
+                    if (Mathf.Abs(column.transform.position.x) > settings.frontage * 0.25f &&
+                        Mathf.Abs(column.transform.position.x - (column.transform.position.x < 0 ? UEHCampusBuilder.RightCornerColumnX(settings) : UEHCampusBuilder.LeftGateColumnX(settings))) > 0.01f)
+                        report.failures.Add("Wider outer entrance column no longer meets side-wall corner.");
+                }
+            }
+            if (settings.keepEntranceColumnsWhenExpanded && frontCount != 4) report.failures.Add("Expected four wider entrance columns.");
+            foreach (float x in new[] { -14f, -7f, 0f, 7f, 14f })
+                foreach (float z in new[] { -settings.lobbyDepth, -settings.lobbyDepth - 4 })
+                {
+                    Vector3 point = new Vector3(x == -14 && z == -settings.lobbyDepth ? x + settings.rightWingInset : x, 0.95f, z);
+                    if (Physics.OverlapCapsule(point - Vector3.up * 0.5f, point + Vector3.up * 0.5f, 0.35f).Length != 0)
+                        report.failures.Add("Academic connection still blocked at " + point);
+                    if (!Physics.Raycast(point, Vector3.down, out var floor, 2) || Mathf.Abs(floor.point.y) > 0.03f)
+                        report.failures.Add("Academic connection missing level floor at " + point);
+                }
+            var railing = GameObject.Find("10_Lift_side_glass_railing");
+            var connection = railing != null ? railing.transform.Find("Column_connection") : null;
+            Vector3 expected = UEHCampusBuilder.RailingColumnAnchor(settings);
+            if (connection == null || Vector3.Distance(connection.position, expected) > 0.01f || railing.GetComponentsInChildren<BoxCollider>().Length != UEHCampusBuilder.ConnectedRailingPanelCount(settings))
+                report.failures.Add("Glass balustrade must connect to the central column and have continuous collision panels.");
+            var wallConnection = railing != null ? railing.transform.Find("Wall_connection") : null;
+            var wallAnchor = UEHCampusBuilder.RailingWallAnchor(settings);
+            if (wallConnection == null || Vector3.Distance(wallConnection.position, wallAnchor) > 0.01f)
+                report.failures.Add("Railing must terminate at the pier between the lift bank and toilet corridor.");
+            var elbowConnection = railing != null ? railing.transform.Find("Elbow_connection") : null;
+            if (elbowConnection == null || connection == null || wallConnection == null)
+                report.failures.Add("Missing right-angle railing connection markers.");
+            else
+            {
+                Vector3 first = (elbowConnection.position - connection.position).normalized;
+                Vector3 second = (wallConnection.position - elbowConnection.position).normalized;
+                if (Mathf.Abs(Vector3.Dot(first, second)) > 0.001f || Mathf.Abs(first.x) > 0.001f || Mathf.Abs(second.z) > 0.001f)
+                    report.failures.Add("Railing must form an axis-aligned L with an exact 90-degree corner.");
+            }
+            var liftRoot = GameObject.Find("Three_lift_bank");
+            var stone = liftRoot != null ? liftRoot.transform.Find("Lift_stone_and_dark_panels/Stone") : null;
+            bool stoneFaceMatched = false;
+            if (stone != null)
+            {
+                var vertices = stone.GetComponent<MeshFilter>().sharedMesh.vertices;
+                for (int start = 0; start + 24 <= vertices.Length; start += 24)
+                {
+                    float faceX = float.NegativeInfinity; Vector3 center = Vector3.zero;
+                    for (int i = 0; i < 24; i++)
+                    {
+                        Vector3 point = stone.TransformPoint(vertices[start + i]);
+                        faceX = Mathf.Max(faceX, point.x); center += point / 24;
+                    }
+                    stoneFaceMatched |= Mathf.Abs(faceX - wallAnchor.x) < 0.01f && Mathf.Abs(center.z - wallAnchor.z) < 0.01f;
+                }
+            }
+            if (!stoneFaceMatched) report.failures.Add("Railing wall endpoint does not meet the actual stone pier mesh.");
+            var lamps = GameObject.Find("11_Central_round_spotlights");
+            int count = 0, expectedLamps = 0;
+            for (float z = -2.5f; z > -settings.lobbyDepth + 1; z -= 3) expectedLamps += 2;
+            if (lamps != null) foreach (Transform child in lamps.transform)
+                if (child.name.StartsWith("Round_spot_"))
+                {
+                    count++;
+                    if (Mathf.Abs(Mathf.Abs(child.position.x) - 1.1f) > 0.01f) report.failures.Add("Round ceiling lamp outside central pair of rows.");
+                }
+            if (count != expectedLamps) report.failures.Add("Missing paired small round ceiling lamps.");
+            if (settings.centerTimberOnly)
+            {
+                var ceiling = GameObject.Find("04_Timber_ceiling_and_downlights");
+                var wood = ceiling != null ? ceiling.transform.Find("Wood") : null;
+                var backing = ceiling != null ? ceiling.transform.Find("Dark") : null;
+                var chandelier = ceiling != null ? ceiling.transform.Find("Gold") : null;
+                if (wood == null || backing == null || chandelier == null)
+                    report.failures.Add("Central timber strip or chandeliers missing after side strip removal.");
+                else
+                {
+                    var woodBounds = wood.GetComponent<MeshFilter>().sharedMesh.bounds;
+                    if (woodBounds.min.x < -2 || woodBounds.max.x > 2 || backing.GetComponent<MeshFilter>().sharedMesh.vertexCount != 24)
+                        report.failures.Add("Side timber/backing geometry remains outside the central strip.");
+                    if (chandelier.GetComponent<MeshFilter>().sharedMesh.vertexCount == 0)
+                        report.failures.Add("Chandeliers missing from central strip.");
+                }
+                if (settings.lobbyColumnWidth < 2) report.failures.Add("Column body was not widened beyond the prior 1.6m version.");
+            }
+            if (report.failures.Count == 0)
+                report.checks.Add("Lobby refined: six " + settings.lobbyColumnWidth + "m columns centered/flush at gates; axis-aligned L railing has an exact 90-degree corner and " + UEHCampusBuilder.ConnectedRailingPanelCount(settings) + " collision panes, joins column front corner to actual lift-C/toilet stone pier. Central timber/chandeliers and 30 round lamps retained; side timber strips removed=" + settings.centerTimberOnly + ". Academic connection clear at ten probes.");
+        }
+
+        private static void CheckGlassOffice(UEHPlayModeVerification.Report report)
+        {
+            var settings = AssetDatabase.LoadAssetAtPath<UEHDimensions>(UEHCampusBuilder.Root + "/Settings/EstimatedDimensions.asset");
+            if (settings == null || !settings.rightGlassOffice) return;
+            var room = GameObject.Find("Glass_office_recessed");
+            if (room == null) { report.failures.Add("Missing recessed glass office."); return; }
+            var front = room.transform.Find("01_FRONT_glass_wall");
+            var right = room.transform.Find("02_RIGHT_glass_wall");
+            var opaque = room.transform.Find("Glass_office_opaque_LEFT_and_BACK");
+            var entrance = room.transform.Find("03_Open_entrance_1_25m");
+            if (front == null || right == null || opaque == null || entrance == null)
+            { report.failures.Add("Glass office requires front/right glazing, opaque left/back and open entrance."); return; }
+            float facadeX = UEHCampusBuilder.RightFacadeX(settings);
+            if (Mathf.Abs(room.transform.position.x - facadeX) > 0.01f || right.position.z <= room.transform.position.z)
+                report.failures.Add("Glass office facade must be flush and glass side must be viewer-right.");
+            foreach (var renderer in room.GetComponentsInChildren<MeshRenderer>())
+                if (renderer.bounds.max.x > facadeX + 0.15f)
+                    report.failures.Add("Glass office geometry projects into public hall: " + renderer.name);
+            foreach (var renderer in opaque.GetComponentsInChildren<MeshRenderer>())
+                if (renderer.sharedMaterial.name == "GlassOfficeGlass") report.failures.Add("Left/back office walls must be opaque.");
+            foreach (var side in new[] { front, right })
+            {
+                int panes = 0;
+                foreach (var renderer in side.GetComponentsInChildren<MeshRenderer>())
+                    if (renderer.sharedMaterial.name == "GlassOfficeGlass") panes++;
+                if (panes < 2) report.failures.Add("Insufficient glass panes on " + side.name);
+            }
+            for (int i = 1; i <= 3; i++)
+                if (room.transform.Find("Workstation_0" + i) == null) report.failures.Add("Missing glass office workstation " + i);
+            Physics.SyncTransforms();
+            Vector3 doorProbe = entrance.TransformPoint(new Vector3(0, 0.95f, 0));
+            if (Physics.OverlapCapsule(doorProbe - Vector3.up * 0.5f, doorProbe + Vector3.up * 0.5f, 0.35f).Length != 0)
+                report.failures.Add("Glass office entrance is obstructed by old wall, glazing or open door.");
+            foreach (float depth in new[] { 0.35f, 0.85f, 1.1f })
+            {
+                Vector3 point = room.transform.TransformPoint(new Vector3(UEHCampusBuilder.GlassOfficeDoorX, 0.95f, -depth));
+                if (!Physics.Raycast(point, Vector3.down, out var floor, 2) || Mathf.Abs(floor.point.y) > 0.03f)
+                    report.failures.Add("Glass office floor continuity failed at " + depth);
+            }
+            if (Physics.OverlapBox(new Vector3(facadeX + 2.9f, 0.95f, UEHCampusBuilder.GlassOfficeZ), new Vector3(0.9f, 0.8f, 3.8f)).Length > 0)
+                report.failures.Add("Public hall outside glass office is obstructed.");
+            if (report.failures.Count == 0)
+                report.checks.Add("Glass office: recessed 9.8x4.6x4m behind current right facade, front and viewer-right walls glazed, left/back opaque, three workstations, inward-open 1.25m door, public hall clear and pocket floor joined to lobby at Y=0.");
         }
 
         private static void CheckReceptionLayout(UEHPlayModeVerification.Report report)
@@ -160,9 +318,83 @@ namespace UEH.CampusB.Editor
             }
             Physics.SyncTransforms();
             var blocked = Physics.OverlapBox(lift.transform.position, lift.size / 2, lift.transform.rotation, ~0, QueryTriggerInteraction.Ignore);
-            if (blocked.Length > 0) report.failures.Add("Clear entrance pocket contains a collider: " + blocked[0].name);
+            if (!lift.furnished && blocked.Length > 0) report.failures.Add("Clear entrance pocket contains a collider: " + blocked[0].name);
+            if (settings.facultyLiftEntrance) CheckAlignedRightWing(report, settings);
             if (report.failures.Count == 0)
-                report.checks.Add("Reception: nearby column removed, left greenery, twelve solid brass letters 0.06m deep, six rows of raised alphabet, clear 3.5m x 2.9m entrance pocket on the viewer's right.");
+                report.checks.Add("Reception: nearby column removed, left greenery, twelve solid brass letters 0.06m deep, six rows of raised alphabet, faculty entrance pocket on the viewer's right (furnished when enabled).");
+        }
+
+        private static void CheckAlignedRightWing(UEHPlayModeVerification.Report report, UEHDimensions settings)
+        {
+            float facade = UEHCampusBuilder.RightFacadeX(settings);
+            foreach (string name in new[] { "05_WELCOME_RIGHT_from_gate", "Service_corridor", "Three_lift_bank", "Glass_office_recessed", "12_Faculty_lift_entrance" })
+            {
+                var item = GameObject.Find(name);
+                if (item == null || Mathf.Abs(item.transform.position.x - facade) > 0.01f)
+                    report.failures.Add("Right-wing facade alignment failed: " + name);
+            }
+            var faculty = GameObject.Find("12_Faculty_lift_entrance");
+            if (faculty == null) return;
+            int gates = 0, leaves = 0;
+            foreach (Transform child in faculty.transform)
+            { if (child.name.StartsWith("Access_pedestal_")) gates++; if (child.name.StartsWith("Faculty_lift_leaf_")) leaves++; }
+            if (settings.facultyLiftsBehindWelcome) CheckFacultyReturn(report, faculty.transform, settings);
+            else if (gates != 3 || leaves != 2) report.failures.Add("Faculty alcove needs three access pedestals and a paired elevator door.");
+            if (gates != 3) report.failures.Add("Faculty entrance must retain three access pedestals.");
+            foreach (var renderer in faculty.GetComponentsInChildren<MeshRenderer>())
+                if (renderer.bounds.max.x > facade + 0.01f) report.failures.Add("Faculty alcove projects into public lobby: " + renderer.transform.parent.name + "/" + renderer.name);
+            foreach (float depth in new[] { -0.05f, -0.5f, -1.2f, -2f })
+            {
+                var point = faculty.transform.TransformPoint(new Vector3(0.65f, 0.95f, depth));
+                if (Physics.OverlapCapsule(point - Vector3.up * 0.5f, point + Vector3.up * 0.5f, 0.35f).Length != 0)
+                    report.failures.Add("Faculty access aisle blocked at " + point);
+                if (!Physics.Raycast(point, Vector3.down, out var floor, 2) || Mathf.Abs(floor.point.y) > 0.03f)
+                    report.failures.Add("Faculty alcove floor missing.");
+            }
+            var entrance = GameObject.Find("03_Glazing_with_open_doorway");
+            int panes = 0;
+            foreach (var child in entrance.GetComponentsInChildren<Transform>()) if (child.name.StartsWith("Entrance_fixed_pane_")) panes++;
+            if (panes < 16) report.failures.Add("Entrance requires narrow vertical glazing bays.");
+            foreach (float x in new[] { -1.9f, 0, 1.9f })
+                if (Physics.OverlapCapsule(new Vector3(x, 0.45f, 0), new Vector3(x, 1.45f, 0), 0.35f).Length != 0)
+                    report.failures.Add("Central entrance obstructed by rebuilt glazing.");
+            report.checks.Add("Right wing inset " + settings.rightWingInset + "m: reception/services/three lifts/glass office share facade X=" + facade + "; L railing meets moved stone pier. Entrance has " + panes + " narrow bays with high transoms and right roller blinds. Faculty vestibule retains three access pedestals and a clear level aisle.");
+        }
+
+        private static void CheckFacultyReturn(UEHPlayModeVerification.Report report, Transform faculty, UEHDimensions settings)
+        {
+            int lifts = 0;
+            foreach (Transform child in faculty)
+            {
+                if (!child.name.StartsWith("Faculty_lift_GV")) continue;
+                lifts++;
+                if (Vector3.Dot(child.forward, -faculty.right) < 0.999f || child.localPosition.x < 1.7f || child.position.x >= faculty.position.x - 1)
+                    report.failures.Add("Faculty lift must be on the left return behind WELCOME, facing the vestibule: " + child.name);
+                int leaves = 0; foreach (Transform leaf in child) if (leaf.name.StartsWith("Sliding_leaf_")) leaves++;
+                if (leaves != 2) report.failures.Add("Faculty lift requires two editable door leaves: " + child.name);
+                var point = faculty.TransformPoint(new Vector3(0.65f, 0.95f, child.localPosition.z));
+                if (Physics.OverlapCapsule(point - Vector3.up * 0.5f, point + Vector3.up * 0.5f, 0.35f).Length > 0)
+                    report.failures.Add("Approach to faculty lift blocked: " + child.name);
+                if (!Physics.Raycast(point, Vector3.down, out var floor, 2) || Mathf.Abs(floor.point.y) > 0.03f)
+                    report.failures.Add("Faculty lift approach lacks level floor: " + child.name);
+            }
+            if (lifts != 2) report.failures.Add("Expected exactly two faculty elevators behind WELCOME.");
+            var columns = GameObject.Find("02_Stone_columns"); bool recessed = false;
+            foreach (var col in columns.GetComponentsInChildren<BoxCollider>())
+                recessed |= Mathf.Abs(col.transform.position.x - UEHCampusBuilder.RightCornerColumnX(settings)) < 0.01f && col.transform.position.x < faculty.position.x - 2;
+            if (!recessed) report.failures.Add("Stone column beside faculty entrance must be set back behind WELCOME facade.");
+            var arrival = faculty.TransformPoint(new Vector3(0.65f, 1.5f, -1.3f));
+            if (Physics.Raycast(arrival, -faculty.forward, out var hit, 5) && hit.collider.name.Contains("leaf"))
+                report.failures.Add("Faculty elevator still faces the arrival direction.");
+            if (settings.facultyColumnAtRearWall)
+            {
+                bool flush = false;
+                foreach (var col in columns.GetComponentsInChildren<BoxCollider>())
+                    if (Mathf.Abs(col.transform.position.x - UEHCampusBuilder.RightCornerColumnX(settings)) < 0.01f)
+                        flush = Mathf.Abs(col.bounds.min.x - (faculty.position.x - UEHCampusBuilder.FacultyRoomDepth)) < 0.01f;
+                if (!flush) report.failures.Add("Faculty stone column body must meet the rear wall at the indicated corner.");
+            }
+            report.checks.Add("Two faculty elevators GV1/GV2 behind WELCOME on the visitor's LEFT after entry, each with paired static doors. Approaches have level floors; the former head-on lift is removed. Right stone column X=" + UEHCampusBuilder.RightCornerColumnX(settings) + "; body flush with faculty rear wall=" + settings.facultyColumnAtRearWall + ".");
         }
 
         private static void CheckRightLiftsAndServices(UEHPlayModeVerification.Report report)
@@ -306,7 +538,7 @@ namespace UEH.CampusB.Editor
             int central = 0;
             foreach (var collider in colliders)
                 if (Mathf.Abs(Mathf.Abs(collider.transform.position.x) - settings.frontage * 0.125f) < 0.02f &&
-                    Mathf.Abs(collider.transform.position.z - UEHCampusBuilder.RetainedColumnZ) < 0.02f) central++;
+                    Mathf.Abs(collider.transform.position.z - UEHCampusBuilder.ExpandedColumnZ(settings)) < 0.02f) central++;
             if (central != 2) report.failures.Add("Missing retained central column pair.");
             foreach (var filter in columns.GetComponentsInChildren<MeshFilter>())
             {
@@ -330,8 +562,9 @@ namespace UEH.CampusB.Editor
             foreach (var volume in volumes)
             {
                 if (volume.transform.position.x > 0) left++; else right++;
-                if (Mathf.Abs(volume.size.x - 12) > 0.01f || Mathf.Abs(volume.size.z - 6) > 0.01f)
-                    report.failures.Add("Expansion area is smaller than the planned 12x6m footprint.");
+                float plannedWidth = settings.compactLeftSequence && volume.name.StartsWith("Reserved_area_LEFT") ? 10.6f : 12;
+                if (Mathf.Abs(volume.size.x - plannedWidth) > 0.01f || Mathf.Abs(volume.size.z - 6) > 0.01f)
+                    report.failures.Add("Expansion planning volume must match configured " + plannedWidth + "x6m footprint.");
                 if (!volume.furnished)
                 {
                     var hits = Physics.OverlapBox(volume.transform.position, volume.size / 2, volume.transform.rotation, ~0, QueryTriggerInteraction.Ignore);
@@ -353,12 +586,13 @@ namespace UEH.CampusB.Editor
                 if (AssetDatabase.LoadAssetAtPath<Cubemap>(UEHCampusBuilder.Root + "/Lighting/" + name + ".cubemap") == null)
                     report.failures.Add("Missing rear reflection capture " + name);
             if (report.failures.Count == 0)
-                report.checks.Add("Expanded lobby " + settings.frontage + "x" + settings.lobbyDepth + "m: two 12x6m areas per side, unfurnished areas clear, continuous floor, aligned central column pair; total columns=" + expected + ".");
+                report.checks.Add("Expanded lobby " + settings.frontage + "x" + settings.lobbyDepth + "m: two areas per side (left " + (settings.compactLeftSequence ? "10.6" : "12") + "x6m, right 12x6m), unfurnished areas clear, continuous floor, aligned central column pair; total columns=" + expected + ".");
             if (settings.leftOfficeAndLounge) CheckLeftOfficeAndLounge(report, areas);
         }
 
         private static void CheckLeftOfficeAndLounge(UEHPlayModeVerification.Report report, GameObject areas)
         {
+            var settings = AssetDatabase.LoadAssetAtPath<UEHDimensions>(UEHCampusBuilder.Root + "/Settings/EstimatedDimensions.asset");
             var office = areas.transform.Find("LEFT_01 [12m x 6m]/Office_room");
             var lounge = areas.transform.Find("LEFT_02 [12m x 6m]/Green_timber_lounge");
             if (office == null || lounge == null) { report.failures.Add("Missing furnished left office/lounge."); return; }
@@ -377,13 +611,96 @@ namespace UEH.CampusB.Editor
             if (Mathf.Abs(office.localPosition.z + UEHCampusBuilder.OfficeRecessDepth) > 0.01f ||
                 Mathf.Abs(doorway.position.x - office.parent.position.x) > 0.02f)
                 report.failures.Add("Office facade must align with the lobby side wall, with the room recessed behind it.");
-            if (Physics.OverlapBox(new Vector3(14.2f, 0.95f, -23), new Vector3(0.7f, 0.8f, 1)).Length != 0)
+            if (Physics.OverlapBox(new Vector3(14.2f, 0.95f, UEHCampusBuilder.LeftOfficeZ(settings)), new Vector3(0.7f, 0.8f, 1)).Length != 0)
                 report.failures.Add("Office still obstructs the public hall in front of its facade.");
             Vector3 probe = doorway.TransformPoint(new Vector3(0, 0.95f, 0));
             if (Physics.OverlapCapsule(probe + Vector3.up * 0.5f, probe - Vector3.up * 0.5f, 0.32f).Length != 0)
                 report.failures.Add("Office doorway is obstructed.");
             if (report.failures.Count == 0)
                 report.checks.Add("LEFT_01 office recessed 2.8m behind side-wall line: grey facade at X=17.4m, public hall clear, open 1.2m doorway and continuous pocket floor; 8 glass panes, blue perimeter, two workstations and waiting chairs. LEFT_02 greenery/timber lounge retained.");
+        }
+
+        private static void CheckCompactLeftSequence(UEHPlayModeVerification.Report report)
+        {
+            var settings = AssetDatabase.LoadAssetAtPath<UEHDimensions>(UEHCampusBuilder.Root + "/Settings/EstimatedDimensions.asset");
+            if (settings == null || !settings.compactLeftSequence) return;
+            var zone = GameObject.Find("06_1976_LEFT_from_gate").transform;
+            var heritage = zone.Find("06_Heritage_1976_and_gallery");
+            var slate = heritage.Find("00_Contrasting_slate_panel/Slate_wall_and_picture/HeritageSlate");
+            if (slate == null) { report.failures.Add("Missing contrasting slate segment immediately left of Since 1976."); return; }
+            var slateBounds = slate.GetComponent<MeshRenderer>().bounds;
+            bool adjacent = false;
+            foreach (var col in GameObject.Find("02_Stone_columns").GetComponentsInChildren<BoxCollider>())
+                if (col.transform.position.x > settings.frontage * 0.25f)
+                    adjacent = (settings.entranceGlassThroughColumns ?
+                        Mathf.Abs(col.transform.position.x - UEHCampusBuilder.LeftGateColumnX(settings)) < 0.01f && col.bounds.min.z - slateBounds.max.z >= 0 && col.bounds.min.z - slateBounds.max.z < 0.45f :
+                        Mathf.Abs(col.bounds.min.z - slateBounds.max.z) < 0.03f) && Mathf.Abs(col.transform.position.z - UEHCampusBuilder.LeftColumnZ(settings)) < 0.01f;
+            if (!adjacent) report.failures.Add("Left entrance stone column must be immediately beside the slate wall segment.");
+            if (slateBounds.size.z < 1.4f || slateBounds.size.y < 4.1f)
+                report.failures.Add("Slate wall segment has incorrect estimated size.");
+            var office = GameObject.Find("Office_room").transform;
+            var lounge = GameObject.Find("Green_timber_lounge").transform;
+            if (Mathf.Abs(zone.position.z - UEHCampusBuilder.LeftHeritageZ(settings)) > 0.01f ||
+                Mathf.Abs(office.position.z - UEHCampusBuilder.LeftOfficeZ(settings)) > 0.01f ||
+                Mathf.Abs(lounge.position.z - UEHCampusBuilder.LeftLoungeZ(settings)) > 0.01f)
+                report.failures.Add("Compacted left groups are not at their configured positions.");
+            var heritageBounds = RenderBounds(heritage.Find("Timber_frame"));
+            var officeBounds = RenderBounds(office.Find("Office_blue_perimeter"));
+            var loungeBounds = RenderBounds(lounge.Find("01_Greenery_LEFT"));
+            float firstGap = heritageBounds.min.z - officeBounds.max.z;
+            float secondGap = officeBounds.min.z - loungeBounds.max.z;
+            if (firstGap < 0 || firstGap > 0.9f || secondGap < 0 || secondGap > 0.9f)
+                report.failures.Add("Left zones must have narrow non-overlapping gaps: " + firstGap + ", " + secondGap);
+            report.checks.Add("Left sequence compacted: slate segment 1.45x4.2m left of 1976 with adjacent stone column; office and green/timber lounge moved as editable groups. Rendered facade gaps " + firstGap.ToString("F2") + "m and " + secondGap.ToString("F2") + "m; office remains recessed with aligned wall opening.");
+        }
+
+        private static void CheckColumnAlignedGates(UEHPlayModeVerification.Report report)
+        {
+            var settings = AssetDatabase.LoadAssetAtPath<UEHDimensions>(UEHCampusBuilder.Root + "/Settings/EstimatedDimensions.asset");
+            if (settings == null || !settings.entranceGlassThroughColumns) return;
+            float plane = UEHCampusBuilder.EntranceGlassZ(settings);
+            var entrance = GameObject.Find("03_Glazing_with_open_doorway").transform;
+            var columns = GameObject.Find("02_Stone_columns").GetComponentsInChildren<BoxCollider>();
+            int bays = 0, fixedPanes = 0;
+            foreach (Transform bay in entrance)
+            {
+                if (!bay.name.StartsWith("BAY_")) continue;
+                bays++;
+                foreach (string endpoint in new[] { "Left_column_face", "Right_column_face" })
+                {
+                    var marker = bay.Find(endpoint); bool joined = false;
+                    foreach (var column in columns)
+                        joined |= Mathf.Abs(column.bounds.center.z - plane) < 0.01f && Mathf.Abs(marker.position.z - plane) < 0.01f &&
+                            Mathf.Abs(marker.position.x - (endpoint == "Left_column_face" ? column.bounds.max.x : column.bounds.min.x)) < 0.01f;
+                    if (!joined) report.failures.Add("Glazing bay endpoint does not join a column at mid-depth: " + bay.name + "/" + endpoint);
+                }
+                foreach (Transform child in bay)
+                    if (child.name.StartsWith("Entrance_fixed_pane_"))
+                    {
+                        fixedPanes++;
+                        foreach (var collider in child.GetComponentsInChildren<BoxCollider>())
+                            if (Mathf.Abs(collider.bounds.center.z - plane) > 0.01f) report.failures.Add("Fixed entrance glass is outside column center plane.");
+                    }
+            }
+            if (bays != 3 || fixedPanes < 16) report.failures.Add("Expected three connected gate bays with narrow fixed glazing.");
+            foreach (float center in new[] { 0f, UEHCampusBuilder.SinceGateCenterX(settings) })
+                foreach (float z in new[] { plane - 0.9f, plane, plane + 0.9f })
+                {
+                    var point = new Vector3(center, 0.95f, z);
+                    if (Physics.OverlapCapsule(point - Vector3.up * 0.5f, point + Vector3.up * 0.5f, 0.35f).Length > 0)
+                        report.failures.Add("Center or Since gate blocked at " + point);
+                    if (!Physics.Raycast(point, Vector3.down, out var floor, 2) || Mathf.Abs(floor.point.y) > 0.03f)
+                        report.failures.Add("Center or Since gate lacks level floor at " + point);
+                }
+            report.checks.Add("Entrance: Since outer column moved to X=" + UEHCampusBuilder.LeftGateColumnX(settings) + ", Z=" + plane + "; all three glazing bays join actual stone faces at column mid-depth. Main " + settings.entryWidth + "m and Since " + UEHCampusBuilder.SinceGateWidth + "m openings have inward-open paired leaves and clear level approaches. Fixed glass retains collision.");
+        }
+
+        private static Bounds RenderBounds(Transform root)
+        {
+            var renderers = root.GetComponentsInChildren<MeshRenderer>();
+            var bounds = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i++) bounds.Encapsulate(renderers[i].bounds);
+            return bounds;
         }
 
         private static void CheckGateSide(UEHPlayModeVerification.Report report, string objectName, bool expectedLeft)

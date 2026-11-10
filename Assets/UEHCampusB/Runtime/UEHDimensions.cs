@@ -13,6 +13,16 @@ namespace UEH.CampusB
         public bool keepEntranceColumnsWhenExpanded = true;
         public bool leftOfficeAndLounge;
         public bool rightLiftsAndServices;
+        public bool rightGlassOffice;
+        public bool refinedLobbyLayout;
+        public bool centerTimberOnly;
+        [Range(0, 5)] public float rightWingInset;
+        public bool facultyLiftEntrance;
+        public bool facultyLiftsBehindWelcome;
+        public bool facultyColumnAtRearWall;
+        public bool compactLeftSequence;
+        public bool entranceGlassThroughColumns;
+        [Range(0.9f, 2.4f)] public float lobbyColumnWidth = 0.9f;
         [Range(3.8f, 6)] public float lobbyHeight = 4.5f;
         [Range(3, 8)] public float entryWidth = 5.6f;
         [Range(30, 65)] public float towerHeight = 55;
