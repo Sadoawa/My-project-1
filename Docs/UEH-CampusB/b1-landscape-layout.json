@@ -1,0 +1,20 @@
+{
+    "status": "Forecourt and street planting reconstructed from supplied Virtual Tour images; dimensions and plant identities are visual estimates.",
+    "yardTileMetres": 0.800000011920929,
+    "sidewalkTileMetres": 0.4000000059604645,
+    "pavingBoundaryZ": 8.5,
+    "streetCurbZ": 16.549999237060547,
+    "gateClearWidth": 9.0,
+    "stoneTreePlanters": 6,
+    "darkShrubPlanters": 4,
+    "streetPlantingBeds": 2,
+    "forecourtTrees": 6,
+    "streetTrees": 4,
+    "palmClumps": 4,
+    "vegetation": [
+        "Broadleaf branching trees with individual folded leaves",
+        "Low leafy shrub borders",
+        "Yellow-edged upright snake plants",
+        "Pinnate palm fronds"
+    ]
+}

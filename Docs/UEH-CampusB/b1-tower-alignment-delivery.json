@@ -1,0 +1,49 @@
+{
+  "nativeUnityExitCode": 0,
+  "towerGroupsTranslatedOnlyX": 5.7500005,
+  "rebuiltGroup": "19_Floor_enclosures_and_junctions",
+  "allOtherExistingExteriorObjectsAndComponentsByteUnchangedExceptRootChildList": true,
+  "lobbyPrefabByteUnchanged": true,
+  "unchangedExistingMeshesOutsideClosureGroup": 761,
+  "terraceRoomWindowFrameMeshByteUnchanged": true,
+  "copiedNativeFilesMatch": true,
+  "playModeRun": false,
+  "layout": {
+    "status": "Upper tower positioned toward viewer-left based on supplied Virtual Tour image; offset is a visual estimate.",
+    "axisConvention": "Positive X is viewer-left from the entrance street (+Z).",
+    "centerX": 5.750000476837158,
+    "viewerLeftEdgeX": 22.0,
+    "viewerRightEdgeX": -10.5,
+    "lowerViewerLeftEdgeX": 23.0,
+    "lowerViewerRightEdgeX": -20.799999237060547,
+    "viewerLeftMargin": 1.0,
+    "viewerRightMargin": 10.300000190734863,
+    "width": 32.5,
+    "depth": 46.0,
+    "frontZ": -1.399999976158142,
+    "rearZ": -47.400001525878906,
+    "towerGeometryRescaled": false
+  },
+  "previewsReviewed": [
+    "Docs/UEH-CampusB/Previews/129_B1_left_aligned_tower_front.png",
+    "Docs/UEH-CampusB/Previews/130_B1_left_aligned_tower_virtual_tour_angle.png",
+    "Docs/UEH-CampusB/Previews/131_B1_left_aligned_tower_front_corner.png",
+    "Docs/UEH-CampusB/Previews/132_B1_shifted_tower_base_and_returns.png"
+  ],
+  "deliveredNativeFiles": [
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_BlueGlass.asset",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_BlueGlass.asset.meta",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_Ivory.asset",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_Ivory.asset.meta",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_White.asset",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_White.asset.meta",
+    "Assets/UEHCampusB/Prefabs/UEH_Exterior.prefab",
+    "Assets/UEHCampusB/Scenes/UEH_CampusB_Study.unity",
+    "Assets/UEHCampusB/Editor/UEHB1TowerAlignment.cs.meta",
+    "Docs/UEH-CampusB/b1-tower-alignment-layout.json",
+    "Docs/UEH-CampusB/Previews/129_B1_left_aligned_tower_front.png",
+    "Docs/UEH-CampusB/Previews/130_B1_left_aligned_tower_virtual_tour_angle.png",
+    "Docs/UEH-CampusB/Previews/131_B1_left_aligned_tower_front_corner.png",
+    "Docs/UEH-CampusB/Previews/132_B1_shifted_tower_base_and_returns.png"
+  ]
+}

@@ -425,6 +425,9 @@ namespace UEH.CampusB.Editor
         private static void BuildExterior()
         {
             float w = dimensions.frontage, d = dimensions.exteriorDepth, h = dimensions.lobbyHeight;
+            if (dimensions.wrappedB1Frame) BuildB1ForecourtPaving(exterior);
+            else
+            {
             var ground = new Part("01_Forecourt_and_pavement", exterior);
             ground.Box("Pavement", new Vector3(0, -0.15f, 8), new Vector3(62, 0.3f, 17), true);
             ground.Box("Asphalt", new Vector3(0, -0.23f, 23), new Vector3(75, 0.16f, 13), true);
@@ -434,6 +437,7 @@ namespace UEH.CampusB.Editor
             for (int i = 0; i < 7; i++)
                 ground.Box("White", new Vector3(0, -0.139f, 17.8f + i * 0.95f), new Vector3(4.6f, 0.012f, 0.45f));
             ground.Finish();
+            }
 
             if (dimensions.wrappedB1Frame) BuildB1FrameEnvelope(exterior);
             else
@@ -538,11 +542,15 @@ namespace UEH.CampusB.Editor
 
         private static void BuildGateAndLandscape(float w)
         {
+            if (dimensions.wrappedB1Frame) BuildB1CampusLandscape(exterior);
+            else
+            {
             BuildForecourtGate(exterior);
             Tree(exterior, "09_Tree_left", new Vector3(-12, 0, 9.4f), 6.5f);
             Tree(exterior, "09_Tree_right", new Vector3(12.5f, 0, 10), 7.5f);
             Tree(exterior, "09_Tree_edge_left", new Vector3(-24, 0, 11), 8);
             Tree(exterior, "09_Tree_edge_right", new Vector3(24, 0, 10), 8);
+            }
             var limits = new Part("10_Site_boundaries", exterior);
             foreach (int side in new[] { -1, 1 })
                 limits.Box("Stone", new Vector3(side * 30, 0.45f, -6), new Vector3(0.6f, 0.9f, 43), true);

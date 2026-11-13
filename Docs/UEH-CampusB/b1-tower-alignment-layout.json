@@ -1,0 +1,16 @@
+{
+    "status": "Upper tower positioned toward viewer-left based on supplied Virtual Tour image; offset is a visual estimate.",
+    "axisConvention": "Positive X is viewer-left from the entrance street (+Z).",
+    "centerX": 5.750000476837158,
+    "viewerLeftEdgeX": 22.0,
+    "viewerRightEdgeX": -10.5,
+    "lowerViewerLeftEdgeX": 23.0,
+    "lowerViewerRightEdgeX": -20.799999237060547,
+    "viewerLeftMargin": 1.0,
+    "viewerRightMargin": 10.300000190734863,
+    "width": 32.5,
+    "depth": 46.0,
+    "frontZ": -1.399999976158142,
+    "rearZ": -47.400001525878906,
+    "towerGeometryRescaled": false
+}

@@ -119,12 +119,12 @@ namespace UEH.CampusB.Editor
             {
                 float edge = side < 0 ? right - 0.9f : left + 0.9f;
                 float inner = side * half;
-                paving.Box("Pavement", new Vector3((edge + inner) / 2, -0.15f, centerZ), new Vector3(Mathf.Abs(edge - inner), 0.3f, depth + 1.8f), true);
+                paving.Box("B1YardGranite", new Vector3((edge + inner) / 2, -0.15f, centerZ), new Vector3(Mathf.Abs(edge - inner), 0.3f, depth + 1.8f), true);
             }
             float extra = -rear - dimensions.lobbyDepth + 0.9f;
-            paving.Box("Pavement", new Vector3(centerX, -0.15f, -dimensions.lobbyDepth - extra / 2), new Vector3(span + 1.8f, 0.3f, extra), true);
+            paving.Box("B1YardGranite", new Vector3(centerX, -0.15f, -dimensions.lobbyDepth - extra / 2), new Vector3(span + 1.8f, 0.3f, extra), true);
             // Finish the floor under the deeper porch between the building glass and the new front axis.
-            paving.Box("Pavement", new Vector3(centerX, -0.15f, (front + EntranceGlassZ(dimensions)) / 2), new Vector3(span + 1.8f, 0.3f, front - EntranceGlassZ(dimensions)), true);
+            paving.Box("B1YardGranite", new Vector3(centerX, -0.15f, (front + EntranceGlassZ(dimensions)) / 2), new Vector3(span + 1.8f, 0.3f, front - EntranceGlassZ(dimensions)), true);
             paving.Finish();
             BuildB1CanopyName(parent, right, left);
             BuildB1FloorClosures(parent);
@@ -269,10 +269,13 @@ namespace UEH.CampusB.Editor
             foreach (float x in new[] { 3.0f, 8.8f })
                 facade.Box("Ivory", new Vector3(x, (crownBottom + top) / 2, front + 0.10f), new Vector3(0.95f, top - crownBottom, 0.5f));
             facade.Finish();
+            ApplyB1TowerAlignment(parent);
         }
 
         private static void SetupB1FacadeViewpoints(Transform views)
         {
+            SetupB1LandscapeViewpoints(views);
+            SetupB1TowerAlignmentViewpoints(views);
             SetupB1FloorClosureViewpoints(views);
             SetupB1TowerProportionViewpoints(views);
             SetupB1RaisedSignViewpoints(views);

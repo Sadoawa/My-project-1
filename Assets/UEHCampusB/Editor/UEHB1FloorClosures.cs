@@ -41,15 +41,15 @@ namespace UEH.CampusB.Editor
             float roofTop = B1FrameTop + 7.2f + 0.36f;
             float towerBase = B1FrameTop + 7.65f;
             float half = (dimensions.frontage - 3.5f)/2;
-            p.Box("Ivory",new Vector3(0,(roofTop+towerBase+0.12f)/2,(B1TowerFrontZ+B1TowerRearZ)/2),
+            p.Box("Ivory",new Vector3(B1TowerOffsetX,(roofTop+towerBase+0.12f)/2,(B1TowerFrontZ+B1TowerRearZ)/2),
                 new Vector3(half*2+0.08f,towerBase+0.12f-roofTop,B1TowerDepth+0.08f));
             // Close the side returns where recessed front glazing formerly ended short of the side shell.
             foreach (float x in new[] {-half,half})
             {
                 float outer = x < 0 ? -1 : 1;
-                p.Box("BlueGlass",new Vector3(x-outer*0.06f,(towerBase+dimensions.towerHeight)/2,B1TowerFrontZ-0.76f),
+                p.Box("BlueGlass",new Vector3(B1TowerOffsetX+x-outer*0.06f,(towerBase+dimensions.towerHeight)/2,B1TowerFrontZ-0.76f),
                     new Vector3(0.12f,dimensions.towerHeight-towerBase,1.52f));
-                p.Box("Ivory",new Vector3(x-outer*0.03f,(towerBase+dimensions.towerHeight)/2,B1TowerFrontZ-0.02f),
+                p.Box("Ivory",new Vector3(B1TowerOffsetX+x-outer*0.03f,(towerBase+dimensions.towerHeight)/2,B1TowerFrontZ-0.02f),
                     new Vector3(0.18f,dimensions.towerHeight-towerBase,0.18f));
             }
             p.Finish();

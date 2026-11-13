@@ -76,6 +76,8 @@ namespace UEH.CampusB.Editor
             CaptureB1RaisedSignPreviews();
             CaptureB1TowerProportionPreviews();
             CaptureB1FloorClosurePreviews();
+            CaptureB1TowerAlignmentPreviews();
+            CaptureB1LandscapePreviews();
             File.WriteAllText(Path.GetFullPath("Docs/UEH-CampusB/b1-frame-layout.json"), JsonUtility.ToJson(new B1FrameLayout
             {
                 frontPierAxes = B1FrontPierAxes, sidePierZ = B1SidePierDepths,
@@ -91,6 +93,7 @@ namespace UEH.CampusB.Editor
 
         private static void BuildB1FrameEnvelope(Transform exteriorRoot)
         {
+            EnsureB1LandscapeMaterials();
             Mat("B1Sandstone", "DCC8B5", 0.22f);
             Mat("B1Basalt", "3F4140", 0.16f);
             float h = dimensions.lobbyHeight, right = B1FrameRightX, left = B1FrameLeftX;

@@ -41,5 +41,6 @@
     "Docs/UEH-CampusB/Previews/126_B1_closed_floor_rear.png",
     "Docs/UEH-CampusB/Previews/127_B1_enclosed_room_beside_balcony.png",
     "Docs/UEH-CampusB/Previews/128_B1_closed_tower_base_junction.png"
-  ]
+  ],
+  "towerPlacementUpdatedBy": "b1-tower-alignment-delivery.json"
 }

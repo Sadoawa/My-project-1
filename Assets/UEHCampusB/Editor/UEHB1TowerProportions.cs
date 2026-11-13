@@ -47,7 +47,7 @@ namespace UEH.CampusB.Editor
             Directory.CreateDirectory(Path.GetFullPath("Docs/UEH-CampusB"));
             File.WriteAllText(Path.GetFullPath("Docs/UEH-CampusB/b1-tower-proportions-layout.json"),JsonUtility.ToJson(new B1TowerProportionLayout
             {
-                width=width,depth=B1TowerDepth,frontZ=B1TowerFrontZ,rearZ=B1TowerRearZ,
+                width=width,depth=B1TowerDepth,frontZ=B1TowerFrontZ,rearZ=B1TowerRearZ,centerX=B1TowerOffsetX,
                 envelopeFloorArea=width*B1TowerDepth,previousDepth=dimensions.exteriorDepth-5,
                 previousEnvelopeFloorArea=width*(dimensions.exteriorDepth-5),
                 lowerTerraceDepth=B1FrameFrontZ-B1FrameRearZ-2*B1UpperTerraceInset,
@@ -60,7 +60,7 @@ namespace UEH.CampusB.Editor
         [Serializable] private sealed class B1TowerProportionLayout
         {
             public string status="Upper tower footprint balanced against lower terraces; image-based estimated dimensions, not surveyed floor areas.";
-            public float width,depth,frontZ,rearZ,envelopeFloorArea,previousDepth,previousEnvelopeFloorArea;
+            public float width,depth,frontZ,rearZ,centerX,envelopeFloorArea,previousDepth,previousEnvelopeFloorArea;
             public float lowerTerraceDepth,lowerTerraceWidth,baseY,roofY;
             public float endSetback=B1TowerEndSetback;
             public int upperFloorCount;
