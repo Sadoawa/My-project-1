@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6Z" fill="#e07825"/></marker><marker id="greenArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6Z" fill="#168466"/></marker></defs>
+<rect width="1200" height="760" fill="#f3f6fa"/>
+<g font-family="Arial, sans-serif" fill="#243449">
+<text x="45" y="48" font-size="27" font-weight="bold">B2 — PHƯƠNG ÁN DỜI CẦU THANG DÃY TRÁI</text>
+<text x="45" y="80" font-size="17">Mặt bằng nhìn từ trên xuống • Sơ đồ đề xuất, chưa áp dụng vào Unity • Không theo tỷ lệ</text>
+<rect x="110" y="120" width="980" height="220" fill="white" stroke="#34455a" stroke-width="4"/>
+<rect x="110" y="340" width="220" height="300" fill="white" stroke="#34455a" stroke-width="4"/>
+<rect x="870" y="340" width="220" height="300" fill="white" stroke="#34455a" stroke-width="4"/>
+<rect x="330" y="340" width="540" height="300" fill="#e6edf1" stroke="#34455a" stroke-width="3"/>
+<rect x="350" y="140" width="500" height="180" fill="#d5e2ed" stroke="#7d94a8" stroke-width="2"/>
+<text x="600" y="215" text-anchor="middle" font-size="25" font-weight="bold">BÃI GIỮ XE — DÃY GIỮA</text>
+<text x="600" y="247" text-anchor="middle" font-size="17">Giữ nguyên phạm vi hiện tại</text>
+<rect x="885" y="140" width="190" height="155" fill="#dddfe6" stroke="#7d8495" stroke-width="2"/>
+<text x="980" y="185" text-anchor="middle" font-size="18">Cầu thang +</text><text x="980" y="212" text-anchor="middle" font-size="18">2 thang máy</text><text x="980" y="255" text-anchor="middle" font-size="16">Giữ nguyên</text>
+<g transform="translate(25 0)"><rect x="120" y="130" width="205" height="95" fill="#fbd9bd" stroke="#e07825" stroke-width="3"/>
+<g stroke="#cc7834" stroke-width="1.5"><path d="M140 140V215 M158 140V215 M176 140V215 M194 140V215 M212 140V215 M230 140V215 M248 140V215 M266 140V215 M284 140V215 M302 140V215"/></g>
+<rect x="130" y="147" width="185" height="24" fill="#fff4e8"/><text x="222" y="165" text-anchor="middle" font-size="17" font-weight="bold">CẦU THANG MỚI</text>
+<path d="M140 192H312" stroke="#e07825" stroke-width="5" marker-end="url(#arrow)"/>
+<text x="122" y="246" font-size="14">Chân thang</text>
+</g><text x="365" y="172" font-size="17" font-weight="bold" fill="#a84b0a">CHIỀU ĐI LÊN → PHÍA DÃY GIỮA</text>
+<path d="M340 280H65" stroke="#168466" stroke-width="8" fill="none" marker-end="url(#greenArrow)"/>
+<text x="220" y="313" text-anchor="middle" font-size="16" fill="#168466">LỐI XE RA — CHỪA THÔNG</text>
+<rect x="130" y="365" width="180" height="90" fill="#fff" stroke="#b66c68" stroke-width="3" stroke-dasharray="9 6"/>
+<path d="M140 375L300 445M300 375L140 445" stroke="#b66c68" stroke-width="2"/>
+<rect x="148" y="394" width="144" height="30" fill="white"/><text x="220" y="415" text-anchor="middle" font-size="17">Vị trí thang cũ</text>
+<path d="M305 405C390 390 410 185 353 177" fill="none" stroke="#e07825" stroke-width="4" stroke-dasharray="8 5" marker-end="url(#arrow)"/>
+<text x="220" y="530" text-anchor="middle" font-size="23" font-weight="bold">DÃY TRÁI</text>
+<text x="980" y="530" text-anchor="middle" font-size="23" font-weight="bold">DÃY PHẢI</text>
+<text x="600" y="485" text-anchor="middle" font-size="27" font-weight="bold">SÂN TRONG</text>
+<text x="600" y="530" text-anchor="middle" font-size="18">Hướng nhìn từ khối nối B1 vào</text>
+<text x="45" y="686" font-size="18" font-weight="bold">Cầu thang sát mép trái bãi giữ xe; chiều lên hướng về dãy giữa (mũi tên cam).</text>
+<text x="45" y="718" font-size="16">Lối xe ra bên dưới vẫn thông. Sơ đồ vị trí và hướng lên, chưa sửa Unity.</text>
+</g></svg>

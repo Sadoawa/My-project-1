@@ -1,0 +1,80 @@
+﻿id,wing,level,floor_label,name,use,seats,width_est,depth_est
+L-0-1,0,0,Tầng trệt,Văn phòng phẩm & sách 1,shop,0,20,10
+L-0-2,0,0,Tầng trệt,Văn phòng phẩm & sách 2,shop,0,20,10
+L-1-1,0,1,Tầng 1,Phòng học 1,classroom,80,13.33333,10
+L-1-2,0,1,Tầng 1,Phòng học 2,classroom,80,13.33333,10
+L-1-3,0,1,Tầng 1,Phòng học 3,classroom,80,17.33333,10
+L-2-1,0,2,Tầng 2,Phòng học 1,classroom,40,8,10
+L-2-2,0,2,Tầng 2,Phòng học 2,classroom,40,8,10
+L-2-3,0,2,Tầng 2,Phòng học 3,classroom,40,8,10
+L-2-4,0,2,Tầng 2,Phòng học 4,classroom,40,8,10
+L-2-5,0,2,Tầng 2,Phòng học 5,classroom,40,12,10
+L-3-1,0,3,Tầng 3,Phòng học 1,classroom,40,8,10
+L-3-2,0,3,Tầng 3,Phòng học 2,classroom,40,8,10
+L-3-3,0,3,Tầng 3,Phòng học 3,classroom,40,8,10
+L-3-4,0,3,Tầng 3,Phòng học 4,classroom,40,8,10
+L-3-5,0,3,Tầng 3,Phòng học 5,classroom,40,12,10
+L-4-1,0,4,Tầng 4,Phòng học 1,classroom,40,8,10
+L-4-2,0,4,Tầng 4,Phòng học 2,classroom,40,8,10
+L-4-3,0,4,Tầng 4,Phòng học 3,classroom,40,8,10
+L-4-4,0,4,Tầng 4,Phòng học 4,classroom,40,8,10
+L-4-5,0,4,Tầng 4,Phòng học 5,classroom,40,12,10
+L-5-1,0,5,Tầng 5,Phòng máy 1,computer,40,8,10
+L-5-2,0,5,Tầng 5,Phòng máy 2,computer,40,8,10
+L-5-3,0,5,Tầng 5,Phòng máy 3,computer,40,8,10
+L-5-4,0,5,Tầng 5,Phòng máy 4,computer,40,8,10
+L-5-5,0,5,Tầng 5,Phòng máy 5,computer,40,12,10
+L-6-1,0,6,Tầng 6,Phòng học 1,classroom,40,8,10
+L-6-2,0,6,Tầng 6,Phòng học 2,classroom,40,8,10
+L-6-3,0,6,Tầng 6,Phòng học 3,classroom,40,8,10
+L-6-4,0,6,Tầng 6,Phòng học 4,classroom,40,8,10
+L-6-5,0,6,Tầng 6,Phòng học 5,classroom,40,12,10
+R-0-1,1,0,Tầng trệt,Phòng y tế,medical,0,6,10
+R-0-2,1,0,Tầng trệt,Căn tin lớn,canteen,64,16,10
+R-0-3,1,0,Tầng trệt,UEH Maker Space,maker,24,18,10
+R-1-1,1,1,Tầng 1,Phòng học 1,classroom,80,13.33333,10
+R-1-2,1,1,Tầng 1,Phòng học 2,classroom,80,13.33333,10
+R-1-3,1,1,Tầng 1,Phòng học 3,classroom,80,17.33333,10
+R-2-1,1,2,Tầng 2,Phòng học 1,classroom,40,8,10
+R-2-2,1,2,Tầng 2,Phòng học 2,classroom,40,8,10
+R-2-3,1,2,Tầng 2,Phòng học 3,classroom,40,8,10
+R-2-4,1,2,Tầng 2,Phòng học 4,classroom,40,8,10
+R-2-5,1,2,Tầng 2,Phòng học 5,classroom,40,12,10
+R-3-1,1,3,Tầng 3,Phòng học 1,classroom,40,8,10
+R-3-2,1,3,Tầng 3,Phòng học 2,classroom,40,8,10
+R-3-3,1,3,Tầng 3,Phòng học 3,classroom,40,8,10
+R-3-4,1,3,Tầng 3,Phòng học 4,classroom,40,8,10
+R-3-5,1,3,Tầng 3,Phòng học 5,classroom,40,12,10
+R-4-1,1,4,Tầng 4,Phòng học 1,classroom,40,8,10
+R-4-2,1,4,Tầng 4,Phòng học 2,classroom,40,8,10
+R-4-3,1,4,Tầng 4,Phòng học 3,classroom,40,8,10
+R-4-4,1,4,Tầng 4,Phòng học 4,classroom,40,8,10
+R-4-5,1,4,Tầng 4,Phòng học 5,classroom,40,12,10
+R-5-1,1,5,Tầng 5,Phòng máy 1,computer,40,8,10
+R-5-2,1,5,Tầng 5,Phòng máy 2,computer,40,8,10
+R-5-3,1,5,Tầng 5,Phòng máy 3,computer,40,8,10
+R-5-4,1,5,Tầng 5,Phòng máy 4,computer,40,8,10
+R-5-5,1,5,Tầng 5,Phòng máy 5,computer,40,12,10
+R-6-1,1,6,Tầng 6,Phòng học 1,classroom,40,8,10
+R-6-2,1,6,Tầng 6,Phòng học 2,classroom,40,8,10
+R-6-3,1,6,Tầng 6,Phòng học 3,classroom,40,8,10
+R-6-4,1,6,Tầng 6,Phòng học 4,classroom,40,8,10
+R-6-5,1,6,Tầng 6,Phòng học 5,classroom,40,12,10
+M-0-1,2,0,Tầng trệt,Bãi giữ xe,parking,0,32,10
+M-1-1,2,1,Tầng 1,Phòng tự học toàn dãy giữa,study,160,32,10
+M-2-1,2,2,Tầng 2,Phòng học lớn 1,classroom,80,16,10
+M-2-2,2,2,Tầng 2,Phòng học lớn 2,classroom,80,16,10
+M-3-1,2,3,Tầng 3,Phòng học lớn 1,classroom,80,16,10
+M-3-2,2,3,Tầng 3,Phòng học lớn 2,classroom,80,16,10
+M-4-1,2,4,Tầng 4,Phòng học lớn 1,classroom,80,16,10
+M-4-2,2,4,Tầng 4,Phòng học lớn 2,classroom,80,16,10
+M-5-1,2,5,Tầng 5,Phòng máy lớn 1,computer,80,16,10
+M-5-2,2,5,Tầng 5,Phòng máy lớn 2,computer,80,16,10
+M-6-1,2,6,Tầng 6,Phòng học lớn 1,classroom,80,16,10
+M-6-2,2,6,Tầng 6,Phòng học lớn 2,classroom,80,16,10
+OLD-0-L,3,0,Tầng trệt,Tự học lớn bên trái,study,96,24,12
+OLD-0-R,3,0,Tầng trệt,Tự học lớn bên phải,study,96,24,12
+OLD-1-L,3,1,Tầng 2,Phòng tự học — theo ảnh,study,96,24,12
+OLD-1-R,3,1,Tầng 2,Kho — vị trí tạm bên phải,storage,0,24,12
+OLD-2-L,3,2,Tầng 3,Chưa xác định công năng,unknown,0,24,12
+OLD-2-R,3,2,Tầng 3,Chưa xác định công năng,unknown,0,24,12
