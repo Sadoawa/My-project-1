@@ -1,5 +1,60 @@
 # UEH Cơ sở B — bản dựng tham quan độc lập
 
+**Khép các phần vách và tiếp giáp còn thiếu — 13/11/2026:** menu **38. Close missing floor infills and slab junctions** bổ sung riêng nhóm `19_Floor_enclosures_and_junctions`: vách có cửa kính hai bên và phía sau tầng 3–4, dải nối đầu vách/trần, bệ chân khối tháp và hồi kính góc tháp. Hành lang ban công khoảng 2,6 m bao quanh khối phòng. Rebuild và các lệnh chỉnh mặt bằng tầng cũng cập nhật nhóm bổ sung theo cùng kích thước. [Góc bên](../../Docs/UEH-CampusB/Previews/125_B1_closed_floor_side.png), [hành lang ban công](../../Docs/UEH-CampusB/Previews/127_B1_enclosed_room_beside_balcony.png).
+
+**Điều chỉnh khối tầng 5 trở lên — 13/11/2026:** khối tháp rộng 32,5 m, sâu khoảng 46 m thay cho 19 m trước đây; lấy chiều sâu tầng 3–4 làm cơ sở rồi lùi 4 m ở mỗi đầu. Các kích thước là ước lượng theo ảnh. Menu **37. Balance upper tower length with lower floors** cập nhật riêng vỏ và mặt đứng khối tháp, Rebuild dùng cùng đường biên. [Bên hông](../../Docs/UEH-CampusB/Previews/121_B1_balanced_tower_full_side.png), [góc tổng thể](../../Docs/UEH-CampusB/Previews/122_B1_balanced_tower_front_corner.png).
+
+**Chữ khối xanh lam viền trắng — 13/11/2026:** menu **36. Build freestanding blue and white university letters** thay dòng chữ nhỏ ở cạnh mái bằng bộ chữ khối dựng đứng có thanh đỡ riêng, phía trước ban công tầng 3 theo vùng khoanh đỏ. Rebuild dùng cùng thiết kế. Dữ liệu `Fonts/B1RaisedSignGeometry.json` được tạo từ font Roboto Bold trong dự án bằng `Docs/UEH-CampusB/generate-raised-sign.py`. Đây là mô phỏng thị giác theo ảnh Virtual Tour; không phải bản vẽ kỹ thuật hoặc bộ nhận diện gốc. [Mặt tiền](../../Docs/UEH-CampusB/Previews/117_B1_raised_sign_front.png), [viền và độ dày](../../Docs/UEH-CampusB/Previews/118_B1_raised_sign_white_outline_closeup.png).
+
+**Tầng 3 và 4 lùi nhẹ — 13/11/2026:** mỗi cạnh lùi 0,6 m so với khối đế, tạo hai tầng trung gian rộng 43,8 m giữa khối đế 45 m và khối tháp 32,5 m. Chiều sâu còn khoảng 54 m; đây là kích thước ước lượng theo ảnh. Menu **35. Recess third and fourth floors slightly** cập nhật riêng hai tầng mở, đồng thời mã Rebuild dùng cùng đường biên mới. [Mặt tiền](../../Docs/UEH-CampusB/Previews/113_B1_mild_setback_front.png), [bên hông](../../Docs/UEH-CampusB/Previews/115_B1_mild_setback_side.png).
+
+**Thu gọn ốp gỗ về hai khoang giữa — 13/11/2026:** ở cả hai cao độ, ốp gỗ chia thành hai mảng riêng, dừng trong mép cột phân khu và trước mép mái ngoài. Tổng cộng bốn mảng rộng khoảng 7,9/9,1 m, sâu 4,18 m. Menu **34. Restrict timber soffits to the central bays** cập nhật riêng nhóm sàn/trần; Rebuild cũng sử dụng giới hạn này. [Mặt tiền](../../Docs/UEH-CampusB/Previews/110_B1_timber_only_central_bays.png), [trần gỗ giữa](../../Docs/UEH-CampusB/Previews/111_B1_central_timber_ceiling_closeup.png), [trần cánh bên](../../Docs/UEH-CampusB/Previews/112_B1_plain_soffit_at_side_window_wing.png). Đã duyệt render Unity; chưa chạy Play Mode.
+
+**Đồng bộ toàn bộ cụm hai cửa giữa — 13/11/2026:** viền ngoài, đố chia kính và cả mảng vách bao quanh hai cửa (trước đây màu gỗ nâu) dùng chung vật liệu `Ivory` với tường cơ sở. Mã Rebuild cũng dùng vật liệu này. [Toàn bộ cụm cửa](../../Docs/UEH-CampusB/Previews/109_B1_complete_central_surround_wall_colour.png), [ảnh cận cảnh](../../Docs/UEH-CampusB/Previews/108_B1_central_windows_wall_colour.png). Đã duyệt render Unity; chưa chạy Play Mode.
+
+## Kéo mái và bỏ dải tường dày ở mép mặt tiền — 13/11/2026
+
+- Theo ảnh 161025, kéo bản mái tại cao độ **10,8 m** ra thêm **0,6 m** phía trước và hai mép bên. Mái vươn 1,25 m tính từ trục cột, nối liền qua góc mặt tiền và bên hông; nẹp mái và trần gỗ theo mép mới.
+- Bỏ cả tấm tường/biển rời cao 1,18 m cùng nẹp trên được khoanh trong ảnh 161222. Cạnh bản mái dày 0,36 m tạo thành mép hoàn thiện; tên trường thu nhỏ và gắn trực tiếp vào cạnh này.
+- Menu **32. Extend canopy and remove deep fascia wall** cập nhật riêng bản mái và tên trường. Rebuild toàn bộ cũng dùng thiết kế mới. Kích thước kéo mái là ước lượng theo ảnh.
+
+[104 — Mép mái kéo dài](../../Docs/UEH-CampusB/Previews/104_B1_extended_canopy_grazing_edge.png) · [105 — Dải tường đã bỏ](../../Docs/UEH-CampusB/Previews/105_B1_canopy_without_deep_fascia.png) · [106 — Mặt tiền mái mỏng](../../Docs/UEH-CampusB/Previews/106_B1_thin_continuous_canopy_front.png) · [107 — Góc nối mái](../../Docs/UEH-CampusB/Previews/107_B1_canopy_flush_return_corner.png).
+
+[Tọa độ mái](../../Docs/UEH-CampusB/b1-canopy-layout.json), [đối chiếu bàn giao](../../Docs/UEH-CampusB/b1-canopy-delivery.json). Đã duyệt render Unity; chưa chạy Play Mode.
+
+## Mở rộng tầng 4 bằng mặt bằng tầng dưới — 13/11/2026
+
+- Tầng ban công trên cùng của khối đế, cao độ sàn **14,4 m**, mở ra **1,1 m mỗi bên**, **1,2 m phía trước** và **0,7 m phía sau** để trùng mép mặt bằng tầng ngay dưới. Mái phủ cao độ 18 m được mở rộng tương ứng; cột biên, kính, vách sau, lan can và phào nối theo mép mới.
+- Theo các kích thước ước lượng hiện có, mặt bằng theo trục tăng từ **42,8 × 53,3 m** lên **45 × 55,2 m**. Các tầng và chi tiết ban công bên dưới giữ thiết kế đã duyệt.
+- Menu **31. Expand fourth floor to lower podium footprint** cập nhật riêng nhóm hai tầng ban công và mái khối đế. Rebuild toàn bộ dùng cùng mặt bằng mới.
+
+[100 — Mặt tiền tầng 4](../../Docs/UEH-CampusB/Previews/100_B1_fourth_floor_full_width_front.png) · [101 — Cột và góc mái thẳng trục](../../Docs/UEH-CampusB/Previews/101_B1_fourth_floor_aligned_corners.png) · [102 — Mặt bên](../../Docs/UEH-CampusB/Previews/102_B1_fourth_floor_full_depth_side.png) · [103 — Góc phía sau](../../Docs/UEH-CampusB/Previews/103_B1_fourth_floor_rear_alignment.png).
+
+[Tọa độ và diện tích ước lượng](../../Docs/UEH-CampusB/b1-fourth-floor-layout.json), [đối chiếu bàn giao](../../Docs/UEH-CampusB/b1-fourth-floor-delivery.json). Đã duyệt render Unity; chưa chạy Play Mode.
+
+## Chi tiết ban công giữa và bốn trục cửa bên phải — 13/11/2026
+
+- Khép hai đầu ban công giữa bằng tường đặc màu kem, nối từ vách sau đến sát cột ngoài, có nẹp chân và nẹp trần. Vách sau nối kín qua trục cột giữa.
+- Hai mảng kính giữa cùng rộng **5,2 m**, cao **4,35 m**; bản trước rộng khoảng 6,9/8,1 m và cao 3,25 m. Kính giữ vị trí lùi sau lan can, có khung và đố chia.
+- Thêm **hai dải lam treo cao 1,2 m** trên hai khoang ban công, cùng vật liệu bạc và nẹp cam với mảng lam trên OCB.
+- Cánh bên phải chia thành **bốn trục cửa đều nhau**, mỗi tầng bốn cửa, hai tầng thẳng trục; mỗi mảng kính khoảng **2,55 × 2,8 m**, có khung trắng, đố giữa, ô thoáng trên và tường ngăn giữa các cửa.
+- Menu **30. Refine central balcony walls and four right windows** cập nhật riêng mặt đứng tầng ban công; Rebuild toàn bộ cũng dùng các chi tiết mới. Kích thước được ước lượng theo ảnh. Đã duyệt ảnh Unity, chưa chạy Play Mode.
+
+[94 — Ban công giữa](../../Docs/UEH-CampusB/Previews/94_B1_central_balcony_finished.png) · [95 — Tường đầu trái](../../Docs/UEH-CampusB/Previews/95_B1_left_balcony_end_wall.png) · [96 — Tường đầu phải](../../Docs/UEH-CampusB/Previews/96_B1_right_balcony_end_wall.png) · [97 — Kính hẹp và cao hơn](../../Docs/UEH-CampusB/Previews/97_B1_narrow_taller_central_glass.png) · [98 — Hai dải lam treo](../../Docs/UEH-CampusB/Previews/98_B1_two_suspended_louvre_screens.png) · [99 — Bốn trục cửa bên phải](../../Docs/UEH-CampusB/Previews/99_B1_four_even_right_window_stacks.png).
+
+[Kích thước chi tiết](../../Docs/UEH-CampusB/b1-balcony-details-layout.json), [đối chiếu bàn giao](../../Docs/UEH-CampusB/b1-balcony-details-delivery.json). Các mục bên dưới lưu lại các lần dựng trước.
+
+## Hiên và tầng trên B1 chỉnh theo ảnh 150336/150754 — 13/11/2026
+
+- Dời năm trục cột mặt tiền từ **Z = 0,8 m sang Z = 3,2 m**, tức ra phía sân thêm **2,4 m**; mặt kính và cột đá trong sảnh giữ vị trí. Hiên sâu khoảng **4,32 m** tính từ mặt kính, với trần gỗ và nền lát nối liền đến hàng cột mới.
+- Bỏ hẳn hai chữ lơ lửng `UEH · 279 NGUYỄN TRI PHƯƠNG` và `UEH / CƠ SỞ B` trong prefab lẫn các đường dựng lại. Chữ tên trường trên dải biển mặt tiền vẫn gắn vào nền biển.
+- Thay các tầng lặp bằng ô lam lớn trên OCB, ban công giữa sâu có hoa rủ, hai tầng kính bên phải, hai tầng ban công giật lùi phía trên; các mép mái/phào nối quanh khối. Khối tháp có dải ban công ngang phía trái và ba trục kính đứng phía phải khi nhìn từ sân.
+- Menu **29. Refine B1 porch and stepped upper facade** dựng lại thiết kế này. Chiều sâu khung vẫn tới **Z = -52 m**. Các tỷ lệ, khoảng lùi và độ dời cột là ước lượng từ ảnh Virtual Tour.
+
+[Toàn cảnh mới](../../Docs/UEH-CampusB/Previews/88_B1_refined_front.png) · [các tầng trên](../../Docs/UEH-CampusB/Previews/89_B1_reference_upper_storeys.png) · [hiên sau khi dời cột](../../Docs/UEH-CampusB/Previews/90_B1_deeper_porch_columns.png) · [cổng đã bỏ chữ](../../Docs/UEH-CampusB/Previews/91_B1_entrance_without_floating_labels.png) · [ban công và lam](../../Docs/UEH-CampusB/Previews/92_B1_stepped_terraces_and_screen.png) · [khung bên hông](../../Docs/UEH-CampusB/Previews/93_B1_full_depth_refined_frame.png).
+
+[Đối chiếu lần chỉnh này](../../Docs/UEH-CampusB/b1-reference-facade-delivery.json). Đã dựng ảnh trong Unity; chưa chạy Play Mode. Mục khung ban đầu bên dưới là lịch sử trước lần chỉnh này.
+
 ## Khung bao sảnh B1 theo Virtual Tour — 13/11/2026
 
 - Dựng lại **năm trục cột mặt tiền**, thân màu kem, nẹp nổi đôi, rãnh màu đá nhạt và chân đế tối theo ảnh khoanh đỏ. Nối với dầm và phào bao liên tục ở ba cao độ; bổ sung trần hiên gỗ, lam ngang, lan can và bồn hoa ở ban công.

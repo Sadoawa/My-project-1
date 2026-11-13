@@ -1,0 +1,34 @@
+{
+    "status": "Native Unity facade refinement from user reference images; dimensions are visual estimates.",
+    "centralEndWallCount": 2,
+    "centralGlassWallCount": 2,
+    "suspendedScreenCount": 2,
+    "rightWindowStacks": 4,
+    "rightWindowRows": 2,
+    "centralGlassWidth": 5.199999809265137,
+    "centralGlassHeight": 4.349999904632568,
+    "rightGlassWidth": 2.549999952316284,
+    "rightGlassHeight": 2.799999952316284,
+    "centralGlassBottom": 4.949999809265137,
+    "centralGlassTop": 9.300000190734863,
+    "hangingScreenBottom": 9.25,
+    "hangingScreenTop": 10.449999809265137,
+    "centralWindowCentersX": [
+        0.0,
+        9.600000381469727
+    ],
+    "endWallCentersX": [
+        -4.099999904632568,
+        14.300000190734863
+    ],
+    "rightWindowCentersX": [
+        -19.287500381469727,
+        -15.0625,
+        -10.837499618530273,
+        -6.612500190734863
+    ],
+    "rightWindowBottoms": [
+        4.650000095367432,
+        7.800000190734863
+    ]
+}

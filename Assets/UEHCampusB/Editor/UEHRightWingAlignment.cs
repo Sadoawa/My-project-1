@@ -124,7 +124,6 @@ namespace UEH.CampusB.Editor
             var panes = new System.Collections.Generic.List<Transform>();
             foreach (Transform child in root) if (child.name.StartsWith("Entrance_fixed_pane_")) panes.Add(child);
             foreach (var pane in panes) pane.SetParent(entrance, true);
-            Text(root, "Entrance_label", "UEH  /  CƠ SỞ B", new Vector3(0, 3.75f, 0.11f), 4.3f, 0.3f, "Teal");
         }
 
         private static void BuildFacultyLiftEntrance(Transform lobbyRoot)

@@ -31,6 +31,7 @@ namespace UEH.CampusB
         public bool ocbBranch;
         public bool wrappedB1Frame;
         [Min(0)] public float b1FrameRearOverrun = 4;
+        [Range(0.8f, 5)] public float b1FrameFrontZ = 3.2f;
         [Range(0.9f, 2.4f)] public float lobbyColumnWidth = 0.9f;
         [Range(3.8f, 6)] public float lobbyHeight = 4.5f;
         [Range(3, 8)] public float entryWidth = 5.6f;

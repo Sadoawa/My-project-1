@@ -157,5 +157,6 @@
     "Meshes\\B1Frame_05_University_identity_White.asset",
     "Meshes\\B1Frame_05_University_identity_White.asset.meta"
   ],
-  "exteriorDependencyGuidsResolved": 88
+  "exteriorDependencyGuidsResolved": 88,
+  "supersededBy": "b1-reference-facade-delivery.json"
 }

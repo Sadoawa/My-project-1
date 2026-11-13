@@ -58,7 +58,6 @@ namespace UEH.CampusB.Editor
             BuildGateBay(entrance, "BAY_RIGHT_fixed", RightCornerColumnX(dimensions) + halfColumn, -inner - halfColumn, false, 0, 0, true);
             BuildGateBay(entrance, "BAY_CENTER_walkable", -inner + halfColumn, inner - halfColumn, true, 0, dimensions.entryWidth, false);
             BuildGateBay(entrance, "BAY_SINCE_walkable", inner + halfColumn, LeftGateColumnX(dimensions) - halfColumn, true, SinceGateCenterX(dimensions), SinceGateWidth, false);
-            Text(lobby, "Entrance_label", "UEH  /  CƠ SỞ B", new Vector3(0, 3.8f, EntranceGlassZ(dimensions) + 0.11f), 4.3f, 0.3f, "Teal");
             MoveSinceEntrancePlanter(lobby);
         }
 

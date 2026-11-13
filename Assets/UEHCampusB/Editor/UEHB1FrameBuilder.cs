@@ -11,9 +11,9 @@ namespace UEH.CampusB.Editor
 {
     public static partial class UEHCampusBuilder
     {
-        private const float B1FrameFrontZ = 0.8f;
+        private static float B1FrameFrontZ => dimensions.b1FrameFrontZ;
         private static float B1FrameRearZ => -Mathf.Max(dimensions.lobbyDepth, dimensions.exteriorDepth) - dimensions.b1FrameRearOverrun;
-        private static float B1FrameTop => dimensions.lobbyHeight + 7.8f;
+        private static float B1FrameTop => dimensions.lobbyHeight + 6.3f;
         private static float B1FrameLeftX => Mathf.Max(dimensions.frontage / 2, OcbCenterX + OcbWidth / 2) + 0.6f;
         private static float B1FrameRightX => Mathf.Min(RightCornerColumnX(dimensions), RightFacadeX(dimensions) - FacultyRoomDepth - 0.8f);
         private static float[] B1FrontPierAxes => new[] { B1FrameRightX, -dimensions.frontage * 0.125f, dimensions.frontage * 0.125f, LeftGateColumnX(dimensions), B1FrameLeftX };
@@ -41,6 +41,7 @@ namespace UEH.CampusB.Editor
             { var m = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(guid)); materials[m.name] = m; }
             signFont = AssetDatabase.LoadAssetAtPath<Font>(Root + "/Fonts/LiberationSans.ttf");
             dimensions.wrappedB1Frame = true;
+            dimensions.b1FrameFrontZ = 3.2f;
             EditorUtility.SetDirty(dimensions);
             string path = Root + "/Prefabs/UEH_Exterior.prefab";
             var contents = PrefabUtility.LoadPrefabContents(path);
@@ -48,10 +49,14 @@ namespace UEH.CampusB.Editor
             {
                 foreach (string name in new[] { "02_Podium_structure", "03_Balcony_1", "03_Balcony_2", "03_Balcony_3", "04_Horizontal_louvres", "05_University_identity", "University_name", "Campus_address", "18_B1_structural_frame" })
                 { var old = contents.transform.Find(name); if (old != null) UnityEngine.Object.DestroyImmediate(old.gameObject); }
+                foreach (Transform child in new List<Transform>(GetDirectChildren(contents.transform)))
+                    if (child.name.StartsWith("06_Tower_") || child.name.StartsWith("07_Tower_")) UnityEngine.Object.DestroyImmediate(child.gameObject);
                 BuildB1FrameEnvelope(contents.transform);
+                BuildB1ReferenceTower(contents.transform);
                 PrefabUtility.SaveAsPrefabAsset(contents, path);
             }
             finally { PrefabUtility.UnloadPrefabContents(contents); }
+            RemoveFloatingB1EntranceLabel();
             AssetDatabase.SaveAssets();
             EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             SetupB1FrameViewpoints();
@@ -64,11 +69,20 @@ namespace UEH.CampusB.Editor
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
             CaptureB1FramePreviews();
+            CaptureB1FacadePreviews();
+            CaptureB1BalconyDetailPreviews();
+            CaptureB1FourthFloorPreviews();
+            CaptureB1CanopyPreviews();
+            CaptureB1RaisedSignPreviews();
+            CaptureB1TowerProportionPreviews();
+            CaptureB1FloorClosurePreviews();
             File.WriteAllText(Path.GetFullPath("Docs/UEH-CampusB/b1-frame-layout.json"), JsonUtility.ToJson(new B1FrameLayout
             {
                 frontPierAxes = B1FrontPierAxes, sidePierZ = B1SidePierDepths,
                 minX = B1FrameRightX - 0.4f, maxX = B1FrameLeftX + 0.4f,
                 frontZ = B1FrameFrontZ, rearZ = B1FrameRearZ, topY = B1FrameTop,
+                porchDepthFromEntranceGlass = B1FrameFrontZ - EntranceGlassZ(dimensions),
+                upperTerraceFloors = new[] { B1FrameTop, B1FrameTop + 3.6f, B1FrameTop + 7.2f },
                 lobbyDepth = dimensions.lobbyDepth, rearOverrun = -B1FrameRearZ - dimensions.lobbyDepth,
                 centralEntranceClearOfFrame = centralClear, sinceEntranceClearOfFrame = sinceClear, coversLobby = containsLobby
             }, true));
@@ -83,63 +97,7 @@ namespace UEH.CampusB.Editor
             float span = left - right, centerX = (left + right) / 2;
             float rear = B1FrameRearZ, depth = B1FrameFrontZ - rear, centerZ = (B1FrameFrontZ + rear) / 2;
 
-            // Keep the existing ground-floor service/office wall openings; replace the old short upper podium.
-            var cladding = new Part("02_Podium_structure", exteriorRoot, "B1Frame");
-            foreach (var f in ServiceExteriorWallFragments(dimensions.frontage, dimensions.exteriorDepth, h)) cladding.Box("Ivory", f.Key, f.Value);
-            foreach (var f in OfficeExteriorWallFragments(dimensions.frontage, dimensions.exteriorDepth, h)) cladding.Box("Ivory", f.Key, f.Value);
-            cladding.Finish();
-
-            var frame = RightGroup(exteriorRoot, "18_B1_structural_frame", Vector3.zero);
-            var members = new Part("01_Frame_columns_and_ring_beams", frame, "B1Frame");
-            foreach (float x in B1FrontPierAxes) AddB1FramePier(members, x, B1FrameFrontZ, true, 0);
-            var depths = B1SidePierDepths;
-            for (int i = 1; i < depths.Length; i++)
-            {
-                AddB1FramePier(members, right, depths[i], false, -1);
-                AddB1FramePier(members, left, depths[i], false, 1);
-            }
-            for (int i = 1; i < B1FrontPierAxes.Length - 1; i++)
-                AddB1FramePier(members, B1FrontPierAxes[i], rear, false, 0);
-
-            var slabs = new Part("02_Podium_decks_and_soffits", frame, "B1Frame");
-            for (int level = 0; level < 3; level++)
-            {
-                float y = h + level * 3.9f;
-                // Full-length slabs join every front pier to the side/rear frame, including beyond the lobby end.
-                slabs.Box("Ivory", new Vector3(centerX, y + 0.14f, centerZ), new Vector3(span + 1.4f, 0.28f, depth + 1.5f));
-                members.Box("White", new Vector3(centerX, y + 0.05f, B1FrameFrontZ), new Vector3(span + 0.7f, 0.5f, 0.75f));
-                members.Box("White", new Vector3(centerX, y + 0.05f, rear), new Vector3(span + 0.7f, 0.5f, 0.75f));
-                foreach (float x in new[] { right, left })
-                    members.Box("White", new Vector3(x, y + 0.05f, centerZ), new Vector3(0.75f, 0.5f, depth));
-                foreach (float x in new[] { -dimensions.frontage * 0.125f, dimensions.frontage * 0.125f, LeftGateColumnX(dimensions) })
-                    members.Box("Ivory", new Vector3(x, y + 0.1f, centerZ), new Vector3(0.38f, 0.36f, depth));
-                for (int bay = 1; bay < depths.Length - 1; bay++)
-                    members.Box("Ivory", new Vector3(centerX, y + 0.1f, depths[bay]), new Vector3(span, 0.3f, 0.38f));
-                // Thin layered cornices, front and on both returns.
-                slabs.Box("White", new Vector3(centerX, y + 0.31f, B1FrameFrontZ + 0.66f), new Vector3(span + 1.6f, 0.09f, 0.3f));
-                slabs.Box("White", new Vector3(centerX, y + 0.31f, rear - 0.66f), new Vector3(span + 1.6f, 0.09f, 0.3f));
-                foreach (float x in new[] { right - 0.66f, left + 0.66f })
-                    slabs.Box("White", new Vector3(x, y + 0.31f, centerZ), new Vector3(0.3f, 0.09f, depth + 1.5f));
-                slabs.Box("Wood", new Vector3(centerX, y - 0.205f, 0.15f), new Vector3(span - 0.8f, 0.045f, 2.5f));
-            }
-            members.Finish(); slabs.Finish();
-
-            BuildB1BalconiesAndInfill(frame, h, right, left, rear);
-            var paving = new Part("04_Side_and_rear_paving", frame, "B1Frame");
-            float outerRight = right - 0.9f, outerLeft = left + 0.9f;
-            float lobbyHalf = dimensions.frontage / 2;
-            paving.Box("Pavement", new Vector3((outerRight - lobbyHalf) / 2, -0.15f, centerZ), new Vector3(-lobbyHalf - outerRight, 0.3f, depth + 1.8f), true);
-            paving.Box("Pavement", new Vector3((outerLeft + lobbyHalf) / 2, -0.15f, centerZ), new Vector3(outerLeft - lobbyHalf, 0.3f, depth + 1.8f), true);
-            float extra = -rear - dimensions.lobbyDepth + 0.9f;
-            paving.Box("Pavement", new Vector3(centerX, -0.15f, -dimensions.lobbyDepth - extra / 2), new Vector3(span + 1.8f, 0.3f, extra), true);
-            paving.Finish();
-
-            var identity = new Part("05_University_identity", exteriorRoot, "B1Frame");
-            identity.Box("Ivory", new Vector3(centerX, h + 5.5f, 1.10f), new Vector3(span + 0.4f, 1.2f, 0.23f));
-            identity.Box("White", new Vector3(centerX, h + 6.15f, 1.10f), new Vector3(span + 0.65f, 0.1f, 0.32f));
-            identity.Finish();
-            Text(exteriorRoot, "University_name", "ĐẠI HỌC KINH TẾ TP. HỒ CHÍ MINH", new Vector3(centerX, h + 5.5f, 1.24f), span - 1.8f, 0.82f, "Teal");
-            Text(exteriorRoot, "Campus_address", "UEH  ·  279 NGUYỄN TRI PHƯƠNG", new Vector3(0, h - 0.49f, 1.22f), 11.2f, 0.3f, "Teal");
+            BuildB1ReferenceEnvelope(exteriorRoot, h, right, left, rear);
         }
 
         private static void AddB1FramePier(Part p, float x, float z, bool front, int outwardSide)
@@ -162,84 +120,6 @@ namespace UEH.CampusB.Editor
             }
         }
 
-        private static void BuildB1BalconiesAndInfill(Transform frame, float h, float right, float left, float rear)
-        {
-            var balcony = new Part("03_Balconies_louvres_and_windows", frame, "B1Frame");
-            var axes = B1FrontPierAxes;
-            // Two open central balcony bays with recessed glazing, metal balusters and flowering planters.
-            for (int bay = 1; bay < axes.Length - 2; bay++)
-            {
-                float a = axes[bay] + 0.6f, b = axes[bay + 1] - 0.6f, mid = (a + b) / 2;
-                for (int level = 0; level < 2; level++)
-                {
-                    float y = h + level * 3.9f;
-                    balcony.Box("BlueGlass", new Vector3(mid, y + 1.85f, -1.8f), new Vector3(b - a, 2.8f, 0.08f));
-                    balcony.Box("Metal", new Vector3(mid, y + 1.22f, 0.48f), new Vector3(b - a, 0.065f, 0.07f));
-                    balcony.Box("White", new Vector3(mid, y + 0.46f, 0.48f), new Vector3(b - a, 0.16f, 0.2f));
-                    for (float x = a; x <= b; x += 0.18f)
-                        balcony.Box("Silver", new Vector3(x, y + 0.86f, 0.48f), new Vector3(0.028f, 0.74f, 0.038f));
-                    foreach (float x in new[] { mid - 1.65f, mid + 1.65f })
-                    {
-                        balcony.Box("Stone", new Vector3(x, y + 0.56f, 0.11f), new Vector3(1.55f, 0.32f, 0.54f));
-                        for (int i = 0; i < 7; i++)
-                        {
-                            Vector3 pos = new Vector3(x - 0.58f + i * 0.19f, y + 0.88f + i % 3 * 0.07f, 0.1f);
-                            balcony.Sphere("Leaf", pos, new Vector3(0.42f, 0.5f, 0.48f));
-                            balcony.Sphere("Flower", pos + new Vector3(0, 0.21f, 0.09f), new Vector3(0.39f, 0.26f, 0.38f));
-                        }
-                    }
-                }
-            }
-            // The OCB bay carries the horizontal screen; the opposite wing is a glazed office bay.
-            float screenA = axes[3] + 0.6f, screenB = axes[4] - 0.6f;
-            balcony.Box("Dark", new Vector3((screenA + screenB) / 2, h + 1.95f, -0.15f), new Vector3(screenB - screenA, 3.35f, 0.10f));
-            for (int i = 0; i < 22; i++)
-                balcony.Box("Silver", new Vector3((screenA + screenB) / 2, h + 0.5f + i * 0.135f, 0.32f), new Vector3(screenB - screenA, 0.065f, 0.18f));
-            balcony.Box("Orange", new Vector3((screenA + screenB) / 2, h + 3.53f, 0.34f), new Vector3(screenB - screenA, 0.09f, 0.2f));
-            float windowA = axes[0] + 0.6f, windowB = axes[1] - 0.6f;
-            for (int level = 0; level < 2; level++)
-            {
-                float y = h + level * 3.9f;
-                balcony.Box("BlueGlass", new Vector3((windowA + windowB) / 2, y + 1.95f, -0.2f), new Vector3(windowB - windowA, 3.0f, 0.09f));
-                for (float x = windowA; x <= windowB; x += 2.45f)
-                    balcony.Box("White", new Vector3(x, y + 1.95f, -0.1f), new Vector3(0.13f, 3.2f, 0.16f));
-                balcony.Box("White", new Vector3((windowA + windowB) / 2, y + 1.3f, -0.1f), new Vector3(windowB - windowA, 0.13f, 0.16f));
-            }
-            // Continue window bays down both returns to make the long ring frame legible from the side.
-            var depths = B1SidePierDepths;
-            for (int i = 0; i < depths.Length - 1; i++)
-            {
-                float a = depths[i] - 0.6f, b = depths[i + 1] + 0.6f;
-                if (a <= b) continue;
-                for (int level = 0; level < 2; level++)
-                {
-                    float y = h + level * 3.9f;
-                    foreach (int side in new[] { -1, 1 })
-                    {
-                        float x = side < 0 ? right + 0.15f : left - 0.15f;
-                        balcony.Box("BlueGlass", new Vector3(x, y + 1.94f, (a + b) / 2), new Vector3(0.08f, 3.0f, a - b));
-                        for (float z = b; z < a; z += 2.1f)
-                            balcony.Box("White", new Vector3(x + side * 0.08f, y + 1.94f, z), new Vector3(0.16f, 3.2f, 0.1f));
-                        balcony.Box("White", new Vector3(x + side * 0.08f, y + 1.3f, (a + b) / 2), new Vector3(0.16f, 0.1f, a - b));
-                    }
-                }
-            }
-            // Upper terrace rail on the whole perimeter; ground rear stays open.
-            float terrace = B1FrameTop + 0.32f;
-            balcony.Box("Silver", new Vector3((left + right) / 2, terrace + 1.05f, B1FrameFrontZ + 0.4f), new Vector3(left - right + 0.7f, 0.055f, 0.065f));
-            balcony.Box("Silver", new Vector3((left + right) / 2, terrace + 1.05f, rear - 0.4f), new Vector3(left - right + 0.7f, 0.055f, 0.065f));
-            for (float x = right - 0.3f; x < left + 0.4f; x += 0.25f)
-                foreach (float z in new[] { B1FrameFrontZ + 0.4f, rear - 0.4f })
-                    balcony.Box("Silver", new Vector3(x, terrace + 0.57f, z), new Vector3(0.025f, 0.96f, 0.025f));
-            foreach (float x in new[] { right - 0.4f, left + 0.4f })
-            {
-                balcony.Box("Silver", new Vector3(x, terrace + 1.05f, (B1FrameFrontZ + rear) / 2), new Vector3(0.065f, 0.055f, B1FrameFrontZ - rear + 0.8f));
-                for (float z = rear - 0.4f; z < B1FrameFrontZ + 0.4f; z += 0.25f)
-                    balcony.Box("Silver", new Vector3(x, terrace + 0.57f, z), new Vector3(0.025f, 0.96f, 0.025f));
-            }
-            balcony.Finish();
-        }
-
         private static bool B1FrameGateClear(Transform frame, float x)
         {
             var lane = new Bounds(new Vector3(x, 1.05f, 0), new Vector3(0.95f, 1.85f, 6));
@@ -253,6 +133,7 @@ namespace UEH.CampusB.Editor
             var views = GameObject.Find("Review viewpoints [select and align view]"); if (views == null) return;
             foreach (string name in new[] { "82_B1_frame_front", "83_B1_frame_virtual_tour_angle", "84_B1_frame_OCB_porch", "85_B1_frame_full_side_depth", "86_B1_frame_rear_overrun", "87_B1_frame_lobby_cutaway" })
             { var old = views.transform.Find(name); if (old != null) UnityEngine.Object.DestroyImmediate(old.gameObject); }
+            SetupB1FacadeViewpoints(views.transform);
             Viewpoint(views.transform, "82_B1_frame_front", new Vector3(2, 7.2f, 37), new Vector3(1, 6, -1));
             Viewpoint(views.transform, "83_B1_frame_virtual_tour_angle", new Vector3(29, 2, 20), new Vector3(3, 9, -1));
             Viewpoint(views.transform, "84_B1_frame_OCB_porch", new Vector3(30, 2.1f, 9), new Vector3(18, 4.3f, -5));
@@ -304,7 +185,8 @@ namespace UEH.CampusB.Editor
         {
             public string status = "Native Unity geometry and rendered previews; dimensions estimated from user-provided Virtual Tour images; cutaway 87 hides roofs for review only.";
             public float[] frontPierAxes, sidePierZ;
-            public float minX, maxX, frontZ, rearZ, topY, lobbyDepth, rearOverrun;
+            public float minX, maxX, frontZ, rearZ, topY, lobbyDepth, rearOverrun, porchDepthFromEntranceGlass;
+            public float[] upperTerraceFloors;
             public bool centralEntranceClearOfFrame, sinceEntranceClearOfFrame, coversLobby;
         }
     }

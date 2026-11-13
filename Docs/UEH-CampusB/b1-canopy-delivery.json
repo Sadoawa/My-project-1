@@ -1,0 +1,63 @@
+{
+  "nativeUnityExitCode": 0,
+  "oldIndependentFasciaGroupRemoved": true,
+  "onlyExistingGroupsReplaced": [
+    "18_B1_structural_frame/02_Podium_decks_and_soffits",
+    "05_University_identity (removed)",
+    "University_name (resized and remounted)"
+  ],
+  "allOtherExistingExteriorObjectsAndComponentsByteUnchanged": true,
+  "lobbyPrefabByteUnchanged": true,
+  "unchangedMeshesOutsidePodiumDecks": 754,
+  "copiedNativeFilesMatch": true,
+  "playModeRun": false,
+  "layout": {
+    "status": "Canopy refined from marked user images; dimensions are image-based estimates.",
+    "slabBottomY": 10.800000190734863,
+    "slabTopY": 11.15999984741211,
+    "outerFrontZ": 4.449999809265137,
+    "outerRightX": -22.649999618530273,
+    "outerLeftX": 24.850000381469727,
+    "rearEdgeZ": -52.650001525878906,
+    "nameCenterY": 10.980000495910645,
+    "projectionFromColumnAxis": 1.25,
+    "previousProjection": 0.6499999761581421,
+    "addedFrontAndSideProjection": 0.6000000238418579,
+    "slabThickness": 0.36000001430511475,
+    "removedFasciaWallHeight": 1.1799999475479126,
+    "separateFasciaWallRemoved": true,
+    "letteringMountedOnSlabEdge": true
+  },
+  "previewsReviewed": [
+    "104_B1_extended_canopy_grazing_edge.png",
+    "105_B1_canopy_without_deep_fascia.png",
+    "106_B1_thin_continuous_canopy_front.png",
+    "107_B1_canopy_flush_return_corner.png"
+  ],
+  "nativeFilesDelivered": [
+    "Assets/UEHCampusB/Meshes/B1Frame_02_Podium_decks_and_soffits_B1Sandstone.asset",
+    "Assets/UEHCampusB/Meshes/B1Frame_02_Podium_decks_and_soffits_B1Sandstone.asset.meta",
+    "Assets/UEHCampusB/Meshes/B1Frame_02_Podium_decks_and_soffits_Ivory.asset",
+    "Assets/UEHCampusB/Meshes/B1Frame_02_Podium_decks_and_soffits_Ivory.asset.meta",
+    "Assets/UEHCampusB/Meshes/B1Frame_02_Podium_decks_and_soffits_White.asset",
+    "Assets/UEHCampusB/Meshes/B1Frame_02_Podium_decks_and_soffits_White.asset.meta",
+    "Assets/UEHCampusB/Meshes/B1Frame_02_Podium_decks_and_soffits_Wood.asset",
+    "Assets/UEHCampusB/Meshes/B1Frame_02_Podium_decks_and_soffits_Wood.asset.meta",
+    "Assets/UEHCampusB/Editor/UEHB1CanopyRefinement.cs.meta",
+    "Assets/UEHCampusB/Prefabs/UEH_Exterior.prefab",
+    "Assets/UEHCampusB/Scenes/UEH_CampusB_Study.unity",
+    "Docs/UEH-CampusB/Previews/104_B1_extended_canopy_grazing_edge.png",
+    "Docs/UEH-CampusB/Previews/105_B1_canopy_without_deep_fascia.png",
+    "Docs/UEH-CampusB/Previews/106_B1_thin_continuous_canopy_front.png",
+    "Docs/UEH-CampusB/Previews/107_B1_canopy_flush_return_corner.png",
+    "Docs/UEH-CampusB/Previews/88_B1_refined_front.png",
+    "Docs/UEH-CampusB/Previews/89_B1_reference_upper_storeys.png",
+    "Docs/UEH-CampusB/Previews/90_B1_deeper_porch_columns.png",
+    "Docs/UEH-CampusB/Previews/91_B1_entrance_without_floating_labels.png",
+    "Docs/UEH-CampusB/Previews/92_B1_stepped_terraces_and_screen.png",
+    "Docs/UEH-CampusB/Previews/93_B1_full_depth_refined_frame.png",
+    "Docs/UEH-CampusB/b1-canopy-layout.json"
+  ],
+  "timberExtentSupersededBy": "b1-central-timber-delivery.json",
+  "letteringSupersededBy": "b1-raised-sign-delivery.json"
+}

@@ -289,7 +289,6 @@ namespace UEH.CampusB.Editor
             entrance.Box("Metal", new Vector3(0, 3.3f, 0), new Vector3(entry, 0.13f, 0.25f));
             entrance.Box("ClearGlass", new Vector3(0, 3.86f, 0), new Vector3(entry, 0.95f, 0.025f));
             entrance.Finish();
-            Text(root, "Entrance_label", "UEH  /  CƠ SỞ B", new Vector3(0, 3.65f, 0.11f), 4.3f, 0.36f, "Teal");
         }
     }
 }

@@ -8,7 +8,7 @@
         23.600000381469727
     ],
     "sidePierZ": [
-        0.800000011920929,
+        3.200000047683716,
         -8.0,
         -16.0,
         -24.0,
@@ -19,11 +19,17 @@
     ],
     "minX": -21.799999237060547,
     "maxX": 24.0,
-    "frontZ": 0.800000011920929,
+    "frontZ": 3.200000047683716,
     "rearZ": -52.0,
-    "topY": 12.300000190734863,
+    "topY": 10.800000190734863,
     "lobbyDepth": 48.0,
     "rearOverrun": 4.0,
+    "porchDepthFromEntranceGlass": 4.320000171661377,
+    "upperTerraceFloors": [
+        10.800000190734863,
+        14.399999618530273,
+        18.0
+    ],
     "centralEntranceClearOfFrame": true,
     "sinceEntranceClearOfFrame": true,
     "coversLobby": true

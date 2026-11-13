@@ -1,0 +1,23 @@
+{
+    "status": "Timber soffits restricted to the two central bays; four panels across two heights.",
+    "panelsPerHeight": 2,
+    "heightCount": 2,
+    "panelLeftEdgesX": [
+        -3.950000047683716,
+        5.050000190734863
+    ],
+    "panelRightEdgesX": [
+        3.950000047683716,
+        14.149999618530273
+    ],
+    "panelWidths": [
+        7.900000095367432,
+        9.09999942779541
+    ],
+    "ceilingHeights": [
+        4.269999980926514,
+        10.570000648498535
+    ],
+    "innerZ": -1.1399999856948853,
+    "frontZ": 3.0399999618530273
+}

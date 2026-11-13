@@ -1,0 +1,14 @@
+{
+  "nativeUnityExitCode": 0,
+  "rendererMaterialAssignmentsChanged": 2,
+  "allOtherExteriorSerializedDataUnchanged": true,
+  "material": "Assets/UEHCampusB/Materials/Ivory.mat",
+  "materialGuid": "197d24104bd75614e955790bb6e5b253",
+  "centralWindowMeshesUnchanged": 3,
+  "previewsReviewed": [
+    "108_B1_central_windows_wall_colour.png"
+  ],
+  "copiedFilesMatchNative": true,
+  "playModeRun": false,
+  "completedBy": "b1-window-surround-colour-delivery.json"
+}

@@ -1,0 +1,16 @@
+{
+    "status": "Upper tower footprint balanced against lower terraces; image-based estimated dimensions, not surveyed floor areas.",
+    "width": 32.5,
+    "depth": 46.0,
+    "frontZ": -1.399999976158142,
+    "rearZ": -47.400001525878906,
+    "envelopeFloorArea": 1495.0,
+    "previousDepth": 19.0,
+    "previousEnvelopeFloorArea": 617.5,
+    "lowerTerraceDepth": 54.0,
+    "lowerTerraceWidth": 43.79999923706055,
+    "baseY": 18.450000762939453,
+    "roofY": 55.0,
+    "endSetback": 4.0,
+    "upperFloorCount": 12
+}

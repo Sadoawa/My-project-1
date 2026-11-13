@@ -1,0 +1,45 @@
+{
+  "nativeUnityExitCode": 0,
+  "newExteriorGroup": "19_Floor_enclosures_and_junctions",
+  "allPreviousExteriorObjectsAndComponentsByteUnchangedExceptRootChildList": true,
+  "lobbyPrefabByteUnchanged": true,
+  "unchangedExistingMeshesOutsideClosureGroup": 761,
+  "copiedNativeFilesMatch": true,
+  "playModeRun": false,
+  "layout": {
+    "status": "Missing room walls and junction gaps closed; dimensions are estimates from the current reference model.",
+    "roomRightX": -18.19999885559082,
+    "roomLeftX": 20.399999618530273,
+    "roomFrontZ": -1.399999976158142,
+    "roomRearZ": -48.79999923706055,
+    "roofTop": 18.360000610351562,
+    "towerBase": 18.450000762939453,
+    "walkwayWidth": 2.5999999046325684,
+    "floorLevels": [
+      10.800000190734863,
+      14.399999618530273
+    ]
+  },
+  "previewsReviewed": [
+    "Docs/UEH-CampusB/Previews/125_B1_closed_floor_side.png",
+    "Docs/UEH-CampusB/Previews/126_B1_closed_floor_rear.png",
+    "Docs/UEH-CampusB/Previews/127_B1_enclosed_room_beside_balcony.png",
+    "Docs/UEH-CampusB/Previews/128_B1_closed_tower_base_junction.png"
+  ],
+  "deliveredNativeFiles": [
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_BlueGlass.asset",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_BlueGlass.asset.meta",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_Ivory.asset",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_Ivory.asset.meta",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_White.asset",
+    "Assets/UEHCampusB/Meshes/B1FloorClosure_19_Floor_enclosures_and_junctions_White.asset.meta",
+    "Assets/UEHCampusB/Prefabs/UEH_Exterior.prefab",
+    "Assets/UEHCampusB/Scenes/UEH_CampusB_Study.unity",
+    "Assets/UEHCampusB/Editor/UEHB1FloorClosures.cs.meta",
+    "Docs/UEH-CampusB/b1-floor-closure-layout.json",
+    "Docs/UEH-CampusB/Previews/125_B1_closed_floor_side.png",
+    "Docs/UEH-CampusB/Previews/126_B1_closed_floor_rear.png",
+    "Docs/UEH-CampusB/Previews/127_B1_enclosed_room_beside_balcony.png",
+    "Docs/UEH-CampusB/Previews/128_B1_closed_tower_base_junction.png"
+  ]
+}

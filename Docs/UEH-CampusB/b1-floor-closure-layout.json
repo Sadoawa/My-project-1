@@ -1,0 +1,14 @@
+{
+    "status": "Missing room walls and junction gaps closed; dimensions are estimates from the current reference model.",
+    "roomRightX": -18.19999885559082,
+    "roomLeftX": 20.399999618530273,
+    "roomFrontZ": -1.399999976158142,
+    "roomRearZ": -48.79999923706055,
+    "roofTop": 18.360000610351563,
+    "towerBase": 18.450000762939453,
+    "walkwayWidth": 2.5999999046325684,
+    "floorLevels": [
+        10.800000190734863,
+        14.399999618530273
+    ]
+}

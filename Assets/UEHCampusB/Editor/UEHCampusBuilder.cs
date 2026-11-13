@@ -501,9 +501,11 @@ namespace UEH.CampusB.Editor
             identity.Box("Ivory", new Vector3(0, h + 5.5f, 2.16f), new Vector3(w - 0.8f, 1.5f, 0.22f));
             identity.Finish();
             Text(exterior, "University_name", "ĐẠI HỌC KINH TẾ TP. HỒ CHÍ MINH", new Vector3(0, h + 5.5f, 2.31f), w - 2.0f, 0.95f, "Teal");
-            Text(exterior, "Campus_address", "UEH  ·  279 NGUYỄN TRI PHƯƠNG", new Vector3(0, 4.12f, 0.42f), 12, 0.38f, "Teal");
             }
 
+            if (dimensions.wrappedB1Frame) BuildB1ReferenceTower(exterior);
+            else
+            {
             float towerBase = h + 8.2f, tw = w - 3.5f, td = d - 5;
             float floorHeight = (dimensions.towerHeight - towerBase) / dimensions.upperFloors;
             var core = new Part("06_Tower_shell_estimated", exterior);
@@ -529,6 +531,7 @@ namespace UEH.CampusB.Editor
                             frame.Box("Ivory", new Vector3(side * (tw / 2 + 0.05f), y + floorHeight / 2, z - td / 2 + bay * td / 4), new Vector3(0.15f, floorHeight, 0.35f));
                 }
                 frame.Finish();
+            }
             }
             BuildGateAndLandscape(w);
         }
@@ -625,7 +628,6 @@ namespace UEH.CampusB.Editor
                 entrance.Box("Silver", new Vector3(side * (entry / 2 + 0.18f), 1.5f, -0.19f), new Vector3(0.045f, 0.7f, 0.045f));
             }
             entrance.Finish();
-            Text(lobby, "Entrance_label", "UEH  /  CƠ SỞ B", new Vector3(0, 3.65f, 0.11f), 4.3f, 0.36f, "Teal");
 
             var ceiling = new Part("04_Timber_ceiling_and_downlights", lobby);
             foreach (float centerX in new[] { -w * 0.34f, 0, w * 0.34f })

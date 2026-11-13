@@ -38,6 +38,7 @@ MonoBehaviour:
   ocbBranch: 1
   wrappedB1Frame: 1
   b1FrameRearOverrun: 4
+  b1FrameFrontZ: 3.2
   lobbyColumnWidth: 2
   lobbyHeight: 4.5
   entryWidth: 5.6

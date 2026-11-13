@@ -1,0 +1,16 @@
+{
+  "nativeUnityExitCode": 0,
+  "actualRendererMaterialChangesFromPreviousDelivery": 1,
+  "changedSurface": "Complete back wall surrounding both central windows",
+  "sharedMaterial": "Assets/UEHCampusB/Materials/Ivory.mat",
+  "allOtherExteriorSerializedDataUnchanged": true,
+  "wallMeshUnchanged": true,
+  "woodMaterialAssetUnchanged": true,
+  "lobbyPrefabUnchanged": true,
+  "copiedFilesMatchNative": true,
+  "previewsReviewed": [
+    "109_B1_complete_central_surround_wall_colour.png",
+    "108_B1_central_windows_wall_colour.png"
+  ],
+  "playModeRun": false
+}

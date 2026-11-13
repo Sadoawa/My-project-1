@@ -1,5 +1,72 @@
 # Bản dựng UEH Cơ sở B để duyệt
 
+**Bổ sung vách phòng và khép khe tiếp giáp tầng — 13/11/2026:** tầng 3–4 có thêm hai vách bên và vách sau của khối phòng, gồm chân tường, đà đầu, trụ giữa và kính chia ô. Các mảng này chạy liên tục từ mặt sàn tới trần, có phần giao nhau tại góc; hành lang ban công ngoài rộng khoảng 2,6 m. Bổ sung dải nối đầu vách trước với trần, lớp trần phòng, bệ chân khối tháp để lấp khe khoảng 9 cm, và các mảng hồi kính ở góc khối tầng cao. [Bên hông](Previews/125_B1_closed_floor_side.png), [phía sau](Previews/126_B1_closed_floor_rear.png), [hành lang](Previews/127_B1_enclosed_room_beside_balcony.png), [chân khối tháp](Previews/128_B1_closed_tower_base_junction.png). Xem [bố trí](b1-floor-closure-layout.json). Kích thước ước lượng theo mô hình và ảnh tham khảo.
+
+**Cân đối chiều dài khối từ tầng 5 trở lên — 13/11/2026:** tăng chiều sâu khối tháp từ khoảng 19 m lên 46 m, theo chiều sâu tầng 3–4 là 54 m và chừa khoảng lùi 4 m ở mỗi đầu. Chiều ngang tháp 32,5 m; mặt bằng bao ngoài xấp xỉ 1.495 m² mỗi tầng, là diện tích hình bao ước lượng, không phải diện tích sử dụng đo đạc. Vỏ kính, mái, dải sàn và nhịp khung kính bên hông được kéo theo cùng đường biên; hoàn thiện mặt sau theo cùng cao độ tầng. [Bên hông](Previews/121_B1_balanced_tower_full_side.png), [góc trước](Previews/122_B1_balanced_tower_front_corner.png), [góc sau](Previews/123_B1_balanced_tower_rear_corner.png), [mặt bằng nhìn trên](Previews/124_B1_balanced_tower_footprint_above.png). Xem [kích thước](b1-tower-proportions-layout.json).
+
+**Bộ chữ nổi dựng đứng theo Virtual Tour — 13/11/2026:** bỏ dòng chữ nhỏ trên cạnh mái, thay bằng chữ khối xanh lam có viền trắng, đặt đứng phía trên mái dưới ban công tầng 3 tại vùng người dùng khoanh. Mỗi chữ có thanh đỡ nhỏ và bản mã chân phía sau, không có tấm nền. Giữ đầy đủ nội dung “ĐẠI HỌC KINH TẾ TP. HỒ CHÍ MINH” như biển trong ảnh; kiểu chữ, màu và kích thước là ước lượng thị giác từ ảnh tham khảo. Dữ liệu hình học lấy từ Roboto Bold có sẵn trong dự án, dựng khối thật để nhìn được độ dày và viền ở góc nghiêng. [Mặt tiền](Previews/117_B1_raised_sign_front.png), [viền chữ](Previews/118_B1_raised_sign_white_outline_closeup.png), [từ sân](Previews/119_B1_raised_sign_from_street.png), [thanh đỡ phía sau](Previews/120_B1_raised_sign_rear_supports.png). Xem [bố trí bộ chữ](b1-raised-sign-layout.json).
+
+**Giật cấp nhẹ tầng 3 và 4 — 13/11/2026:** lùi trục mép hai tầng mở vào 0,6 m ở mỗi cạnh so với khối đế; mặt bằng ước lượng còn 43,8 × 54 m, vẫn rộng hơn khối tháp 32,5 m. Cột, lan can, kính và mái tầng trên đi theo đường biên mới. Thay thế phương án hai tầng bằng toàn bộ mặt bằng khối đế trước đây. [Mặt tiền](Previews/113_B1_mild_setback_front.png), [góc bên](Previews/114_B1_mild_setback_corner.png), [bên hông](Previews/115_B1_mild_setback_side.png), [phía sau](Previews/116_B1_mild_setback_rear.png). Kích thước ước lượng theo ảnh; xem [mặt bằng](b1-upper-terrace-setback-layout.json).
+
+**Ốp gỗ chỉ ở hai khoang giữa — 13/11/2026:** thu bề rộng và chiều sâu ốp gỗ ở hai cao độ thành bốn mảng độc lập, mép dừng bên trong các cột phân khu; phần mái ngoài và hai cánh bên có mặt dưới màu kem. [Tổng thể](Previews/110_B1_timber_only_central_bays.png), [cận cảnh trần giữa](Previews/111_B1_central_timber_ceiling_closeup.png), [cánh cửa kính bên phải](Previews/112_B1_plain_soffit_at_side_window_wing.png). Xem [giới hạn từng mảng](b1-central-timber-layout.json) và [đối chiếu bàn giao](b1-central-timber-delivery.json). Đã duyệt render Unity; chưa chạy Play Mode.
+
+**Màu toàn bộ cụm cửa giữa — 13/11/2026:** viền ngoài, các đố chia kính và cả mảng vách bao quanh hai cửa chuyển sang vật liệu `Ivory` dùng cho tường cơ sở; xử lý nốt phần vách nâu còn sót ở lần chỉnh trước. [Toàn cảnh cụm cửa](Previews/109_B1_complete_central_surround_wall_colour.png), [cận cảnh](Previews/108_B1_central_windows_wall_colour.png). Đã dựng ảnh Unity; chưa chạy Play Mode.
+
+## Mái liền mép, bỏ dải tường rời — 13/11/2026
+
+Theo ảnh 161025 và 161222: bản mái ở cao độ 10,8 m kéo thêm 0,6 m phía trước và hai bên, nối liền qua góc mặt tiền/bên hông. Bỏ tấm tường/biển rời cao 1,18 m cùng nẹp nhô phía trên; dùng cạnh bản mái dày 0,36 m để hoàn thiện mép và đặt tên trường thu nhỏ trực tiếp lên đó. Trần gỗ mở rộng tới mép mái mới.
+
+[Mép mái kéo dài](Previews/104_B1_extended_canopy_grazing_edge.png) · [vị trí đã bỏ tường](Previews/105_B1_canopy_without_deep_fascia.png) · [mặt tiền](Previews/106_B1_thin_continuous_canopy_front.png) · [góc nối mái](Previews/107_B1_canopy_flush_return_corner.png).
+
+Kích thước là ước lượng theo ảnh. Đã dựng và duyệt render Unity; chưa chạy Play Mode. Xem [tọa độ](b1-canopy-layout.json) và [đối chiếu bàn giao](b1-canopy-delivery.json).
+
+## Tầng 4 cùng mặt bằng với tầng dưới — 13/11/2026
+
+Theo mũi tên đỏ ở hai đầu tầng ban công trên cùng: mở mỗi bên 1,1 m, phía trước 1,2 m và phía sau 0,7 m. Tầng 4 và mái phủ được căn về đúng mép mặt bằng tầng ngay dưới; cột biên, kính, vách, lan can và phào theo mép mới. Mặt bằng theo trục ước lượng **45 × 55,2 m**, sàn cao độ 14,4 m, mái cao độ 18 m.
+
+[Mặt tiền tầng 4](Previews/100_B1_fourth_floor_full_width_front.png) · [góc cột và mái](Previews/101_B1_fourth_floor_aligned_corners.png) · [toàn bộ chiều sâu](Previews/102_B1_fourth_floor_full_depth_side.png) · [phía sau](Previews/103_B1_fourth_floor_rear_alignment.png).
+
+Đã dựng và duyệt ảnh bằng Unity; chưa chạy Play Mode. Kích thước suy từ ảnh, chưa phải số đo khảo sát. Xem [mặt bằng](b1-fourth-floor-layout.json) và [đối chiếu bàn giao](b1-fourth-floor-delivery.json).
+
+## Hoàn thiện ban công giữa và cửa cánh phải — 13/11/2026
+
+Theo các ảnh 152901, 152931, 154150, 154214, 153527 và 153627:
+
+- Bổ sung hai tường đặc màu kem tại hai đầu ban công giữa; vách sau nối kín. Hai mảng kính lùi phía sau lan can thu hẹp còn 5,2 m, tăng chiều cao lên 4,35 m.
+- Hai dải lam bạc treo từ phía trên xuống 1,2 m, dùng chung chất liệu và nẹp cam với mảng lam trên OCB.
+- Cánh phải có bốn trục cửa cao, cách đều; mỗi tầng bốn cửa, hai tầng thẳng trục. Mỗi cửa có kính khoảng 2,55 × 2,8 m, khung trắng, đố giữa và ô thoáng trên; các dải tường giữa hai tầng được nối kín.
+
+| Ảnh mới | Nội dung |
+|---|---|
+| [94 — Tổng thể ban công giữa](Previews/94_B1_central_balcony_finished.png) | Tường, kính và lam treo |
+| [95 — Tường đầu trái](Previews/95_B1_left_balcony_end_wall.png) | Nối tường với vách sau và trần |
+| [96 — Tường đầu phải](Previews/96_B1_right_balcony_end_wall.png) | Đầu còn lại của ban công |
+| [97 — Kính mới](Previews/97_B1_narrow_taller_central_glass.png) | Tỷ lệ hẹp hơn, cao hơn |
+| [98 — Hai dải lam treo](Previews/98_B1_two_suspended_louvre_screens.png) | Đồng bộ chất liệu với lam OCB |
+| [99 — Bốn trục cửa bên phải](Previews/99_B1_four_even_right_window_stacks.png) | Hai tầng cửa cách đều, thẳng trục |
+
+Kích thước suy từ ảnh, chưa phải số đo khảo sát. Đã dựng và duyệt render trong Unity; chưa chạy Play Mode. Xem [tọa độ chi tiết](b1-balcony-details-layout.json) và [đối chiếu bàn giao](b1-balcony-details-delivery.json). Các mục bên dưới là lịch sử các lần dựng trước.
+
+## Dời cột mặt tiền và chỉnh tầng trên — 13/11/2026
+
+Thiết kế mới thay thế phần mặt tiền ở mục khung ban đầu bên dưới:
+
+- Hàng cột ngoài dịch **2,4 m ra phía sân**, từ Z = 0,8 lên Z = 3,2 m. Hiên giữa hàng cột mới và mặt kính sâu khoảng 4,32 m; trần và nền kéo theo. Vị trí cột đá, cửa kính và OCB giữ nguyên.
+- Bỏ cả hai dòng chữ địa chỉ/cơ sở lơ lửng, kể cả trong các đường Rebuild. Tên trường vẫn đặt trên dải biển có nền.
+- Ô lam trên OCB cao liền một khối, ban công trung tâm lùi sâu với hoa rủ; cánh phải chia tầng kính. Phía trên có hai tầng ban công giật lùi, nẹp mái trắng và khối tháp kết hợp dải ngang với ba trục kính đứng.
+- Khung tiếp tục bao sảnh tới Z = -52 m. Tỷ lệ và khoảng lùi được ước lượng theo ảnh, chưa phải số đo khảo sát. Chưa chạy Play Mode.
+
+| Ảnh hiện tại | Góc nhìn |
+|---|---|
+| [88 — Toàn cảnh](Previews/88_B1_refined_front.png) | Đủ khối đế và tháp |
+| [89 — Các tầng trên](Previews/89_B1_reference_upper_storeys.png) | Lam, ban công và khối tháp |
+| [90 — Hiên sâu hơn](Previews/90_B1_deeper_porch_columns.png) | Khoảng cách cột ngoài với cột đá |
+| [91 — Cổng không còn chữ nổi](Previews/91_B1_entrance_without_floating_labels.png) | Nhìn vào sảnh từ sân |
+| [92 — Các tầng giật lùi](Previews/92_B1_stepped_terraces_and_screen.png) | Ban công hoa, lam và cánh kính |
+| [93 — Bên hông](Previews/93_B1_full_depth_refined_frame.png) | Khung bao tới phía sau |
+
+Xem [tọa độ](b1-frame-layout.json) và [đối chiếu lần chỉnh này](b1-reference-facade-delivery.json).
+
 ## Khung bao trọn sảnh B1 — 13/11/2026
 
 **Đã dựng vào prefab và scene Unity.** Năm trục cột mặt tiền theo ảnh khoanh đỏ có chân đế tối, nẹp trắng và dải lõm màu đá nhạt. Các dầm, phào và sàn hiên nối từ mặt tiền qua hai bên đến phía sau; chiều sâu tới **Z = -52 m**, quá cuối sảnh 48 m thêm **4 m**. Ban công có lan can, hoa, trần hiên gỗ; ô phía trên OCB có lam ngang.

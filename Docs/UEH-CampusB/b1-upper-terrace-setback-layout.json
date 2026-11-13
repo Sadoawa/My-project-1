@@ -1,0 +1,18 @@
+{
+    "status": "Third and fourth floors mildly recessed from lower podium, remaining broader than upper tower; image-based estimated dimensions.",
+    "rightEdgeX": -20.799999237060547,
+    "leftEdgeX": 23.0,
+    "frontEdgeZ": 2.5999999046325684,
+    "rearEdgeZ": -51.400001525878906,
+    "width": 43.79999923706055,
+    "depth": 54.0,
+    "floorArea": 2365.199951171875,
+    "lowerPodiumWidth": 45.0,
+    "lowerPodiumDepth": 55.20000076293945,
+    "towerWidth": 32.5,
+    "thirdFloorY": 10.800000190734863,
+    "fourthFloorY": 14.399999618530273,
+    "roofY": 18.0,
+    "insetEachEdge": 0.6000000238418579,
+    "sameFootprintAsLowerPodium": false
+}
