@@ -10,10 +10,11 @@ namespace UEH.CampusB.Editor
 {
     public static partial class UEHCampusBuilder
     {
-        public static float LeftHeritageZ(UEHDimensions s) => s.compactLeftSequence ? -8.6f : -7.5f;
-        public static float LeftOfficeZ(UEHDimensions s) => s.compactLeftSequence ? -20.1f : -23;
-        public static float LeftLoungeZ(UEHDimensions s) => s.compactLeftSequence ? -30.95f : -37;
-        public static float LeftColumnZ(UEHDimensions s) => s.entranceGlassThroughColumns ? EntranceGlassZ(s) : s.compactLeftSequence ? LeftHeritageZ(s) + 5.35f + 0.725f + s.lobbyColumnWidth / 2 : ExpandedEntranceZ(s);
+        public static float LeftHeritageZ(UEHDimensions s) => s.widerLeftGaps ? -9.4f : s.compactLeftSequence ? -8.6f : -7.5f;
+        public static float LeftOfficeZ(UEHDimensions s) => s.widerLeftGaps ? -22 : s.compactLeftSequence ? -20.1f : -23;
+        public static float LeftLoungeZ(UEHDimensions s) => s.widerLeftGaps ? -34 : s.compactLeftSequence ? -30.95f : -37;
+        private static float LeftHeritageSpacingOffset(UEHDimensions s) => s.widerLeftGaps ? 0.8f : 0;
+        public static float LeftColumnZ(UEHDimensions s) => s.entranceGlassThroughColumns ? EntranceGlassZ(s) : s.compactLeftSequence ? LeftHeritageZ(s) + 5.35f + LeftHeritageSpacingOffset(s) + 0.725f + s.lobbyColumnWidth / 2 : ExpandedEntranceZ(s);
 
         [MenuItem("UEH/Campus B/19. Compact left heritage office lounge and slate wall")]
         public static void CompactLeftSequence()
@@ -33,7 +34,7 @@ namespace UEH.CampusB.Editor
             try
             {
                 var heritage = contents.transform.Find("06_1976_LEFT_from_gate");
-                heritage.localPosition = new Vector3(heritage.localPosition.x, 0, LeftHeritageZ(dimensions));
+                heritage.localPosition = new Vector3(LeftFacadeX(dimensions), 0, LeftHeritageZ(dimensions));
                 BuildHeritageContrast(heritage.Find("06_Heritage_1976_and_gallery"));
                 var areas = contents.transform.Find("09_Four_expansion_areas");
                 CompactLeftBays(areas);
@@ -62,7 +63,7 @@ namespace UEH.CampusB.Editor
             if (old != null) UnityEngine.Object.DestroyImmediate(old.gameObject);
             Mat("HeritageSlate", "879597", 0.22f);
             var panel = new GameObject("00_Contrasting_slate_panel").transform;
-            panel.SetParent(heritage, false); panel.localPosition = new Vector3(5.35f, 0, 0);
+            panel.SetParent(heritage, false); panel.localPosition = new Vector3(5.35f + LeftHeritageSpacingOffset(dimensions), 0, 0);
             var part = new Part("Slate_wall_and_picture", panel, "CompactLeft");
             part.Box("HeritageSlate", new Vector3(0, 2.1f, 0.025f), new Vector3(1.45f, 4.2f, 0.05f));
             foreach (float x in new[] { -0.735f, 0.735f })
@@ -83,10 +84,12 @@ namespace UEH.CampusB.Editor
             foreach (string id in new[] { "01", "02" })
             {
                 var bay = areas.Find("LEFT_" + id + " [12m x 6m]");
-                bay.localPosition = new Vector3(bay.localPosition.x, 0, id == "01" ? LeftOfficeZ(dimensions) : LeftLoungeZ(dimensions));
+                bay.localPosition = new Vector3(LeftFacadeX(dimensions), 0, id == "01" ? LeftOfficeZ(dimensions) : LeftLoungeZ(dimensions));
                 var marker = bay.GetComponentInChildren<UEHReservedSpace>();
                 marker.size = new Vector3(10.6f, 4.1f, 6);
-                marker.purpose = "Khoang trái thu sát theo ảnh: bề ngang dành chỗ 10.6m, chiều sâu 6m; tên nhóm 12m cũ giữ tương thích. Kích thước ước lượng.";
+                marker.purpose = dimensions.widerLeftGaps
+                    ? "Khoang trái đã nới khoảng tường trắng giữa các khu theo ảnh: 10.6m x 6m; tên nhóm 12m cũ giữ tương thích. Kích thước ước lượng."
+                    : "Khoang trái thu sát theo ảnh: bề ngang dành chỗ 10.6m, chiều sâu 6m; tên nhóm 12m cũ giữ tương thích. Kích thước ước lượng.";
                 var old = bay.Find("Floor_inlay_LEFT_" + id);
                 if (old != null) UnityEngine.Object.DestroyImmediate(old.gameObject);
                 var inlay = new Part("Floor_inlay_LEFT_" + id, bay, "CompactLeft");
@@ -94,6 +97,7 @@ namespace UEH.CampusB.Editor
                 inlay.Box("Border", new Vector3(0, 0.009f, 6.15f), new Vector3(10.6f, 0.014f, 0.1f));
                 inlay.Finish();
             }
+            if (dimensions.openRearAndLeftExtinguisher) BuildLeftWallExtinguisher(areas.parent);
         }
 
         private static void SetupCompactLeftViewpoints()
@@ -139,7 +143,14 @@ namespace UEH.CampusB.Editor
                 string meshPath = Root + "/Meshes/CompactLeft_Exterior_podium_Ivory.asset";
                 var saved = AssetDatabase.LoadAssetAtPath<Mesh>(meshPath);
                 if (saved == null) { AssetDatabase.CreateAsset(mesh, meshPath); saved = mesh; }
-                else { EditorUtility.CopySerialized(mesh, saved); UnityEngine.Object.DestroyImmediate(mesh); saved.UploadMeshData(false); EditorUtility.SetDirty(saved); }
+                else
+                {
+                    saved.Clear(); saved.indexFormat = mesh.indexFormat;
+                    saved.vertices = mesh.vertices; saved.normals = mesh.normals; saved.uv = mesh.uv;
+                    saved.triangles = mesh.triangles; saved.tangents = mesh.tangents;
+                    saved.RecalculateBounds(); saved.UploadMeshData(false); EditorUtility.SetDirty(saved);
+                    UnityEngine.Object.DestroyImmediate(mesh);
+                }
                 filter.sharedMesh = saved;
                 PrefabUtility.SaveAsPrefabAsset(contents, path);
             }

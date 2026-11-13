@@ -1,0 +1,56 @@
+{
+  "status": "Native Unity asset generation and rendered previews only; no Play Mode or automated tests for this revision",
+  "generationExitCode": 0,
+  "deliveredAssets": [
+    "Assets/UEHCampusB/Editor/UEHOpenRearFireBuilder.cs.meta",
+    "Assets/UEHCampusB/Lighting/LobbyEast.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyEastRear.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWest.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWestRear.cubemap",
+    "Assets/UEHCampusB/Materials/FireEquipmentRed.mat",
+    "Assets/UEHCampusB/Materials/FireEquipmentRed.mat.meta",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_FireEquipmentRed.asset",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_FireEquipmentRed.asset.meta",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_OfficeCharcoal.asset",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_OfficeCharcoal.asset.meta",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_Silver.asset",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_Silver.asset.meta",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_Teal.asset",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_Teal.asset.meta",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_White.asset",
+    "Assets/UEHCampusB/Meshes/FireEquipment_Wall_bracket_red_tank_valve_hose_and_label_White.asset.meta",
+    "Assets/UEHCampusB/Prefabs/UEH_LobbyB1.prefab",
+    "Assets/UEHCampusB/Scenes/UEH_CampusB_Study.unity",
+    "Assets/UEHCampusB/Settings/EstimatedDimensions.asset"
+  ],
+  "previews": [
+    "Docs/UEH-CampusB/Previews/75_Rear_lobby_wall_removed.png",
+    "Docs/UEH-CampusB/Previews/76_Extinguisher_between_office_and_greenery.png",
+    "Docs/UEH-CampusB/Previews/77_Wall_mounted_extinguisher_detail.png"
+  ],
+  "modifiedExistingFiles": [
+    "Assets/UEHCampusB/README.vi.md",
+    "Assets/UEHCampusB/Editor/UEHCompactLeftSequence.cs",
+    "Assets/UEHCampusB/Editor/UEHExtendedOffice.cs",
+    "Assets/UEHCampusB/Editor/UEHRightWingAlignment.cs",
+    "Assets/UEHCampusB/Lighting/LobbyEast.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyEastRear.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWest.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWestRear.cubemap",
+    "Assets/UEHCampusB/Prefabs/UEH_LobbyB1.prefab",
+    "Assets/UEHCampusB/Runtime/UEHDimensions.cs",
+    "Assets/UEHCampusB/Scenes/UEH_CampusB_Study.unity",
+    "Assets/UEHCampusB/Settings/EstimatedDimensions.asset",
+    "Docs/UEH-CampusB/BuildReview.vi.md"
+  ],
+  "unrelatedChanges": [],
+  "deliveryByteMismatches": [],
+  "rearClosureRemoved": true,
+  "academicCourtyardStillRemoved": true,
+  "fireExtinguisherCount": 1,
+  "extinguisherPosition": {
+    "x": 13.375,
+    "y": 0.0,
+    "z": -28.077499389648438
+  }
+}

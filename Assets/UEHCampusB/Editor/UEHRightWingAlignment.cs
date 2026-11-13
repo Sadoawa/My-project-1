@@ -203,6 +203,14 @@ namespace UEH.CampusB.Editor
             Viewpoint(views.transform, "42_Entrance_glazing_inside", new Vector3(-6.5f, 1.65f, -9), new Vector3(-8, 2.1f, 0));
             if (dimensions.facultyLiftsBehindWelcome) SetupFacultyReturnViewpoints();
             if (dimensions.entranceGlassThroughColumns) SetupColumnGateViewpoints();
+            if (dimensions.compactRightSequence) SetupCompactRightViewpoints();
+            if (dimensions.leftWingInset > 0) SetupLeftWingViewpoints();
+            if (dimensions.rearColumnsAndSouvenir) SetupSouvenirViewpoints();
+            if (dimensions.widerLeftGaps) SetupWiderLeftGapViewpoints();
+            if (dimensions.extendedGlassOfficeAndClosedRear) SetupExtendedOfficeViewpoints();
+            if (dimensions.openRearAndLeftExtinguisher) SetupOpenRearFireViewpoints();
+            if (dimensions.ocbBranch) SetupOcbBranchViewpoints();
+            if (dimensions.wrappedB1Frame) SetupB1FrameViewpoints();
         }
     }
 }

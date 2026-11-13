@@ -24,11 +24,20 @@ MonoBehaviour:
   refinedLobbyLayout: 1
   centerTimberOnly: 1
   rightWingInset: 4
+  leftWingInset: 4
   facultyLiftEntrance: 1
   facultyLiftsBehindWelcome: 1
   facultyColumnAtRearWall: 1
   compactLeftSequence: 1
   entranceGlassThroughColumns: 1
+  compactRightSequence: 1
+  rearColumnsAndSouvenir: 1
+  widerLeftGaps: 1
+  extendedGlassOfficeAndClosedRear: 1
+  openRearAndLeftExtinguisher: 1
+  ocbBranch: 1
+  wrappedB1Frame: 1
+  b1FrameRearOverrun: 4
   lobbyColumnWidth: 2
   lobbyHeight: 4.5
   entryWidth: 5.6

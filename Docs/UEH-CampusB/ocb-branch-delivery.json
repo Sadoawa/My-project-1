@@ -1,0 +1,17 @@
+{
+  "status": "Delivered Unity generated OCB branch geometry, prefab, scene and three rendered review images.",
+  "scope": "All changed files are under Assets/UEHCampusB or Docs/UEH-CampusB.",
+  "changedAssetFiles": 137,
+  "newAssetFiles": 124,
+  "changedDocumentationFiles": 5,
+  "filesRemoved": 0,
+  "outsideScopeChanges": [],
+  "previews": [
+    "Previews/78_OCB_branch_frontage.png",
+    "Previews/79_OCB_branch_from_gate.png",
+    "Previews/80_OCB_branch_interior.png"
+  ],
+  "unityExitCode": 0,
+  "playModeOrAutomatedTestsRun": false,
+  "supersededBy": "ocb-relocation-delivery.json"
+}

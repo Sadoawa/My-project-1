@@ -1,0 +1,49 @@
+{
+  "status": "Native Unity generation and rendered previews only; no new Play Mode tests",
+  "deliveredAssets": [
+    "Assets/UEHCampusB/Editor/UEHCompactRightSequence.cs.meta",
+    "Assets/UEHCampusB/Lighting/LobbyEast.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyEastRear.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWest.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWestRear.cubemap",
+    "Assets/UEHCampusB/Meshes/CompactRight_Empty_stone_wall_Border.asset",
+    "Assets/UEHCampusB/Meshes/CompactRight_Empty_stone_wall_Border.asset.meta",
+    "Assets/UEHCampusB/Meshes/CompactRight_Empty_stone_wall_Stone.asset",
+    "Assets/UEHCampusB/Meshes/CompactRight_Empty_stone_wall_Stone.asset.meta",
+    "Assets/UEHCampusB/Meshes/CompactRight_Exterior_podium_Ivory.asset",
+    "Assets/UEHCampusB/Meshes/CompactRight_Exterior_podium_Ivory.asset.meta",
+    "Assets/UEHCampusB/Meshes/Expanded_01_Floor_and_walls_Ivory.asset",
+    "Assets/UEHCampusB/Meshes/RailingConnection_Railing_Column_to_elbow_RailingGlass.asset",
+    "Assets/UEHCampusB/Meshes/RailingConnection_Railing_Column_to_elbow_Silver.asset",
+    "Assets/UEHCampusB/Meshes/RailingConnection_Railing_Elbow_to_dividing_wall_RailingGlass.asset",
+    "Assets/UEHCampusB/Meshes/RailingConnection_Railing_Elbow_to_dividing_wall_Silver.asset",
+    "Assets/UEHCampusB/Prefabs/UEH_Exterior.prefab",
+    "Assets/UEHCampusB/Prefabs/UEH_LobbyB1.prefab",
+    "Assets/UEHCampusB/Scenes/UEH_CampusB_Study.unity",
+    "Assets/UEHCampusB/Settings/EstimatedDimensions.asset"
+  ],
+  "previews": [
+    "Docs/UEH-CampusB/Previews/55_Compact_right_WELCOME_services.png",
+    "Docs/UEH-CampusB/Previews/56_Empty_fire_equipment_wall.png",
+    "Docs/UEH-CampusB/Previews/57_Railing_middle_column_joint.png",
+    "Docs/UEH-CampusB/Previews/58_Compact_right_lifts_office.png"
+  ],
+  "modifiedExistingFiles": [
+    "Assets/UEHCampusB/README.vi.md",
+    "Assets/UEHCampusB/Lighting/LobbyEast.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyEastRear.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWest.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWestRear.cubemap",
+    "Assets/UEHCampusB/Meshes/Expanded_01_Floor_and_walls_Ivory.asset",
+    "Assets/UEHCampusB/Meshes/RailingConnection_Railing_Column_to_elbow_RailingGlass.asset",
+    "Assets/UEHCampusB/Meshes/RailingConnection_Railing_Column_to_elbow_Silver.asset",
+    "Assets/UEHCampusB/Meshes/RailingConnection_Railing_Elbow_to_dividing_wall_RailingGlass.asset",
+    "Assets/UEHCampusB/Meshes/RailingConnection_Railing_Elbow_to_dividing_wall_Silver.asset",
+    "Assets/UEHCampusB/Prefabs/UEH_Exterior.prefab",
+    "Assets/UEHCampusB/Prefabs/UEH_LobbyB1.prefab",
+    "Assets/UEHCampusB/Scenes/UEH_CampusB_Study.unity",
+    "Assets/UEHCampusB/Settings/EstimatedDimensions.asset"
+  ],
+  "unrelatedChanges": [],
+  "generationExitCode": 0
+}

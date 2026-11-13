@@ -1,0 +1,28 @@
+{
+    "status": "Native Unity generation and four rendered previews; no Play Mode or automated tests for this revision.",
+    "centerZ": -39.29999923706055,
+    "width": 16.0,
+    "depth": 4.599999904632568,
+    "nearEndZ": -31.299999237060547,
+    "farEndZ": -47.29999923706055,
+    "frontX": -13.399999618530273,
+    "columnZ": -42.0,
+    "rearWallZ": -48.0,
+    "workstationCount": 6,
+    "academicConnectionRemoved": true,
+    "frontBoundsMin": {
+        "x": -13.444999694824219,
+        "y": 0.0,
+        "z": -47.32499694824219
+    },
+    "frontBoundsMax": {
+        "x": -13.319999694824219,
+        "y": 3.9049999713897705,
+        "z": -31.274993896484375
+    },
+    "entranceWorld": {
+        "x": -13.399999618530273,
+        "y": 0.0,
+        "z": -32.849998474121094
+    }
+}

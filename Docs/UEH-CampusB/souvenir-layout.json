@@ -1,0 +1,43 @@
+{
+    "status": "Native Unity generation and rendered previews; no Play Mode tests for this revision. Estimated dimensions from photos.",
+    "totalColumns": 8,
+    "addedColumns": 2,
+    "addedTrees": 3,
+    "rearLeftColumn": {
+        "x": 4.5,
+        "y": 0.0,
+        "z": -42.0
+    },
+    "rearRightColumn": {
+        "x": -4.5,
+        "y": 0.0,
+        "z": -42.0
+    },
+    "cabinetCenter": {
+        "x": -3.2100000381469727,
+        "y": 0.0,
+        "z": -42.0
+    },
+    "cabinetFacing": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "newTreeCenters": [
+        {
+            "x": 4.5,
+            "y": 0.0,
+            "z": -22.200000762939453
+        },
+        {
+            "x": 4.5,
+            "y": 0.0,
+            "z": -40.20000076293945
+        },
+        {
+            "x": -4.5,
+            "y": 0.0,
+            "z": -40.20000076293945
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "status": "Native Unity geometry and rendered previews; dimensions estimated from user-provided Virtual Tour images; cutaway 87 hides roofs for review only.",
+    "frontPierAxes": [
+        -21.399999618530273,
+        -4.5,
+        4.5,
+        14.699999809265137,
+        23.600000381469727
+    ],
+    "sidePierZ": [
+        0.800000011920929,
+        -8.0,
+        -16.0,
+        -24.0,
+        -32.0,
+        -40.0,
+        -48.0,
+        -52.0
+    ],
+    "minX": -21.799999237060547,
+    "maxX": 24.0,
+    "frontZ": 0.800000011920929,
+    "rearZ": -52.0,
+    "topY": 12.300000190734863,
+    "lobbyDepth": 48.0,
+    "rearOverrun": 4.0,
+    "centralEntranceClearOfFrame": true,
+    "sinceEntranceClearOfFrame": true,
+    "coversLobby": true
+}

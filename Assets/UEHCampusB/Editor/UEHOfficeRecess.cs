@@ -59,11 +59,16 @@ namespace UEH.CampusB.Editor
                 volume.localPosition = new Vector3(0, 2.1f, -0.05f);
                 volume.GetComponent<UEHReservedSpace>().purpose = "Office lùi sau tuyến tường sảnh; mặt tiền cùng tuyến vách, phòng ở phía trong, ghế chờ sát vách.";
             }
-            // Main lobby floor ends at world X=18. The extra slab abuts it, avoiding coplanar overlaps.
-            if (office.Find("Office_recess_floor") == null)
+            // Only add floor beyond the main slab. An inset office may now fit completely on it.
+            var oldFloor = office.Find("Office_recess_floor");
+            if (oldFloor != null) UnityEngine.Object.DestroyImmediate(oldFloor.gameObject);
+            float rearEdge = office.TransformPoint(new Vector3(0, 0, -0.25f)).x;
+            float extra = rearEdge - dimensions.frontage / 2;
+            if (extra > 0.001f)
             {
                 var floor = new Part("Office_recess_floor", office, "OfficeRecess");
-                floor.Box("Floor", new Vector3(0, -0.14f, 0.975f), new Vector3(12, 0.28f, 2.45f), true);
+                var center = office.InverseTransformPoint(new Vector3((dimensions.frontage / 2 + rearEdge) / 2, -0.14f, office.position.z));
+                floor.Box("Floor", center, new Vector3(12, 0.28f, extra), true);
                 floor.Finish();
             }
         }
@@ -78,6 +83,22 @@ namespace UEH.CampusB.Editor
         private static List<KeyValuePair<Vector3, Vector3>> OfficeExteriorWallFragments(float w, float d, float h)
         {
             var fragments = new List<KeyValuePair<Vector3, Vector3>>();
+            if (dimensions.ocbBranch)
+            {
+                // The branch now occupies the annotated side bay beyond the retained corner pier.
+                // Remove the old external side wall through the whole branch footprint.
+                float cutDepth = -OcbBackZ + 0.08f;
+                fragments.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(w / 2, h - 1.9f, -(cutDepth + d) / 2), new Vector3(0.42f, 3.7f, d - cutDepth)));
+                if (h > OcbHeight)
+                    fragments.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(w / 2, (h + OcbHeight) / 2, -cutDepth / 2), new Vector3(0.42f, h - OcbHeight, cutDepth)));
+                return fragments;
+            }
+            if (LeftFacadeX(dimensions) + OfficeRecessDepth + 0.25f < w / 2 - 0.21f)
+            {
+                // The whole office is now inside the building: close the obsolete exterior hole.
+                fragments.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(w / 2, h - 1.9f, -d / 2), new Vector3(0.42f, 3.7f, d)));
+                return fragments;
+            }
             float start = Mathf.Min(d, -LeftOfficeZ(dimensions) - 5.3f), end = Mathf.Min(d, -LeftOfficeZ(dimensions) + 5.3f);
             if (start > 0) fragments.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(w / 2, h - 1.9f, -start / 2), new Vector3(0.42f, 3.7f, start)));
             if (d > end) fragments.Add(new KeyValuePair<Vector3, Vector3>(new Vector3(w / 2, h - 1.9f, -(d + end) / 2), new Vector3(0.42f, 3.7f, d - end)));

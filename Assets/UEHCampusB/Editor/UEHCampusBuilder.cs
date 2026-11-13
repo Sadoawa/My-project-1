@@ -77,6 +77,7 @@ namespace UEH.CampusB.Editor
             BuildExterior();
             BuildLobby();
             PlaceEntranceSideZones(lobby, dimensions);
+            if (dimensions.leftWingInset > 0) { ShiftLooseLeftProps(lobby, -dimensions.leftWingInset); MoveSinceEntrancePlanter(lobby); }
             if (dimensions.facultyLiftEntrance)
             { ShiftLooseRightProps(lobby, dimensions.rightWingInset); BuildFacultyLiftEntrance(lobby); }
             SavePrefab(exterior.gameObject, "UEH_Exterior");
@@ -138,7 +139,7 @@ namespace UEH.CampusB.Editor
                 new Vector3(-settings.frontage * 0.30f, 0, -settings.lobbyDepth + 0.4f),
                 new[] { "05_Reception_and_welcome_wall" });
             PlaceSideZone(lobbyRoot, "06_1976_LEFT_from_gate",
-                new Vector3(settings.frontage / 2 - 0.6f, 0, LeftHeritageZ(settings)), -90,
+                new Vector3(LeftFacadeX(settings), 0, LeftHeritageZ(settings)), -90,
                 new Vector3(settings.frontage * 0.30f, 0, -settings.lobbyDepth + 0.6f),
                 new[] { "06_Heritage_1976_and_gallery" });
         }
@@ -434,6 +435,9 @@ namespace UEH.CampusB.Editor
                 ground.Box("White", new Vector3(0, -0.139f, 17.8f + i * 0.95f), new Vector3(4.6f, 0.012f, 0.45f));
             ground.Finish();
 
+            if (dimensions.wrappedB1Frame) BuildB1FrameEnvelope(exterior);
+            else
+            {
             var podium = new Part("02_Podium_structure", exterior);
             for (int floor = 0; floor < 3; floor++)
             {
@@ -498,6 +502,7 @@ namespace UEH.CampusB.Editor
             identity.Finish();
             Text(exterior, "University_name", "ĐẠI HỌC KINH TẾ TP. HỒ CHÍ MINH", new Vector3(0, h + 5.5f, 2.31f), w - 2.0f, 0.95f, "Teal");
             Text(exterior, "Campus_address", "UEH  ·  279 NGUYỄN TRI PHƯƠNG", new Vector3(0, 4.12f, 0.42f), 12, 0.38f, "Teal");
+            }
 
             float towerBase = h + 8.2f, tw = w - 3.5f, td = d - 5;
             float floorHeight = (dimensions.towerHeight - towerBase) / dimensions.upperFloors;
@@ -530,7 +535,20 @@ namespace UEH.CampusB.Editor
 
         private static void BuildGateAndLandscape(float w)
         {
-            var gate = new Part("08_Retracted_gate_and_planters", exterior);
+            BuildForecourtGate(exterior);
+            Tree(exterior, "09_Tree_left", new Vector3(-12, 0, 9.4f), 6.5f);
+            Tree(exterior, "09_Tree_right", new Vector3(12.5f, 0, 10), 7.5f);
+            Tree(exterior, "09_Tree_edge_left", new Vector3(-24, 0, 11), 8);
+            Tree(exterior, "09_Tree_edge_right", new Vector3(24, 0, 10), 8);
+            var limits = new Part("10_Site_boundaries", exterior);
+            foreach (int side in new[] { -1, 1 })
+                limits.Box("Stone", new Vector3(side * 30, 0.45f, -6), new Vector3(0.6f, 0.9f, 43), true);
+            limits.Finish();
+        }
+
+        private static void BuildForecourtGate(Transform parent)
+        {
+            var gate = new Part("08_Retracted_gate_and_planters", parent, "ForecourtGate");
             foreach (int side in new[] { -1, 1 })
             {
                 gate.Box("Stone", new Vector3(side * 4.5f, 0.6f, 8.2f), new Vector3(1.3f, 1.2f, 1.3f), true);
@@ -542,14 +560,6 @@ namespace UEH.CampusB.Editor
                     gate.Box("Silver", new Vector3(side * (5.35f + i * 0.13f), 0.98f, 8.2f), new Vector3(0.05f, 1.9f, 0.6f));
             }
             gate.Finish();
-            Tree(exterior, "09_Tree_left", new Vector3(-12, 0, 9.4f), 6.5f);
-            Tree(exterior, "09_Tree_right", new Vector3(12.5f, 0, 10), 7.5f);
-            Tree(exterior, "09_Tree_edge_left", new Vector3(-24, 0, 11), 8);
-            Tree(exterior, "09_Tree_edge_right", new Vector3(24, 0, 10), 8);
-            var limits = new Part("10_Site_boundaries", exterior);
-            foreach (int side in new[] { -1, 1 })
-                limits.Box("Stone", new Vector3(side * 30, 0.45f, -6), new Vector3(0.6f, 0.9f, 43), true);
-            limits.Finish();
         }
 
         private static void BuildLobby()
@@ -688,7 +698,7 @@ namespace UEH.CampusB.Editor
             Mat("HeritageBlue", "0C5973", 0.18f);
             Mat("HeritageLeafDark", "234E2D", 0.1f);
 
-            var blank = HeritageSection(parent, "01_Plain_wall_left", -5.65f);
+            var blank = HeritageSection(parent, "01_Plain_wall_left", -5.65f - LeftHeritageSpacingOffset(dimensions));
             var wall = new Part("Plain_wall", blank, "Heritage");
             wall.Box("Ivory", new Vector3(0, 2.1f, -0.32f), new Vector3(1.9f, 4.2f, 0.08f));
             wall.Finish();
@@ -766,6 +776,11 @@ namespace UEH.CampusB.Editor
 
         private static void BuildInnerHall(float d, float h)
         {
+            if (dimensions.extendedGlassOfficeAndClosedRear)
+            {
+                BuildRearLobbyClosure(lobby, d, h);
+                return;
+            }
             if (dimensions.refinedLobbyLayout)
             {
                 BuildOpenAcademicGeometry(lobby, d, h);

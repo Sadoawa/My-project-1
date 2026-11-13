@@ -10,11 +10,11 @@ namespace UEH.CampusB.Editor
 {
     public static partial class UEHCampusBuilder
     {
-        public const float ServiceCorridorZ = -19.5f;
+        public static float ServiceCorridorZ => RightServiceZ(dimensions);
         public const float ServiceCorridorWidth = 2.8f;
         public const float ServicePortalHeight = 3.4f;
         public const float ServiceCorridorDepth = 8.6f;
-        public const float LiftBankZ = -27;
+        public static float LiftBankZ => RightLiftBankZ(dimensions);
 
         [MenuItem("UEH/Campus B/11. Build right lifts and service corridor")]
         public static void FurnishRightAreas()
@@ -77,6 +77,7 @@ namespace UEH.CampusB.Editor
             if (pocket != null && !dimensions.facultyLiftEntrance) pocket.GetComponent<UEHReservedSpace>().purpose = "Khoảng trống gần cửa vào được giữ thoáng. Cụm thang máy nằm ở hai khoang mở rộng phía trong.";
             BuildServiceCorridor(serviceBay);
             BuildThreeLifts(liftBay);
+            BuildReservedFireWall(areas.parent);
             if (dimensions.rightGlassOffice)
                 liftBay.GetComponentInChildren<UEHReservedSpace>().purpose = "Cụm thang máy phía trước và office kính lùi sau vách ở phần trống phía trong. Kích thước ước lượng.";
         }

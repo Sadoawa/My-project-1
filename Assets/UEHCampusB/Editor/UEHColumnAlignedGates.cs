@@ -11,7 +11,7 @@ namespace UEH.CampusB.Editor
     {
         public const float SinceGateWidth = 4.4f;
         public static float EntranceGlassZ(UEHDimensions s) => s.entranceGlassThroughColumns ? ExpandedEntranceZ(s) : 0;
-        public static float LeftGateColumnX(UEHDimensions s) => s.entranceGlassThroughColumns ? s.frontage / 2 - 0.3f + s.lobbyColumnWidth / 2 : ExpandedCornerX(s);
+        public static float LeftGateColumnX(UEHDimensions s) => (s.entranceGlassThroughColumns ? s.frontage / 2 - 0.3f + s.lobbyColumnWidth / 2 : ExpandedCornerX(s)) - s.leftWingInset;
         public static float SinceGateCenterX(UEHDimensions s) => (s.frontage * 0.125f + LeftGateColumnX(s)) / 2;
 
         [MenuItem("UEH/Campus B/20. Align gate glazing through columns and open Since entrance")]
@@ -132,7 +132,8 @@ namespace UEH.CampusB.Editor
                 var white = child.Find("White"); if (white == null) continue;
                 var bounds = white.GetComponent<MeshRenderer>().bounds;
                 if (bounds.center.x < 0) continue;
-                child.position += new Vector3(16.1f - bounds.center.x, 0, -2.8f - bounds.center.z);
+                float targetX = dimensions.leftWingInset > 0 ? LeftFacadeX(dimensions) - 0.55f : 16.1f;
+                child.position += new Vector3(targetX - bounds.center.x, 0, -2.8f - bounds.center.z);
             }
         }
 

@@ -1,10 +1,137 @@
 # Bản dựng UEH Cơ sở B để duyệt
 
-Ngày dựng đầu: **05/11/2026**, cập nhật mới nhất **11/11/2026**. Bản tham quan độc lập dùng **Unity 6000.6.8f1**. Kích thước và một phần kiến trúc được ước lượng theo hồ sơ khảo sát; đây chưa phải mô hình đo đạc.
+## Khung bao trọn sảnh B1 — 13/11/2026
+
+**Đã dựng vào prefab và scene Unity.** Năm trục cột mặt tiền theo ảnh khoanh đỏ có chân đế tối, nẹp trắng và dải lõm màu đá nhạt. Các dầm, phào và sàn hiên nối từ mặt tiền qua hai bên đến phía sau; chiều sâu tới **Z = -52 m**, quá cuối sảnh 48 m thêm **4 m**. Ban công có lan can, hoa, trần hiên gỗ; ô phía trên OCB có lam ngang.
+
+| Ảnh duyệt | Nội dung |
+|---|---|
+| [82 — Mặt tiền](Previews/82_B1_frame_front.png) | Năm trục cột và ba đai dầm |
+| [83 — Góc Virtual Tour](Previews/83_B1_frame_virtual_tour_angle.png) | Quan hệ mặt tiền, OCB và khung bên hông |
+| [84 — Hiên OCB](Previews/84_B1_frame_OCB_porch.png) | Chi tiết chân cột, nẹp và dầm chạy về sau |
+| [85 — Chiều sâu khung](Previews/85_B1_frame_full_side_depth.png) | Các nhịp cột bên hông bao hết sảnh |
+| [86 — Phía sau](Previews/86_B1_frame_rear_overrun.png) | Khung nối ngang và phần kéo quá cuối sảnh |
+| [87 — Nhìn xuyên mái](Previews/87_B1_frame_lobby_cutaway.png) | Toàn bộ sảnh nằm bên trong khung |
+
+Ảnh 87 là góc duyệt tạm ẩn mái/kính/trần, không phải thay đổi lưu trong scene. Khoảng kéo dài 4 m và các nhịp cột bên hông là ước lượng từ ảnh, không phải bản vẽ đo đạc. Hai cổng được kiểm tra không bị collider mới của khung chặn. Chưa chạy Play Mode. Xem [tọa độ](b1-frame-layout.json) và [đối chiếu bàn giao](b1-frame-delivery.json).
+
+## Chi nhánh OCB tại mặt tiền sảnh B1 — 13/11/2026
+
+- Đã chuyển OCB sang **khoang bên trái cột đá khi nhìn từ ngoài**, đúng vùng khoanh đỏ và mũi tên mới. Tâm khoang **X = 19,4 m**, mép sau **Z = -7,12 m**, mặt kính **Z = -1,12 m**, cùng tuyến kính cổng. Diện tích giữ **7,2 × 6 m (43,2 m²)**. Cột đá cạnh khoang giữ nguyên tại **X = 14,7 m, Z = -1,12 m**; dữ liệu toàn bộ nhóm cột, collider và mesh trùng với trước khi sửa.
+- Bỏ đoạn vách mặt tiền và vách hông cũ cắt qua khoang OCB. Hoàn lại bồn cây trước cổng đã bị cắt trong lần đặt sai; office không còn nhô ra sân ở vị trí cũ. Sửa bảng OCB và tên Ngân hàng Phương Đông để đọc đúng từ ngoài. Prefab được cập nhật riêng, không dựng lại toàn bộ sảnh.
+- Kích thước và vị trí là ước lượng theo ảnh, chưa phải số đo khảo sát.
+
+| Ảnh duyệt | Góc nhìn |
+|---|---|
+| [78 — Mặt tiền chi nhánh](Previews/78_OCB_branch_frontage.png) | Cửa kính và bảng OCB |
+| [79 — Nhìn từ cổng](Previews/79_OCB_branch_from_gate.png) | Vị trí cạnh cổng và lối tiếp cận |
+| [80 — Bên trong chi nhánh](Previews/80_OCB_branch_interior.png) | Quầy giao dịch và bàn tư vấn |
+| [81 — Vị trí đã sửa theo mũi tên](Previews/81_OCB_corrected_side_bay.png) | OCB ở bên trái cột góc, mặt tiền cổng thông thoáng |
+
+[Tọa độ và kích thước](ocb-branch-layout.json), [đối chiếu cột và asset](ocb-relocation-delivery.json). Đã dựng và xem bốn ảnh render bằng Unity; chưa chạy Play Mode cho lần cập nhật này. Ảnh 78–81 hiện phản ánh vị trí đã sửa.
+
+Ngày dựng đầu: **05/11/2026**, cập nhật mới nhất **12/11/2026**. Bản tham quan độc lập dùng **Unity 6000.6.8f1**. Kích thước và một phần kiến trúc được ước lượng theo hồ sơ khảo sát; đây chưa phải mô hình đo đạc.
 
 **Cập nhật bố trí theo ảnh người dùng:** nhìn từ cổng vào, **1976 ở vách bên trái**, **WELCOME TO UEH ở vách bên phải**, gần cửa vào và hướng mặt về phía lối đi. Hai mảng đã được chuyển từ vách cuối sảnh sang hai vách bên. Prefab sảnh, scene, phản chiếu và ảnh xem trước đã được cập nhật.
 
-**Bố trí hiện tại — 11/11/2026:** sàn chính **36 × 48 m**, dãy bên phải ở X = -13,4 m; dãy bên trái đã thu gọn quanh Z = -8,6 m / -20,1 m / -30,95 m. Giữ 6 cột, thân **2 × 2 m**; cặp trong X = ±4,5 m, Z = -24 m. Bốn cột cổng cùng Z = -1,12 m, tại X = **-19,6 / -4,5 / 4,5 / 18,7 m**. Kính nối giữa thân cột, có hai lối mở tại cổng giữa và phía Since 1976. Cột cuối phía phải vẫn sát vách cuối khu thang giảng viên. Trần giữ dải gỗ giữa, đèn chùm và 30 đèn tròn; lan can kính vẫn chữ L. Các số đo là **ước lượng dựng hình từ ảnh**, chưa phải kích thước đo tại UEH.
+**Bố trí hiện tại — 12/11/2026:** sàn chính **36 × 48 m**, dãy bên phải ở X = -13,4 m; hành lang dịch vụ Z = **-17,2 m**, ba thang A/B/C **-25 m**, office kính **-39,3 m**, dài **16 m** (Z = -31,3…-47,3 m). Cạnh cây xanh WELCOME có **1,3 m tường đá trống** dành cho thiết bị chữa cháy. Dãy bên trái ở X = 13,4 m, quanh Z = -9,4 m / -22 m / -34 m. Hiện có 8 cột, thân **2 × 2 m**; cặp trong X = ±4,5 m, Z = -24 m; cặp mới X = ±4,5 m, Z = -42 m. Bốn cột cổng cùng Z = -1,12 m, tại X = **-19,6 / -4,5 / 4,5 / 14,7 m**; kính nối giữa thân cột, hai cổng mở. Trần giữ dải gỗ giữa, đèn chùm và 30 đèn tròn. Lan can chữ L nối **giữa mặt trước cột** tới trụ đá giữa thang C và hành lang toilet. Các số đo là **ước lượng dựng hình từ ảnh**, chưa phải kích thước đo tại UEH.
+
+## Mở cuối sảnh và thêm bình chữa cháy treo tường — 12/11/2026
+
+- Xoá toàn bộ nhóm tường cuối sảnh `15_Rear_lobby_closure`, gồm mặt tường sáng, chân viền và collider, tại Z = -48 m. Phía sau sảnh để lộ ra theo mũi tên; không dựng lại sân cây, bồn cây hoặc biển/lối học thuật đã bỏ. Office kính mở rộng và các cột/tủ trong sảnh giữ bố trí hiện tại.
+- Thêm đúng **1 bình chữa cháy treo tường** ở khoảng trắng giữa office bên trái và mảng cây xanh/vách gỗ. Tâm dọc sảnh tính từ mép khung office và mép mảng cây xanh, khoảng **Z = -28,1 m**; gắn vào mặt tường X ≈ 13,4 m, hướng về giữa sảnh (-X). Thân bình đỏ đường kính khoảng **0,24 m**, đáy cách sàn khoảng **0,89 m**; có giá kim loại, vòi đen, van/tay bóp, đồng hồ, nhãn ABC và biển nhận diện. Đây là mô hình trang trí tĩnh, kích thước ước lượng.
+- Menu **26. Open rear lobby and add left wall fire extinguisher**, cờ `openRearAndLeftExtinguisher = true`, lưu trạng thái mở cuối sảnh cho Rebuild; các công cụ bố trí dãy trái đặt lại bình vào giữa khoảng tường. Nhóm chỉnh riêng `16_Left_wall_fire_extinguisher`.
+
+| Ảnh mới | Nội dung |
+|---|---|
+| [75 — Tường cuối đã bỏ](Previews/75_Rear_lobby_wall_removed.png) | Phía sau sảnh lộ ra |
+| [76 — Bình giữa office và cây xanh](Previews/76_Extinguisher_between_office_and_greenery.png) | Vị trí giữa hai khu theo ảnh |
+| [77 — Chi tiết bình treo tường](Previews/77_Wall_mounted_extinguisher_detail.png) | Bình đỏ, giá treo, vòi và biển |
+
+Asset và ảnh sinh bằng Unity trong project render riêng; chưa chạy Play Mode hoặc bài kiểm tra tự động cho lần chỉnh này. [Tọa độ](open-rear-fire-layout.json), [log Unity](OpenRearFireGeneration.log), [báo cáo giao asset](open-rear-fire-delivery.json). Dùng ảnh 75–77 cho lần cập nhật này; mô tả/ảnh tường khép cuối sảnh ở mục bên dưới là lịch sử.
+
+## Mở rộng office kính và bỏ lối học thuật — 12/11/2026
+
+- Kéo dài office bên phải từ **9,8 lên 16 m**, giữ đầu cạnh thang máy tại **Z = -31,3 m**, đưa đầu phía sâu tới **Z = -47,3 m**. Office đi qua vị trí cột souvenir **Z = -42 m** thêm khoảng **5,3 m**. Tâm mới **Z = -39,3 m**; sâu **4,6 m**, cao **4 m**. Mặt tiền ở **X = -13,4 m**, phòng lùi vào sau vách, không lấn lối giữa sảnh.
+- Dựng lại mặt kính và khung theo chiều dài mới, chia sáu ô kính chính; cửa mở vào trong rộng **1,25 m** giữ vị trí thế giới **Z = -32,85 m**. Tường mặt trước và phía phải khi nhìn từ sảnh là kính; vách cuối và lưng phòng đặc. Bố trí **6 bàn làm việc**, ghế/màn hình đúng tỷ lệ, hệ tủ sau và sáu đèn trần phủ phần mở rộng.
+- Bỏ hành lang học thuật suy luận, sân lát ngoài, hai bồn cây, hai cây lớn và biển **KHÔNG GIAN HỌC THUẬT**. Khép cuối sảnh bằng tường sáng có chân viền tại **Z = -48 m**, nối với sàn hiện có. Tủ souvenir, cột và các chậu cây trong sảnh được giữ nguyên.
+- Menu **25. Extend glass office past rear column and remove academic connection**, cờ `extendedGlassOfficeAndClosedRear`, lưu cấu hình cho Rebuild và các công cụ dựng lại sảnh. Các số đo là ước lượng dựng hình theo ảnh.
+
+| Ảnh mới | Nội dung |
+|---|---|
+| [71 — Office kính mở rộng](Previews/71_Extended_glass_office_front.png) | Toàn bộ mặt kính dài 16 m |
+| [72 — Office qua cột souvenir](Previews/72_Office_past_souvenir_column.png) | Phần mở rộng so với cột phía sâu |
+| [73 — Bên trong office](Previews/73_Extended_office_interior.png) | Bàn làm việc và đèn theo chiều dài mới |
+| [74 — Cuối sảnh](Previews/74_Rear_lobby_without_academic_connection.png) | Đã bỏ sân cây và lối dẫn học thuật |
+
+Asset và ảnh được sinh bằng Unity trong project render riêng; chưa chạy Play Mode hoặc bài kiểm tra tự động cho lần chỉnh này. [Tọa độ](office-extension-layout.json), [log Unity](OfficeExtensionGeneration.log), [báo cáo giao asset](office-extension-delivery.json). Các mô tả office 9,8 m, tâm Z = -36,2 m và sân học thuật ở những mục cũ bên dưới là lịch sử; dùng ảnh 71–74 để duyệt bố cục hiện tại.
+
+## Nới ba khoảng tường trắng của dãy trái — 12/11/2026
+
+- Giữ phân khúc xám xanh/khung tranh ở đầu dãy tại vị trí cũ, dịch bộ ba Since 1976 → 9 màu → hình tròn thêm **0,8 m** vào sâu sảnh, tâm từ Z = -8,6 thành **-9,4 m**. Khoảng trắng giữa mảng xám xanh và khung gỗ Since mở ra khoảng **0,8 m**; ba phân khúc bên trong khung giữ kích thước và thứ tự.
+- Dịch cả office cùng cửa, bàn, ghế, biển, đèn và sàn viền từ Z = -20,1 tới **-22 m**. Khoảng trắng từ khung gỗ của mảng 1976 tới khung office tăng từ **0,62 m** lên khoảng **1,72 m**. Ô tường nền mở theo vị trí cửa/phòng mới.
+- Dịch toàn khu cây xanh/vách gỗ và hai ghế từ Z = -30,95 tới **-34 m**. Khoảng trắng từ office tới phân khúc cây xanh tăng từ **0,44 m** lên khoảng **1,59 m**. Hai khoang quy hoạch và viền sàn đi cùng từng khu.
+- Các nhóm được đặt bằng tọa độ tuyệt đối trên tuyến X = **13,4 m**. Menu **24. Widen white wall gaps along left gallery** áp dụng lại; `widerLeftGaps = true` lưu trong asset kích thước. Rebuild và các công cụ bố trí đọc cùng tọa độ. Các kích thước là **ước lượng dựng hình theo ảnh**.
+
+| Ảnh mới | Nội dung |
+|---|---|
+| [67 — Xám xanh và Since 1976](Previews/67_Wider_gap_slate_to_Since1976.png) | Khoảng trắng đầu dãy rộng hơn |
+| [68 — Since và office](Previews/68_Wider_gap_heritage_to_office.png) | Khoảng trắng giữa hai khung |
+| [69 — Office và cây xanh](Previews/69_Wider_gap_office_to_greenery.png) | Khoảng trắng trước khu cây xanh/vách gỗ |
+| [70 — Toàn dãy bên trái](Previews/70_Left_gallery_wider_spacing_overview.png) | Thứ tự và khoảng cách sau khi nới |
+
+Bản này sinh asset và render bằng Unity trong project riêng, hoàn tất với exit code 0; chưa chạy lại Play Mode hoặc bài kiểm tra tự động. [left-spacing-layout.json](left-spacing-layout.json) ghi tọa độ cùng khoảng cách từ bounds của các mặt trưng bày: **0,8025 m / 1,72 m / 1,595 m**. [Log sinh asset](LeftSpacingGeneration.log) và [báo cáo giao asset](left-spacing-delivery.json) lưu bằng chứng. Cache package trong project render tạm đã được khôi phục từ workspace để xử lý các phụ thuộc bị thiếu trước khi xuất ảnh thành công. Các khoảng 0,62/0,44 m và tọa độ -8,6/-20,1/-30,95 m trong các mục trước là lịch sử. Dùng ảnh 67–70 để duyệt lần chỉnh này.
+
+## Cặp cột phía trong, tủ UEH SOUVENIR và ba chậu cây — 12/11/2026
+
+- Thêm **hai cột đá 2 × 2 m**, cao theo trần sảnh **4,5 m**, ở **X = ±4,5 m, Z = -42 m**, gần lối sang Không gian Học thuật. Chân rộng 2,12 m và đầu rộng 2,24 m dùng cùng hình dáng/vật liệu các cột cũ. Sảnh hiện có **8 cột**: bốn cột cổng, cặp giữa Z = -24 m và cặp mới Z = -42 m. Đây là lần bổ sung theo ảnh mới, thay yêu cầu cũ chỉ có hai cột phía trong.
+- Tủ kính **UEH SOUVENIR** áp vào mặt trong cột mới bên phải (phía dãy thang máy), mặt trưng bày hướng **+X**, nhìn ra trục giữa sảnh. Tâm tủ khoảng **(-3,21; 0; -42)**; rộng **1,96 m**, sâu **0,58 m**, cao **4,1 m**. Lưng chạm mặt cột X = -3,5 m, mặt kính phía trước ở X ≈ -2,92 m. Khung kim loại sáng, chân đen có biển tên, cửa kính có tay nắm/bản lề, sáu tầng kệ và mảng nền đỏ ở phần giữa theo ảnh.
+- Trưng bày các mẫu mesh mô phỏng: mũ xanh UEH ở kệ trên, bình nước, ly, hộp quà và kỷ niệm chương. Đây là chi tiết dựng hình tham khảo, chưa phải mô hình chính xác của danh mục sản phẩm thực tế. Cửa tủ ở trạng thái đóng tĩnh.
+- Thêm đúng **3 chậu cây**: trước cột giữa bên trái tại **(4,5; 0; -22,2)**; trước cột mới bên trái tại **(4,5; 0; -40,2)**; trước cột mới bên phải tại **(-4,5; 0; -40,2)**. Chậu trắng thuôn cao khoảng **0,8 m**, có đĩa lót/đất, thân và cành, tán cao tổng khoảng **2,4 m**, đặt sát mặt trước cột theo các khoanh đỏ. Các cây cũ giữ nguyên.
+- Menu **23. Add rear columns souvenir cabinet and three trees**, cờ `rearColumnsAndSouvenir = true`, lưu cấu hình cho Rebuild và các công cụ dựng cột. Nhóm tủ/cây chỉnh riêng: `14_Rear_souvenir_and_three_trees`; thân cột ở `02_Stone_columns`. Kích thước và vị trí là **ước lượng từ ảnh**.
+
+| Ảnh mới | Nội dung |
+|---|---|
+| [63 — Cặp cột mới phía trong](Previews/63_Rear_pair_souvenir_and_trees.png) | Hai cột, cây và hướng tủ ra lối giữa |
+| [64 — Tủ cạnh cột](Previews/64_Souvenir_cabinet_at_column.png) | Liên kết tủ kính với mặt trong cột |
+| [65 — UEH SOUVENIR chính diện](Previews/65_UEH_souvenir_display_front.png) | Khung, cửa kính, kệ và vật trưng bày |
+| [66 — Ba chậu cây mới](Previews/66_Three_new_white_pot_trees.png) | Bố trí một chậu gần và hai chậu phía sâu |
+
+Lượt này sinh asset và render bằng Unity trong project riêng, hoàn tất với exit code 0; chưa chạy lại Play Mode hoặc bài kiểm tra tự động. [souvenir-layout.json](souvenir-layout.json) ghi tọa độ và số lượng bổ sung; [log sinh asset](SouvenirGeneration.log) và [báo cáo giao asset](souvenir-delivery.json) lưu bằng chứng. Scene, prefab, mesh/vật liệu và ảnh đã giao về workspace, khớp byte với bản vừa sinh; GameWorld, gameplay, packages và ProjectSettings không đổi so với snapshot đầu lượt. Các kết quả kiểm tra và ghi chú **6 cột** trong các đợt trước bên dưới là lịch sử. Dùng ảnh 63–66 để duyệt lần bổ sung này.
+
+## Đưa tuyến trái vào giữa và thu kính cổng — 12/11/2026
+
+- Toàn bộ tuyến bên trái chuyển **4 m theo -X**, từ mặt tiền X = **17,4 m** tới **13,4 m**; hai tuyến mặt tiền nay cách đều trục giữa X = 0 (phía phải X = -13,4 m). Chuyển cả tường nền/collider, mảng xám xanh, Since 1976, 9 màu, hình tròn, hai khoang office/cây xanh, nội thất, ghế và chậu cây đặt rời. Vị trí dọc sảnh Z = -8,6 / -20,1 / -30,95 m và khoảng cách giữa các khu giữ như bản thu gọn.
+- Cột ngoài gần Since 1976 chuyển từ **(18,7; 0; -1,12)** tới **(14,7; 0; -1,12)**, đồng bộ thân, chân, đầu và collider. Kính vẫn nằm ở giữa chiều dày cột, tại Z = -1,12 m. Nhịp Since từ X = **5,5…17,7 m** thu còn **5,5…13,7 m**, chiều rộng **12,2 → 8,2 m**. Khung ngang, ô kính trên cao, kính cố định và collider cùng thu theo. Đóng đoạn tường hồi màu sáng từ mặt ngoài cột X = 15,7 m tới mép khối đế X = 18 m, tránh để hở mặt tiền bên cạnh nhịp kính vừa thu.
+- Cửa Since giữ rộng **4,4 m**, chuyển tâm từ X = 11,6 tới **9,6 m**, hai cánh vẫn mở 90° vào trong. Chậu cây gần cửa đặt tại khoảng **(12,85; 0; -2,8)** để cách cánh kính. Cổng giữa và khu bên phải giữ hình học.
+- Office trái nằm sau mặt tiền mới X = 13,4 m; cả phòng, cửa, ghế, đèn và nội thất chuyển cùng. Phòng nay nằm hoàn toàn trong sàn chính 36 × 48 m: bỏ sàn phụ cũ đang trùng mặt sàn, đóng lại ô lớp ốp ngoài X = 18 m không còn cần dùng. Tường sảnh bên trái mở ô tại vị trí phòng mới.
+- Menu **22. Inset left wall heritage office and entrance glass** áp dụng lại; `leftWingInset = 4` lưu trong `EstimatedDimensions.asset`. Rebuild và các công cụ đặt khu/cột/kính đọc cùng tham số để không kéo giãn hoặc dịch cộng dồn. Các kích thước là **ước lượng dựng hình theo ảnh**.
+
+| Ảnh mới | Nội dung |
+|---|---|
+| [59 — Tường và Since 1976](Previews/59_Inset_left_heritage_wall.png) | Tuyến trái sau khi đưa vào trong |
+| [60 — Hai bên sảnh và cổng](Previews/60_Balanced_lobby_sides_and_gates.png) | So sánh khoảng cách hai tuyến mặt tiền tới trục giữa |
+| [61 — Kính cổng Since thu gọn](Previews/61_Shorter_Since_gate_glazing.png) | Nhịp kính ngắn hơn, nối vào cột đã dịch |
+| [62 — Office và cây xanh bên trái](Previews/62_Inset_left_office_lounge.png) | Hai khu cùng lùi theo tường mới |
+
+Bản mới được sinh asset và render bằng Unity trong project riêng, hoàn tất với exit code 0; chưa chạy lại Play Mode hoặc bài kiểm tra tự động. [left-wing-layout.json](left-wing-layout.json) ghi tọa độ mới; [log sinh asset](LeftWingGeneration.log) và [báo cáo giao asset](left-wing-delivery.json) lưu bằng chứng. Scene, prefab, mesh và ảnh đã giao về workspace; các asset giao khớp byte với bản Unity vừa sinh. GameWorld, gameplay, packages và ProjectSettings không đổi so với snapshot đầu lượt. Các tọa độ X = 17,4 / 18,7 m, cửa Since X = 11,6 m và kết quả kiểm tra ở các đợt trước bên dưới là lịch sử. Dùng ảnh 59–62 để duyệt lần chỉnh này.
+
+## Thu gần dãy WELCOME, tường chữa cháy và mối nối lan can — 12/11/2026
+
+- Chừa **tường đá trống 1,3 × 4,2 m** ngay bên trái cây xanh WELCOME khi nhìn chính diện, giữa cây xanh và lối vào hành lang toilet. Tường nằm trên tuyến mặt tiền X = -13,4 m, từ Z = **-14,15 tới -15,45 m**. Chưa lắp bình/tủ chữa cháy; marker `13_Reserved_fire_equipment_wall/Reserved_fire_equipment_mount` lưu vùng lắp thiết bị sau này.
+- Thu khoảng trắng cũ khoảng **3,95 m** cạnh cây xanh thành mảng tường đá trên và đường nối hẹp tới cổng hành lang. Toàn hành lang chuyển **2,3 m** về phía WELCOME, tâm Z từ -19,5 thành **-17,2 m**; cả bốn cửa, biển chỉ dẫn, sàn và trần cùng chuyển. Giữ nguyên chiều rộng và chiều sâu hành lang.
+- Ba thang A/B/C chuyển **2 m** về phía cổng, tâm Z từ -27 thành **-25 m**. Mặt trước office kính chuyển **2,3 m**, tâm Z từ -38,5 thành **-36,2 m**. Kích thước cửa/phòng giữ nguyên, các phòng vẫn ở sau tuyến vách. Khe giữa khung hành lang và mảng thang khoảng **0,08 m**; khe mặt tiền giữa mảng thang và office khoảng **0,2 m**. Đây là lựa chọn bố trí ước lượng theo ảnh.
+- Lan can chữ L bắt đầu tại **(-4,5; 0,6; -23)**: chính giữa mặt trước thân cột 2 × 2 m, thay vị trí góc X = -5,5 m. Chạy tới góc vuông **(-4,5; 0,6; -19,25)**, rồi nối tới mặt trụ đá giữa thang C và hành lang tại **(-13,32; 0,6; -19,25)**. Cột giữa sảnh không dịch chuyển; hai đoạn lan can dài **3,75 m + 8,82 m**, vẫn có kính và collider.
+- Ô mở tường sảnh và lớp ốp bên ngoài chuyển theo hành lang/office. Menu **21. Compact right areas reserve fire wall and center railing joint** áp dụng lại; cờ `compactRightSequence = true` lưu cấu hình dùng chung cho các công cụ dựng khu bên phải và Rebuild.
+
+| Ảnh mới | Nội dung |
+|---|---|
+| [55 — Dãy WELCOME và dịch vụ](Previews/55_Compact_right_WELCOME_services.png) | Tương quan cây xanh, tường trống, hành lang và thang máy |
+| [56 — Tường dành cho chữa cháy](Previews/56_Empty_fire_equipment_wall.png) | Mảng đá trống cạnh cây xanh |
+| [57 — Lan can nối giữa mặt cột](Previews/57_Railing_middle_column_joint.png) | Điểm nối mới và hai đoạn vuông góc |
+| [58 — Thang máy sát office hơn](Previews/58_Compact_right_lifts_office.png) | Dãy phía trong sau khi thu khoảng cách |
+
+Bản này được sinh asset và render bằng Unity ở project riêng, hoàn tất với exit code 0; không chạy Play Mode hoặc bài kiểm tra tự động trong lượt chỉnh này. [compact-right-layout.json](compact-right-layout.json) ghi tọa độ bản mới; [log sinh asset](CompactRightGeneration.log) và [báo cáo giao asset](compact-right-delivery.json) lưu bằng chứng. Asset đã được giao về scene/prefab của workspace; GameWorld, gameplay, packages và ProjectSettings không đổi. Các kết quả `passed = true`, tuyến đi và thống kê trong `validation.json`/các mục bên dưới thuộc **bản cổng ngày 11/11 hoặc các bản cũ hơn**, không phải xác nhận lại cho bố trí 12/11. Ảnh cũ giữ làm lịch sử; dùng ảnh 55–58 cho lần chỉnh này.
 
 ## Kính ở giữa thân cột và hai cổng đi lại được — 11/11/2026
 

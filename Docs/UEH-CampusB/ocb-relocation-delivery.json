@@ -1,0 +1,37 @@
+{
+  "status": "Corrected OCB position to the red-marked side bay outside the retained entrance pier.",
+  "unityExitCode": 0,
+  "columnHierarchyAndComponentsUnchanged": true,
+  "columnMeshesUnchanged": true,
+  "deliveredAssetChanges": [
+    "Meshes/CompactLeft_Exterior_podium_Ivory.asset",
+    "Meshes/Expanded_01_Floor_and_walls_Ivory.asset",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_Dark.asset",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_Dark.asset.meta",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_Leaf.asset",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_Leaf.asset.meta",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_LeafLight.asset",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_LeafLight.asset.meta",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_Silver.asset",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_Silver.asset.meta",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_Stone.asset",
+    "Meshes/ForecourtGate_08_Retracted_gate_and_planters_Stone.asset.meta",
+    "Meshes/OcbBranch_02_Glass_storefront_and_open_door_Metal.asset",
+    "Meshes/OcbBranch_Exterior_OCB_wordmark_White.asset",
+    "Meshes/OcbBranch_Visitor_waiting_chair_CreamSeat.asset",
+    "Meshes/OcbBranch_Visitor_waiting_chair_Metal.asset",
+    "Prefabs/UEH_Exterior.prefab",
+    "Prefabs/UEH_LobbyB1.prefab",
+    "Scenes/UEH_CampusB_Study.unity"
+  ],
+  "previewCount": 4,
+  "playModeRun": false,
+  "copiedAssetMismatches": [],
+  "sourceChanges": [
+    "Editor/UEHOcbBranchBuilder.cs",
+    "Editor/UEHCampusBuilder.cs",
+    "Editor/UEHLobbyExpansion.cs",
+    "Editor/UEHOfficeRecess.cs",
+    "Editor/UEHCompactLeftSequence.cs"
+  ]
+}

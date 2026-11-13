@@ -12,9 +12,9 @@ namespace UEH.CampusB.Editor
         public static float ExpandedColumnZ(UEHDimensions settings) => settings.refinedLobbyLayout ? -settings.lobbyDepth / 2 : RetainedColumnZ;
         public static float ExpandedEntranceZ(UEHDimensions settings) => settings.refinedLobbyLayout ? -(settings.lobbyColumnWidth + 0.24f) / 2 : EntranceColumnCenterZ;
         public static float ExpandedCornerX(UEHDimensions settings) => settings.refinedLobbyLayout ? settings.frontage / 2 - 0.3f - settings.lobbyColumnWidth / 2 : EntranceCornerColumnX(settings.frontage);
-        public static Vector3 RailingWallAnchor(UEHDimensions settings) => new Vector3(RightFacadeX(settings) + 0.08f, 0.6f, LiftBankZ + 5.75f);
+        public static Vector3 RailingWallAnchor(UEHDimensions settings) => new Vector3(RightFacadeX(settings) + 0.08f, 0.6f, RightLiftBankZ(settings) + 5.75f);
         public static Vector3 RailingColumnAnchor(UEHDimensions settings) => new Vector3(
-            -settings.frontage * 0.125f - settings.lobbyColumnWidth / 2, 0.6f,
+            -settings.frontage * 0.125f - (settings.compactRightSequence ? 0 : settings.lobbyColumnWidth / 2), 0.6f,
             ExpandedColumnZ(settings) + settings.lobbyColumnWidth / 2);
         public static Vector3 RailingElbow(UEHDimensions settings) => new Vector3(
             RailingColumnAnchor(settings).x, 0.6f, RailingWallAnchor(settings).z);
@@ -122,12 +122,14 @@ namespace UEH.CampusB.Editor
             var contents = PrefabUtility.LoadPrefabContents(path);
             try
             {
-                foreach (string name in new[] { "01_Floor_and_walls", "02_Stone_columns", "07_Inner_passage_inferred", "Inner_direction", "10_Lift_side_glass_railing", "11_Central_round_spotlights" })
+                foreach (string name in new[] { "01_Floor_and_walls", "02_Stone_columns", "07_Inner_passage_inferred", "Inner_direction", "15_Rear_lobby_closure", "10_Lift_side_glass_railing", "11_Central_round_spotlights" })
                 { var old = contents.transform.Find(name); if (old != null) UnityEngine.Object.DestroyImmediate(old.gameObject); }
                 BuildExpandedShell(contents.transform);
                 BuildExpandedColumns(contents.transform);
                 BuildOpenAcademicGeometry(contents.transform, dimensions.lobbyDepth, dimensions.lobbyHeight);
-                Text(contents.transform, "Inner_direction", "KHÔNG GIAN HỌC THUẬT", new Vector3(0, 3.95f, -dimensions.lobbyDepth + 0.3f), 5.4f, 0.28f, "Teal");
+                if (!dimensions.extendedGlassOfficeAndClosedRear)
+                    Text(contents.transform, "Inner_direction", "KHÔNG GIAN HỌC THUẬT", new Vector3(0, 3.95f, -dimensions.lobbyDepth + 0.3f), 5.4f, 0.28f, "Teal");
+                else RemoveAcademicConnection(contents.transform);
                 BuildLiftSideGlassRailing(contents.transform);
                 BuildCentralRoundSpotlights(contents.transform);
                 PrefabUtility.SaveAsPrefabAsset(contents, path);
@@ -144,6 +146,11 @@ namespace UEH.CampusB.Editor
 
         private static void BuildOpenAcademicGeometry(Transform root, float d, float h)
         {
+            if (dimensions.extendedGlassOfficeAndClosedRear)
+            {
+                BuildRearLobbyClosure(root, d, h);
+                return;
+            }
             float w = dimensions.frontage;
             var hall = new Part("07_Inner_passage_inferred", root, "LobbyRefine");
             hall.Box("Floor", new Vector3(0, -0.14f, -d - 3), new Vector3(w, 0.28f, 6), true);

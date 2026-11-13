@@ -1,0 +1,22 @@
+{
+    "status": "Native Unity asset generation and four rendered previews; no Play Mode tests run for this revision.",
+    "serviceZ": -17.200000762939453,
+    "liftBankZ": -25.0,
+    "glassOfficeZ": -36.20000076293945,
+    "fireWallWidth": 1.2999999523162842,
+    "columnJoint": {
+        "x": -4.5,
+        "y": 0.6000000238418579,
+        "z": -23.0
+    },
+    "railingElbow": {
+        "x": -4.5,
+        "y": 0.6000000238418579,
+        "z": -19.25
+    },
+    "wallJoint": {
+        "x": -13.319999694824219,
+        "y": 0.6000000238418579,
+        "z": -19.25
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "status": "Native Unity generated geometry and rendered previews; dimensions estimated from supplied references; no Play Mode or automated tests.",
+    "centerX": 19.399999618530273,
+    "backZ": -7.119999885559082,
+    "frontZ": -1.1200000047683716,
+    "width": 7.199999809265137,
+    "depth": 6.0,
+    "areaSquareMeters": 43.19999694824219,
+    "entranceColumnX": 14.699999809265137,
+    "entranceColumnZ": -1.1200000047683716,
+    "entranceWalkwayKeptOpen": true
+}

@@ -1,0 +1,17 @@
+{
+    "status": "Native Unity generation and three rendered previews; no Play Mode or automated tests for this revision.",
+    "rearClosureRemoved": true,
+    "academicCourtyardStillRemoved": true,
+    "wallMountedExtinguishersAdded": 1,
+    "extinguisherPosition": {
+        "x": 13.375,
+        "y": 0.0,
+        "z": -28.077499389648438
+    },
+    "facing": {
+        "x": -1.0000001192092896,
+        "y": 0.0,
+        "z": -1.1920928955078125e-7
+    },
+    "rearBoundaryZ": -48.0
+}

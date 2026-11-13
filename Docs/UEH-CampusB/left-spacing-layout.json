@@ -1,0 +1,10 @@
+{
+    "status": "Native Unity generation and four rendered previews; facade gaps recorded from renderer bounds; no Play Mode tests for this revision.",
+    "heritageZ": -9.399999618530273,
+    "officeZ": -22.0,
+    "loungeZ": -34.0,
+    "slateToHeritage": 0.8025007247924805,
+    "heritageToOffice": 1.7199993133544922,
+    "officeToGreenery": 1.5949993133544922,
+    "facadeX": 13.399999618530273
+}

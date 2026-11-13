@@ -1,0 +1,38 @@
+{
+  "status": "Native Unity asset generation and rendered previews only; no Play Mode tests for this revision",
+  "temporaryPackageCacheRestoredFromWorkspace": true,
+  "deliveredAssets": [
+    "Assets/UEHCampusB/Editor/UEHLeftGapRefinement.cs.meta",
+    "Assets/UEHCampusB/Lighting/LobbyEast.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyEastRear.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWest.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWestRear.cubemap",
+    "Assets/UEHCampusB/Meshes/Expanded_01_Floor_and_walls_Ivory.asset",
+    "Assets/UEHCampusB/Prefabs/UEH_LobbyB1.prefab",
+    "Assets/UEHCampusB/Scenes/UEH_CampusB_Study.unity",
+    "Assets/UEHCampusB/Settings/EstimatedDimensions.asset"
+  ],
+  "previews": [
+    "Docs/UEH-CampusB/Previews/67_Wider_gap_slate_to_Since1976.png",
+    "Docs/UEH-CampusB/Previews/68_Wider_gap_heritage_to_office.png",
+    "Docs/UEH-CampusB/Previews/69_Wider_gap_office_to_greenery.png",
+    "Docs/UEH-CampusB/Previews/70_Left_gallery_wider_spacing_overview.png"
+  ],
+  "modifiedExistingFiles": [
+    "Assets/UEHCampusB/README.vi.md",
+    "Assets/UEHCampusB/Editor/UEHCampusBuilder.cs",
+    "Assets/UEHCampusB/Editor/UEHCompactLeftSequence.cs",
+    "Assets/UEHCampusB/Editor/UEHRightWingAlignment.cs",
+    "Assets/UEHCampusB/Lighting/LobbyEast.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyEastRear.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWest.cubemap",
+    "Assets/UEHCampusB/Lighting/LobbyWestRear.cubemap",
+    "Assets/UEHCampusB/Meshes/Expanded_01_Floor_and_walls_Ivory.asset",
+    "Assets/UEHCampusB/Prefabs/UEH_LobbyB1.prefab",
+    "Assets/UEHCampusB/Runtime/UEHDimensions.cs",
+    "Assets/UEHCampusB/Scenes/UEH_CampusB_Study.unity",
+    "Assets/UEHCampusB/Settings/EstimatedDimensions.asset"
+  ],
+  "unrelatedChanges": [],
+  "generationExitCode": 0
+}

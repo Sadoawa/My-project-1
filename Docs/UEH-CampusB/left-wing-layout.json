@@ -1,0 +1,11 @@
+{
+    "status": "Native Unity asset generation and rendered previews; no Play Mode tests for this revision.",
+    "inset": 4.0,
+    "leftFacadeX": 13.399999618530273,
+    "rightFacadeX": -13.399999618530273,
+    "outsideColumnX": 14.699999809265137,
+    "glassStartX": 5.5,
+    "glassEndX": 13.699999809265137,
+    "gateCenterX": 9.600000381469727,
+    "gateWidth": 4.400000095367432
+}
