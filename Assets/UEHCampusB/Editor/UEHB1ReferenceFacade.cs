@@ -216,64 +216,12 @@ namespace UEH.CampusB.Editor
 
         private static void BuildB1ReferenceTower(Transform parent)
         {
-            float bottom = B1FrameTop + 7.65f, top = dimensions.towerHeight;
-            float width = dimensions.frontage - 3.5f, half = width / 2;
-            float front = B1TowerFrontZ, depth = B1TowerDepth;
-            int floors = dimensions.upperFloors;
-            float step = (top - bottom) / floors;
-            var shell = new Part("06_Tower_shell_reference", parent, "B1Reference");
-            // Both facade zones share the same rear edge; only the balcony glazing is recessed.
-            const float split = -1.8f;
-            float rear = front - depth;
-            shell.Box("BlueGlass", new Vector3((-half + split) / 2, (bottom + top) / 2, (front - 0.10f + rear) / 2), new Vector3(split + half, top - bottom, depth - 0.10f));
-            shell.Box("BlueGlass", new Vector3((split + half) / 2, (bottom + top) / 2, (front - 1.5f + rear) / 2), new Vector3(half - split, top - bottom, depth - 1.5f));
-            shell.Box("Ivory", new Vector3(0, top + 0.25f, front - depth / 2), new Vector3(width + 0.8f, 0.5f, depth + 1.4f));
-            shell.Finish();
-            var facade = new Part("07_Tower_horizontal_bands_and_vertical_window_bays", parent, "B1Reference");
-            // Viewer-left: deep horizontal balconies. Viewer-right: full-height vertical window stacks.
-            for (int floor = 0; floor < floors; floor++)
-            {
-                float y = bottom + floor * step;
-                bool crown = floor >= floors - 2;
-                if (!crown)
-                {
-                    float terraceFront = front + 1.2f;
-                    facade.Box("Ivory", new Vector3((split + half) / 2, y + 0.2f, front - 0.6f), new Vector3(half - split, 0.4f, 3.5f));
-                    facade.Box("Ivory", new Vector3((split + half) / 2, y + 0.8f, terraceFront), new Vector3(half - split, 0.85f, 0.22f));
-                    facade.Box("White", new Vector3((split + half) / 2, y + 1.27f, terraceFront + 0.09f), new Vector3(half - split + 0.4f, 0.12f, 0.45f));
-                    B1WindowGrid(facade, split + 0.3f, half - 0.3f, y + 0.5f, y + step - 0.25f, front - 1.2f, 1.3f);
-                    for (float x = split + 0.5f; x < half; x += 4.3f)
-                        facade.Box("Ivory", new Vector3(x, y + step / 2, front - 0.65f), new Vector3(0.3f, step, 0.3f));
-                }
-                float end = crown ? half : split;
-                B1WindowGrid(facade, -half + 0.6f, end - 0.4f, y + 0.45f, y + step - 0.3f, front + 0.02f, 1.0f);
-                facade.Box("Ivory", new Vector3((-half + end) / 2, y + 0.15f, front + 0.06f), new Vector3(end + half, 0.3f, 0.4f));
-                // Side elevations keep slim glazing mullions and continuous floor edges.
-                foreach (float x in new[] { -half, half })
-                {
-                    facade.Box("Ivory", new Vector3(x, y + 0.15f, front - depth / 2), new Vector3(0.25f, 0.3f, depth));
-                    for (float z = front - depth; z < front; z += 3.2f)
-                        facade.Box("White", new Vector3(x, y + step / 2, z), new Vector3(0.18f, step, 0.22f));
-                }
-            }
-            // Complete the lengthened rear elevation at the same floor levels.
-            for (int floor = 0; floor < floors; floor++)
-            {
-                float y = bottom + floor * step;
-                B1WindowGrid(facade, -half + 0.45f, half - 0.45f, y + 0.4f, y + step - 0.2f, rear - 0.05f, 2.4f, "White", -1f);
-                facade.Box("Ivory", new Vector3(0, y + 0.15f, rear - 0.08f), new Vector3(width + 0.25f, 0.3f, 0.35f));
-            }
-            foreach (float x in new[] { -half, -half + (split + half) / 3, -half + (split + half) * 2 / 3, split, half })
-                facade.Box("Ivory", new Vector3(x, (bottom + top) / 2, front + 0.10f), new Vector3(0.95f, top - bottom, 0.5f));
-            float crownBottom = bottom + (floors - 2) * step;
-            foreach (float x in new[] { 3.0f, 8.8f })
-                facade.Box("Ivory", new Vector3(x, (crownBottom + top) / 2, front + 0.10f), new Vector3(0.95f, top - crownBottom, 0.5f));
-            facade.Finish();
-            ApplyB1TowerAlignment(parent);
+            BuildB1FiveBayTower(parent);
         }
 
         private static void SetupB1FacadeViewpoints(Transform views)
         {
+            SetupB1TowerRhythmViewpoints(views);
             SetupB1LandscapeViewpoints(views);
             SetupB1TowerAlignmentViewpoints(views);
             SetupB1FloorClosureViewpoints(views);

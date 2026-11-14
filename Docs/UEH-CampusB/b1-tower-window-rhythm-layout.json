@@ -1,0 +1,42 @@
+{
+    "status": "Reconstructed from supplied Virtual Tour screenshots; estimated dimensions.",
+    "ordering": "Viewer-left to viewer-right from entrance street (+Z); local X decreases.",
+    "glassLightsPerBay": [
+        3,
+        3,
+        3,
+        2,
+        2
+    ],
+    "clearBayBoundsLocalX": [
+        {
+            "x": 9.05769157409668,
+            "y": 15.449999809265137
+        },
+        {
+            "x": 1.865384578704834,
+            "y": 8.257692337036133
+        },
+        {
+            "x": -5.326923370361328,
+            "y": 1.0653846263885498
+        },
+        {
+            "x": -10.38846206665039,
+            "y": -6.126923084259033
+        },
+        {
+            "x": -15.449999809265137,
+            "y": -11.188461303710938
+        }
+    ],
+    "firstTowerFloor": 5,
+    "projectedLeftFloorCount": 5,
+    "lastProjectedFloor": 9,
+    "totalTowerFloors": 12,
+    "leftToRightBayWidthRatio": 1.5,
+    "towerWidth": 32.5,
+    "towerDepth": 46.0,
+    "centerX": 5.750000476837158,
+    "mainPierWidth": 0.800000011920929
+}

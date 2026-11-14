@@ -14,7 +14,7 @@ namespace UEH.CampusB.Editor
         public static float GlassOfficeWidth => dimensions != null && dimensions.extendedGlassOfficeAndClosedRear ? 16 : 9.8f;
         public const float GlassOfficeDepth = 4.6f;
         public const float GlassOfficeHeight = 4;
-        public static float GlassOfficeDoorX => -GlassOfficeWidth / 2 + 1.55f;
+        public static float GlassOfficeDoorX => GlassOfficeWidth / 2 - 1.65f;
 
         [MenuItem("UEH/Campus B/12. Build recessed glass office near lifts")]
         public static void FurnishGlassOffice()
@@ -49,7 +49,7 @@ namespace UEH.CampusB.Editor
             Physics.SyncTransforms();
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
-            Debug.Log("UEH_GLASS_OFFICE_UPDATED Recessed " + GlassOfficeWidth + "x4.6x4m office at Z=" + GlassOfficeZ + "; front and viewer-right walls glass, left/back opaque; inward-open 1.25m entrance.");
+            Debug.Log("UEH_GLASS_OFFICE_UPDATED Recessed " + GlassOfficeWidth + "x4.6x4m office at Z=" + GlassOfficeZ + "; front and viewer-right walls glass, left/back opaque; viewer-left inward-open 1.8m double entrance.");
         }
 
         private static void BuildRightWallWithGlassOffice(Part shell, float w, float d, float h)
@@ -99,35 +99,7 @@ namespace UEH.CampusB.Editor
             RightRoomFloor(solid, room, GlassOfficeWidth + 0.2f, GlassOfficeDepth + 0.2f);
             solid.Finish();
 
-            // Continue the building behind the neighbouring lift facade. This enclosed buffer
-            // is outside the office boundary, so the right wall remains glass without a sky void.
-            var context = new Part("Building_context_beyond_right_glass", room, "GlassOffice");
-            context.Box("OfficeInterior", new Vector3(-halfWidth - 1.45f, 2, -2.3f), new Vector3(0.1f, 4, 4.8f), true);
-            context.Box("OfficeInterior", new Vector3(-halfWidth - 0.75f, 2, -4.65f), new Vector3(1.5f, 4, 0.1f), true);
-            RightRoomFloor(context, room, 1.5f, 4.8f, -halfWidth - 0.75f);
-            context.Box("White", new Vector3(-halfWidth - 0.75f, 3.95f, -2.3f), new Vector3(1.5f, 0.1f, 4.8f), true);
-            context.Finish();
-
-            // Local +X is viewer-left, -X is viewer-right when looking at the office from the lobby.
-            var front = RightGroup(room, "01_FRONT_glass_wall", Vector3.zero);
-            float doorStart = GlassOfficeDoorX - 0.625f, doorEnd = GlassOfficeDoorX + 0.625f;
-            GlassOfficePanel(front, "Front_small_right_pane", -halfWidth, doorStart);
-            int paneCount = Mathf.CeilToInt((halfWidth - doorEnd) / 2.6f);
-            float paneWidth = (halfWidth - doorEnd) / paneCount;
-            for (int i = 0; i < paneCount; i++)
-                GlassOfficePanel(front, "Front_main_pane_" + (i + 1), doorEnd + i * paneWidth, doorEnd + (i + 1) * paneWidth);
-            var frontFrame = new Part("Glass_office_front_frame", front, "GlassOffice");
-            var posts = new List<float> { -halfWidth, doorStart };
-            for (int i = 0; i <= paneCount; i++) posts.Add(doorEnd + i * paneWidth);
-            foreach (float x in posts)
-                frontFrame.Box("Metal", new Vector3(x, 1.95f, 0), new Vector3(0.045f, 3.9f, 0.09f));
-            foreach (float y in new[] { 0.06f, 3.87f })
-                frontFrame.Box("Metal", new Vector3(0, y, 0), new Vector3(GlassOfficeWidth + 0.05f, 0.07f, 0.09f));
-            frontFrame.Box("Metal", new Vector3(GlassOfficeDoorX, 2.68f, 0), new Vector3(1.25f, 0.055f, 0.09f));
-            frontFrame.Box("GlassOfficeGlass", new Vector3(GlassOfficeDoorX, 3.275f, 0), new Vector3(1.2f, 1.12f, 0.025f), true);
-            frontFrame.Box("Teal", new Vector3(0.8f, 3.43f, 0.05f), new Vector3(1.9f, 0.36f, 0.04f));
-            frontFrame.Finish();
-            Text(front, "Glass_office_sign", "OFFICE", new Vector3(0.8f, 3.43f, 0.08f), 1.45f, 0.24f, "White");
+            RefineOfficeFrontAndBoundary(room);
 
             var right = RightGroup(room, "02_RIGHT_glass_wall", new Vector3(-halfWidth, 0, -GlassOfficeDepth / 2));
             right.localRotation = Quaternion.Euler(0, 90, 0);
@@ -138,19 +110,6 @@ namespace UEH.CampusB.Editor
             foreach (float y in new[] { 0.06f, 3.87f })
                 sideFrame.Box("Metal", new Vector3(0, y, 0), new Vector3(4.65f, 0.07f, 0.09f));
             sideFrame.Finish();
-
-            var entrance = RightGroup(room, "03_Open_entrance_1_25m", new Vector3(GlassOfficeDoorX, 0, 0));
-            var door = RightGroup(entrance, "Glass_door_open_INWARD", new Vector3(-0.625f, 0, -0.07f));
-            door.localRotation = Quaternion.Euler(0, 90, 0);
-            var leaf = new Part("Glass_office_inward_open_door", door, "GlassOffice");
-            leaf.Box("GlassOfficeGlass", new Vector3(0.625f, 1.32f, 0), new Vector3(1.19f, 2.57f, 0.025f), true);
-            foreach (float x in new[] { 0.025f, 1.225f })
-                leaf.Box("Metal", new Vector3(x, 1.32f, 0), new Vector3(0.04f, 2.64f, 0.065f));
-            foreach (float y in new[] { 0.03f, 2.63f })
-                leaf.Box("Metal", new Vector3(0.625f, y, 0), new Vector3(1.24f, 0.04f, 0.065f));
-            leaf.Box("Silver", new Vector3(1.08f, 1.25f, 0.06f), new Vector3(0.03f, 0.4f, 0.035f));
-            leaf.Finish();
-            Text(entrance, "Entrance_label", "LỐI VÀO", new Vector3(0, 2.95f, 0.04f), 0.75f, 0.15f, "Teal");
 
             int workstationCount = dimensions.extendedGlassOfficeAndClosedRear ? 6 : 3;
             float furnitureSpan = GlassOfficeWidth - 4.2f;
@@ -166,7 +125,7 @@ namespace UEH.CampusB.Editor
                     storage.Box(i % 2 == 0 ? "Teal" : "Ivory", new Vector3(x + i * 0.1f, 1.23f, -4.32f), new Vector3(0.07f, 0.4f, 0.28f));
             }
             storage.Finish();
-            var planter = RightGroup(room, "Indoor_planter", new Vector3(halfWidth - 0.8f, 0, -0.85f));
+            var planter = RightGroup(room, "Indoor_planter", new Vector3(-halfWidth + 0.85f, 0, -0.85f));
             planter.localScale = Vector3.one * 0.65f;
             Plant(planter, "Glass_office_plant", Vector3.zero, "GlassOffice");
             var ceiling = new Part("Glass_office_ceiling_lights", room, "GlassOffice");
@@ -178,6 +137,7 @@ namespace UEH.CampusB.Editor
                 ServiceLight(room, "Office ceiling wash " + x, new Vector3(x, 3.45f, -2.3f), 5.2f, 1.15f);
             }
             ceiling.Finish();
+            BuildMainLiftAccess(areas.parent);
         }
 
         private static void GlassOfficePanel(Transform parent, string name, float start, float end)
@@ -215,6 +175,7 @@ namespace UEH.CampusB.Editor
         {
             var root = GameObject.Find("Review viewpoints [select and align view]");
             if (root == null) return;
+            SetupOfficeLiftAccessViewpoints();
             foreach (string name in new[] { "26_Glass_office_front", "27_Glass_office_right_corner", "28_Glass_office_inside", "29_Lifts_and_glass_office" })
             { var old = root.transform.Find(name); if (old != null) UnityEngine.Object.DestroyImmediate(old.gameObject); }
             Viewpoint(root.transform, "26_Glass_office_front", new Vector3(-7.2f, 1.8f, GlassOfficeZ), new Vector3(-19.5f, 1.9f, GlassOfficeZ));
